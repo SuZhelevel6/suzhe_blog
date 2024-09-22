@@ -45,9 +45,17 @@ export default defineConfig({
     //   text: '去 GitHub 上编辑内容'
     // },
     nav: [
-      { text: '主页', link: '/' },
-      { 
-        text: '项目汇总', 
+      { text: '关于我', link: '/AboutMe.md' },
+      {
+        text: 'Android面经',
+        items: [
+          { text: '基础问题', link: '/interview-notes/basenotes.md' },
+          { text: '安卓问题', link: '/' },
+          { text: '算法题', link: '/' },
+        ]
+      },
+      {
+        text: '项目汇总',
         items: [
           { text: 'Launcher3', link: '/project-summary/Launcher3.md' },
           { text: 'WanAndroid客户端', link: '/project-summary/WanAndroid客户端.md' },
@@ -58,7 +66,7 @@ export default defineConfig({
           { text: 'AOSP定制', link: '/project-summary/AOSP定制.md' },
           { text: '产测软件', link: '/project-summary/产测软件.md' }
         ]
-      },  
+      },
       { 
         text: '学习笔记', 
         items: [
@@ -74,7 +82,7 @@ export default defineConfig({
     socialLinks: [
       {
         icon: 'github',
-        link: 'https://github.com/xuanyulevel6'
+        link: 'https://github.com/SuZhelevel6'
       }
     ],
     

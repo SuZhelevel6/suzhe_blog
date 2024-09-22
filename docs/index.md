@@ -18,7 +18,7 @@ blog:
  inspiringTimeout: 4000
  pageSize: 6
  author: 苏柘
- logo: /niko.jpg
+ logo: /touxiang1MB.jpg
  # 文章数据分析卡片标题定义
  analysis: 
   articles: 
