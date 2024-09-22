@@ -50,7 +50,7 @@ export default defineConfig({
         text: 'Android面经',
         items: [
           { text: '基础问题', link: '/interview-notes/basenotes.md' },
-          { text: '安卓问题', link: '/' },
+          { text: '安卓问题', link: '/interview-notes/Android-notes.md' },
           { text: '算法题', link: '/' },
         ]
       },
