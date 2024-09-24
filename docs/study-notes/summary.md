@@ -11,6 +11,4 @@
 
 ## [Flutter](./flutter/summary)
 
-## [安卓](./android/summary)
-
 ## [其他](./other/summary)

@@ -73,11 +73,35 @@ export default defineConfig({
           { text: 'Java', link: '/study-notes/java/summary' },
           { text: 'Kotlin', link: '/study-notes/kotlin/summary' },
           { text: 'Flutter', link: '/study-notes/flutter/summary' },
-          { text: '安卓', link: '/study-notes/android/summary' },
           { text: '其他', link: '/study-notes/other/summary' }
         ] 
       },
       { text: '阅读笔记', link: '/reading-notes/summary.md' },
+      {
+        text: '安卓开发经验',
+        items: [
+          { text: '嵌入式安卓学习入门', link: '/study-notes/android/experience/嵌入式安卓学习入门.md' },
+          { text: '待完善', link: '/' },
+          { text: '待完善', link: '/' },
+          { text: '待完善', link: '/' }
+        ]
+      },
+      {
+        text: '源码阅读系列',
+        items: [
+          { text: '待完善', link: '/' },
+          { text: '待完善', link: '/' },
+          { text: '待完善', link: '/' }
+        ]
+      },
+      {
+        text: '功能修改系列',
+        items: [
+          { text: '待完善', link: '/' },
+          { text: '待完善', link: '/' },
+          { text: '待完善', link: '/' }
+        ]
+      },
     ],
     socialLinks: [
       {
