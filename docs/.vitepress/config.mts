@@ -81,17 +81,14 @@ export default defineConfig({
         text: '安卓开发经验',
         items: [
           { text: '嵌入式安卓学习入门', link: '/study-notes/android/experience/嵌入式安卓学习入门.md' },
-          { text: '待完善', link: '/' },
-          { text: '待完善', link: '/' },
-          { text: '待完善', link: '/' }
+          { text: 'ADB命令', link: '/study-notes/android/guide/adb-command.md' },
         ]
       },
       {
         text: '源码阅读系列',
         items: [
-          { text: '待完善', link: '/' },
-          { text: '待完善', link: '/' },
-          { text: '待完善', link: '/' }
+          { text: 'Android系统启动流程', link: '/study-notes/android/theory/Android系统启动流程.md' },
+          { text: 'OTA升级机制', link: '/study-notes/android/theory/OTA升级机制.md' },
         ]
       },
       {
