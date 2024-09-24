@@ -73,11 +73,34 @@ export default defineConfig({
           { text: 'Java', link: '/study-notes/java/summary' },
           { text: 'Kotlin', link: '/study-notes/kotlin/summary' },
           { text: 'Flutter', link: '/study-notes/flutter/summary' },
-          { text: '安卓', link: '/study-notes/android/summary' },
           { text: '其他', link: '/study-notes/other/summary' }
         ] 
       },
       { text: '阅读笔记', link: '/reading-notes/summary.md' },
+      {
+        text: '安卓开发经验',
+        items: [
+          { text: '嵌入式安卓学习入门', link: '/study-notes/android/experience/嵌入式安卓学习入门.md' },
+          { text: 'ADB命令', link: '/study-notes/android/guide/adb-command.md' },
+        ]
+      },
+      {
+        text: '源码阅读系列',
+        items: [
+          { text: 'Android系统启动流程', link: '/study-notes/android/theory/Android系统启动流程.md' },
+          { text: 'OTA升级机制', link: '/study-notes/android/theory/OTA升级机制.md' },
+        ]
+      },
+      {
+        text: '功能修改系列',
+        items: [
+          { text: '休眠和屏保', link: '/study-notes/android/function/sleep-screensaver.md' },
+          { text: 'WIFI随机MAC地址', link: '/study-notes/android/function/WIFI随机MAC地址.md' },
+          { text: '安卓的签名和权限', link: '/study-notes/android/function/安卓的签名和权限.md' },
+          { text: '对apk进行签名', link: '/study-notes/android/function/AOSPapk签名.md' },
+          { text: 'AOSP Settings 展示所有应用', link: '/study-notes/android/function/AOSPSettings展示所有应用.md' },
+        ]
+      },
     ],
     socialLinks: [
       {
