@@ -94,9 +94,11 @@ export default defineConfig({
       {
         text: '功能修改系列',
         items: [
-          { text: '待完善', link: '/' },
-          { text: '待完善', link: '/' },
-          { text: '待完善', link: '/' }
+          { text: '休眠和屏保', link: '/study-notes/android/function/sleep-screensaver.md' },
+          { text: 'WIFI随机MAC地址', link: '/study-notes/android/function/WIFI随机MAC地址.md' },
+          { text: '安卓的签名和权限', link: '/study-notes/android/function/安卓的签名和权限.md' },
+          { text: '对apk进行签名', link: '/study-notes/android/function/AOSPapk签名.md' },
+          { text: 'AOSP Settings 展示所有应用', link: '/study-notes/android/function/AOSPSettings展示所有应用.md' },
         ]
       },
     ],

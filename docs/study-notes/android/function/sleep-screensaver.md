@@ -1,6 +1,7 @@
-# 简介
+# Android 系统设置中的休眠和屏保
 
-由于客户在Android 系统设置中发现Timeout设置项没有效果，因此我对此研究了一下。Timeout是定时屏幕亮度降低，而Dream则是进入屏幕保护。如果是机顶盒等设备的开发者发现这个设置项没用，别见外，因为这里的亮度调整对TV是没用的，因此 **‘Screen Timeout’** 和**‘brightness’** 是没用的。
+由于客户在Android 系统设置中发现Timeout设置项没有效果，因此我对此研究了一下。Timeout是定时屏幕亮度降低，而Dream则是进入屏幕保护。
+如果是机顶盒等设备的开发者发现这个设置项没用，别见外，因为这里的亮度调整对TV是没用的，因此 **Screen Timeout** 和**brightness** 是没用的。
 
 ## Timeout休眠
 
