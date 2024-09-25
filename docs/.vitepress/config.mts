@@ -65,16 +65,19 @@ export default defineConfig({
           { text: 'OTA软件', link: '/project-summary/OTA软件.md' },
           { text: 'glauncher', link: '/project-summary/glauncher.md' },
           { text: 'AOSP定制', link: '/project-summary/AOSP定制.md' },
-          { text: '产测软件', link: '/project-summary/产测软件.md' }
+          { text: '产测软件', link: '/project-summary/产测软件.md' },
+          { text: 'TS码流解析工具', link: '/project-summary/TS码流解析工具.md' },
         ]
       },
       { 
         text: '学习笔记', 
         items: [
-          { text: 'Java', link: '/study-notes/java/summary' },
-          { text: 'Kotlin', link: '/study-notes/kotlin/summary' },
-          { text: 'Flutter', link: '/study-notes/flutter/summary' },
-          { text: '其他', link: '/study-notes/other/summary' }
+          { text: 'Java笔记', link: '/study-notes/java/summary' },
+          { text: 'Kotlin基础语法', link: '/study-notes/kotlin/kotlin笔记.md' },
+          { text: 'Kotlin协程', link: '/study-notes/kotlin/kotlin协程.md' },
+          { text: 'Flutter笔记', link: '/study-notes/flutter/Flutter笔记.md' },
+          { text: 'shell脚本', link: '/study-notes/other/shell脚本.md' },
+          { text: '软考知识点', link: '/study-notes/other/软考知识点.md' }
         ] 
       },
       {
@@ -85,6 +88,7 @@ export default defineConfig({
           { text: 'Git使用导览', link: '/study-notes/android/guide/git-use-note.md' },
           { text: 'Git命令清单', link: '/study-notes/android/guide/git-note.md' },
           { text: '编程规范', link: '/study-notes/android/guide/style-guide.md' },
+          { text: '第一行代码Andorid笔记', link: '/study-notes/android/guide/第一行代码Andorid笔记.md' },
         ]
       },
       {

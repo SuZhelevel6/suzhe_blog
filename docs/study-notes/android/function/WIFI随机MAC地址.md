@@ -107,7 +107,7 @@ frameworks/opt/net/wifi/service/java/com/android/server/wifi/ClientModeImpl.java
       * Returns whether MAC randomization is supported on this device.
       * @param config
       * @return
-+     * modified by zhangt 2024.02.19
++     * modified by suhze 2024.02.19
       */
      private boolean isMacRandomizationSupported() {
 -        return mContext.getResources().getBoolean(

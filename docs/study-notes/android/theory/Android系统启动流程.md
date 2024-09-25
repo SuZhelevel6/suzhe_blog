@@ -270,11 +270,11 @@ endef
 ```
 device/amlogic/ohm/vendor_prop.mk
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.build.software.version=RB56_1.0.6 \
+    ro.build.software.version=CX12_1.0.6 \
     ro.build.version.code.value=1.0.6
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.autoconnectbt.nameprefix=GIEC_RC_BoxusS2 \
+    ro.vendor.autoconnectbt.nameprefix=xxxx_RC_BoxusS2 \
     ro.vendor.need.btsetup=true
 ```
 
