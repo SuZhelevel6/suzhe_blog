@@ -89,6 +89,7 @@ export default defineConfig({
           { text: 'Git命令清单', link: '/study-notes/android/guide/git-note.md' },
           { text: '编程规范', link: '/study-notes/android/guide/style-guide.md' },
           { text: '第一行代码Andorid笔记', link: '/study-notes/android/guide/第一行代码Andorid笔记.md' },
+          { text: 'AmlogicS905x方案合集', link: '/study-notes/android/experience/Amlogics905x方案合集.md' },
         ]
       },
       {
@@ -106,6 +107,12 @@ export default defineConfig({
           { text: '安卓的签名和权限', link: '/study-notes/android/function/安卓的签名和权限.md' },
           { text: '对apk进行签名', link: '/study-notes/android/function/AOSPapk签名.md' },
           { text: 'AOSP Settings 展示所有应用', link: '/study-notes/android/function/AOSPSettings展示所有应用.md' },
+          { text: 'Amlogic方案红外遥控器配置', link: '/study-notes/android/function/Amlogic方案红外遥控器配置.md' },
+          { text: '添加屏幕旋转按钮', link: '/study-notes/android/function/Settings添加屏幕旋转按钮.md' },
+          { text: '修改默认音量和最大音量', link: '/study-notes/android/function/修改默认音量和最大音量.md' },
+          { text: '去除升级时间戳校验', link: '/study-notes/android/function/去除升级时间戳校验.md' },
+          { text: '开机启动日志捕捉服务', link: '/study-notes/android/function/开机启动日志捕捉服务.md' },
+
         ]
       },
       {

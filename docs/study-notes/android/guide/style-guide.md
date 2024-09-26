@@ -1,5 +1,5 @@
 ---
-description: 茂茂的编程规范（命名规范与项目结构、Git 提交规范、Prettier 配置等）
+top: 3
 ---
 
 # 编程规范
