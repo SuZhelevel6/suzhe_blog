@@ -6,7 +6,7 @@
 
 [WanAndroid客户端](./WanAndroid客户端)
 
-[Compose TV](./Compose-TV)
+[Compose TV](./ComposeTV)
 
 [ExoPlayer](./ExoPlayer)
 

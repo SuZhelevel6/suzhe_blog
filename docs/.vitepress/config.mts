@@ -60,7 +60,7 @@ export default defineConfig({
         items: [
           { text: 'Launcher3', link: '/project-summary/Launcher3.md' },
           { text: 'WanAndroid客户端', link: '/project-summary/WanAndroid客户端.md' },
-          { text: 'Compose TV', link: '/project-summary/Compose-TV.md' },
+          { text: 'Compose TV', link: '/project-summary/ComposeTV.md' },
           { text: 'ExoPlayer', link: '/project-summary/ExoPlayer.md' },
           { text: 'OTA软件', link: '/project-summary/OTA软件.md' },
           { text: 'glauncher', link: '/project-summary/glauncher.md' },
