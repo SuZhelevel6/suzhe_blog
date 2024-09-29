@@ -34,7 +34,7 @@
 在线升级的获取和储存：
 
 1. `OnlineCheckActivity`：与服务器通信检查更新
-2. `OTADownloadActivity`：OTA下载，从服务器下载升级包，下载到**"/sdcard/Download/ota_gateway_net.zip"**
+2. `OTADownloadActivity`：OTA下载，从服务器下载升级包，下载到 **"/sdcard/Download/ota_gateway_net.zip"**
 
 本地升级的获取和储存：
 
@@ -163,7 +163,7 @@ dependencies {
    - `sign`: 经过SHA-256加密的签名，确保请求安全
 
    ~~~kotlin
-   // com/giec/otaclient/util/OkHttpUtils.kt
+   // com/xxxx/otaclient/util/OkHttpUtils.kt
        fun sendPost(url: String, body: RequestBody, callback: Callback) {
            val appId = getAppId()             // 获取应用ID
            val timestamp = getTimestamp()     // 获取时间戳
@@ -197,7 +197,7 @@ dependencies {
    - `remark`：备注信息（默认为 `"null"`）
 
    ~~~kotlin
-   // com/giec/otaclient/util/ResponseUtils.kt
+   // com/xxxx/otaclient/util/ResponseUtils.kt
        /**
         * 启动网络请求任务
         * @param context 上下文对象
@@ -238,51 +238,49 @@ dependencies {
        }
    ~~~
 
-案例：
-
-```json
-requestBodyJson: {"customer":"Droidlogic","modelName":"ohm","mac":"00:22:6D:FA:3C:3F","sn":"716e3afc23d3ab52","version":"ohm-userdebug 11 RD2A.211001.002 
-```
-
-
-
-
-
 
 ### 返回数据的概述
 
-   服务器返回的数据是一个JSON结构，包含状态码、数据部分、以及消息提示。以下是数据接收和处理的核心信息概述：
+服务器返回的数据是一个JSON结构，包含状态码、数据部分、以及消息提示。以下是数据接收和处理的核心信息概述：
 
-      1. **`ResponseData` 类**
-         - 字段：
-           - `code`：整型，表示返回的状态码，通常用于指示请求是否成功。例如，`200` 表示成功，其他值可能代表错误类型。
-           - `data`：`Data` 类型，包含了更新文件的详细信息及更新模式。
-           - `msg`：字符串类型，表示服务器的消息或提示信息，通常用于调试或向用户显示。
-      2. **`Data` 类**
-         - 字段：
-           - `file`：`FileDetails` 类型，包含了更新文件的具体信息，如文件URL、MD5校验值、文件大小、版本号等。
-           - `updatePattern`：整型，代表更新模式，可能指代不同的升级方式（例如差分更新、全量更新等）。
-      3. **`FileDetails` 类**
-         - 字段：
-           - `fileUrl`：表示更新文件的下载地址，客户端根据此URL下载文件。
-           - `md5`：更新文件的MD5校验值，用于校验文件的完整性，确保文件在传输过程中未被篡改。
-           - `size`：字符串类型，表示文件的大小。
-           - `version`：文件的版本号，表示当前升级包的版本。
-           - `tips`：提示信息，可能包含升级说明或其他相关提示。
-      4. **`ParsedUpdate` 类**
-         - **字段**：
-           - `file`：文件对象，表示下载到的更新文件。
-           - `offset` 和 `size`：用于指示文件的读取位置和大小，在处理大文件或者断点续传时尤为重要。
-           - `props`：更新文件的属性数组，可能包含一些额外的文件信息或标签。
-         - **功能**：
-           - `isValid()`：用于验证解析出的更新信息是否有效，主要通过检查 `offset` 和 `size` 是否为正值，以及 `props` 是否不为空。
-           - `toString()`：重写了 `toString()` 方法，便于日志记录时展示更新信息，包括文件URL、偏移量、大小和属性。
+1. `ResponseData` 类
 
-案例：
+   - `code`：整型，表示返回的状态码，通常用于指示请求是否成功。例如，`200` 表示成功，其他值可能代表错误类型。
 
-```json
-ResponseData(code=0, data=Data(file=FileDetails(fileUrl=http://192.168.140.41:48080/admin-api/infra/file/24/get/3cf0b72a5546dadff76fe3e96e5bc63b09d878a84e39e212ba68e82c5246650c.zip, md5=925b33b13b2094176b3ab95fa7183069, size=372299017, version=RB56_16, tips=<p>Rabiloo升级包，测试用</p>), updatePattern=2), msg=)
-```
+   - `data`：`Data` 类型，包含了更新文件的详细信息及更新模式。
+
+   - `msg`：字符串类型，表示服务器的消息或提示信息，通常用于调试或向用户显示。
+
+2. `Data` 类
+
+   - `file`：`FileDetails` 类型，包含了更新文件的具体信息，如文件URL、MD5校验值、文件大小、版本号等。
+
+   - `updatePattern`：整型，代表更新模式，可能指代不同的升级方式（例如差分更新、全量更新等）。
+
+3. `FileDetails` 类
+
+   - `fileUrl`：表示更新文件的下载地址，客户端根据此URL下载文件。
+
+   - `md5`：更新文件的MD5校验值，用于校验文件的完整性，确保文件在传输过程中未被篡改。
+
+   - `size`：字符串类型，表示文件的大小。
+
+   - `version`：文件的版本号，表示当前升级包的版本。
+
+   - `tips`：提示信息，可能包含升级说明或其他相关提示。
+
+4. `ParsedUpdate` 类
+
+   - `file`：文件对象，表示下载到的更新文件。
+
+   - `offset` 和 `size`：用于指示文件的读取位置和大小，在处理大文件或者断点续传时尤为重要。
+
+   - `props`：更新文件的属性数组，可能包含一些额外的文件信息或标签。
+
+   - `isValid()`：用于验证解析出的更新信息是否有效，主要通过检查 `offset` 和 `size` 是否为正值，以及 `props` 是否不为空。
+
+   - `toString()`：重写了 `toString()` 方法，便于日志记录时展示更新信息，包括文件URL、偏移量、大小和属性。
+
 
 ## 贡献指南
 
@@ -293,7 +291,7 @@ ResponseData(code=0, data=Data(file=FileDetails(fileUrl=http://192.168.140.41:48
 1. **克隆仓库**： 使用以下命令克隆项目到本地：
 
    ```
-   git clone git@192.168.10.16:giec_stb/otaclient.git
+   git clone 
    ```
 
 2. **创建分支**： 在开始开发之前，请根据需求或缺陷创建新分支。分支命名规范如下：
