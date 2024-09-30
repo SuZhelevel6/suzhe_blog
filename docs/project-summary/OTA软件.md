@@ -44,11 +44,11 @@
 
 1. `AutoCheckWorker`： 无界面方式与服务器通信检查更新
 2. `OnlineCheckActivity`：如果有返回数据则会进入该活动
-3. `OTADownloadActivity`：OTA下载，从服务器下载升级包，下载到**"/sdcard/Download/ota_gateway_net.zip"**
+3. `OTADownloadActivity`：OTA下载，从服务器下载升级包，下载到 **"/sdcard/Download/ota_gateway_net.zip"**
 
 ### 系统升级
 
-1. `OTAUpdateActivity`：将升级包从储存目录复制到更新目录**"/data/ota_package/update.zip"**
+1. `OTAUpdateActivity`：将升级包从储存目录复制到更新目录 **"/data/ota_package/update.zip"**
 2. `UpdateManagerUtils`： 从更新目录拿到升级包开始解析升级包并使用mUpdateEngine升级
 
 ## 架构设计
