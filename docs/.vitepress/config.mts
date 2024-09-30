@@ -58,15 +58,15 @@ export default defineConfig({
       {
         text: '项目汇总',
         items: [
-          { text: 'Launcher3', link: '/project-summary/Launcher3.md' },
-          { text: 'WanAndroid客户端', link: '/project-summary/WanAndroid客户端.md' },
-          { text: 'Compose TV', link: '/project-summary/ComposeTV.md' },
-          { text: 'ExoPlayer', link: '/project-summary/ExoPlayer.md' },
-          { text: 'OTA软件', link: '/project-summary/OTA软件.md' },
-          { text: 'glauncher', link: '/project-summary/glauncher.md' },
-          { text: 'AOSP定制', link: '/project-summary/AOSP定制.md' },
-          { text: '产测软件', link: '/project-summary/产测软件.md' },
           { text: 'TS码流解析工具', link: '/project-summary/TS码流解析工具.md' },
+          { text: 'glauncher', link: '/project-summary/glauncher.md' },
+          { text: 'Compose TV', link: '/project-summary/ComposeTV.md' },
+          { text: 'OTA软件', link: '/project-summary/OTA软件.md' },
+          { text: 'Launcher3', link: '/project-summary/Launcher3.md' },
+          // { text: 'AOSP定制', link: '/project-summary/AOSP定制.md' },
+          { text: '产测软件(待补充)', link: '/project-summary/产测软件.md' },
+          { text: 'ExoPlayer(待补充)', link: '/project-summary/ExoPlayer.md' },
+          { text: 'WanAndroid客户端(待补充)', link: '/project-summary/WanAndroid客户端.md' },
         ]
       },
       { 
