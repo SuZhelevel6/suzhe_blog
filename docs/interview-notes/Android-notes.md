@@ -11,32 +11,29 @@ tags:
 
 ## Activity
 **生命周期**：
-```mermaid
-flowchart TD
-    onCreate --> onStart --> onResume --> onPause --> onStop --> onDestory
-```
 
+第七个生命周期：`onCreate` --> `onStart` --> `onResume` --> `onPause` --> `onStop` --> `onDestory`
 
-第七个生命周期：onRestart()
+还有一个 `onRestart()`
 
 **几种特殊情况**:
 
-1. 切桌面：OnRestart()，也会有 onSaveInstanceState
-2. 另一个活动切回来：OnRestart()，也会有 onSaveInstanceState
-3. 切换横竖屏：先销毁后重建立，额外会在onPause之后调用onSaveInstanceState()保存当前状态，在onResume前再调用onRestoreInstanceState()来恢复之前的状态。
+1. 切桌面：`onRestart()`，也会有 `onSaveInstanceState`
+2. 另一个活动切回来：`onRestart()`，也会有 `onSaveInstanceState`
+3. 切换横竖屏：先销毁后重建立，额外会在`onPause`之后调用`onSaveInstanceState()`保存当前状态，在`onResume`前再调用`onRestoreInstanceState()`来恢复之前的状态。
 
 **四种启动模式**：
 
-1. Standard：标准模式
-2. SingleTop:栈顶复用模式/单顶模式   例如，通知栏点击进入聊天界面时，聊天界面应该显示现有的聊天内容，而不是启动新的实例。
-3. SingleTask:栈内复用模式/单任务模式 例如，主界面或设置界面
-4. SingleInstance:单例模式 ： 单独创建一个新的任务栈  例如，系统设置的某些专用界面或特殊的帮助界面
+1. `Standard`：标准模式
+2. `SingleTop`:栈顶复用模式/单顶模式   例如，通知栏点击进入聊天界面时，聊天界面应该显示现有的聊天内容，而不是启动新的实例。
+3. `SingleTask`:栈内复用模式/单任务模式 例如，主界面或设置界面
+4. `SingleInstance`:单例模式 ： 单独创建一个新的任务栈  例如，系统设置的某些专用界面或特殊的帮助界面
 
 **taskAffinity**:
 
 每个 Activity 都有一个 taskAffinity 属性，决定了它与哪个任务栈关联。默认情况下，同一应用程序的所有 Activity 共享相同的 taskAffinity，也就是说，它们通常在同一个任务栈中。通过设置不同的 taskAffinity，可以将不同的 Activity 放入不同的任务栈中，从而在同一个应用中创建多个任务栈。
 
-Intent Flags：
+**Intent Flags**：
 
 特定的 Intent 标志（如 FLAG_ACTIVITY_NEW_TASK）如果目标 Activity 不在任何任务栈中，则创建一个新的任务栈并启动这个 Activity；如果该 Activity 已经在某个任务栈中，则将它移动到前台，而不会创建新的实例。因此这个标志可能增加任务栈个数。
 
