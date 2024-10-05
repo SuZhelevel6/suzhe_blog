@@ -16,10 +16,22 @@ tags:
 
 还有一个 `onRestart()`
 
+(1) Oncreate():创建：作为生命周期的第一种方法，仅在新的Activity创建时调用。在这个方法中，可以做一些初始化工作，比如加载接口布局资源和初始化活动所需的数据。
+
+(2) OnStart():开始：表示Activity正在启动，并且即将启动。此时Activity已经出现，但还没有出现在前台，我们还不能交互。
+
+(3) OnResume():活动：表示Activity已经出现在前台，可见可操作。
+
+(4) OnPause():暂停：表示活动即将停止，仍然可见,但是不能操作了。
+
+(5) OnStop():停止：表示活动停止，此时不可见，位于后台。
+
+(6) OnDestory():销毁：表示活动即将被销毁。这是Activity循环的最后一个回调。你可以做一些回收工作和最后的资源回收。
+
 **几种特殊情况**:
 
 1. 切桌面：`onRestart()`，也会有 `onSaveInstanceState`
-2. 另一个活动切回来：`onRestart()`，也会有 `onSaveInstanceState`
+2. 切到另一个活动切回来，或者从桌面回来：`onPause()->onStop()->onRestart()->onStart()->onResume()`
 3. 切换横竖屏：先销毁后重建立，额外会在`onPause`之后调用`onSaveInstanceState()`保存当前状态，在`onResume`前再调用`onRestoreInstanceState()`来恢复之前的状态。
 
 **四种启动模式**：
