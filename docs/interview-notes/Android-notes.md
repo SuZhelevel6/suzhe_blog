@@ -36,10 +36,16 @@ tags:
 
 **四种启动模式**：
 
-1. `Standard`：标准模式
-2. `SingleTop`:栈顶复用模式/单顶模式   例如，通知栏点击进入聊天界面时，聊天界面应该显示现有的聊天内容，而不是启动新的实例。
-3. `SingleTask`:栈内复用模式/单任务模式 例如，主界面或设置界面
-4. `SingleInstance`:单例模式 ： 单独创建一个新的任务栈  例如，系统设置的某些专用界面或特殊的帮助界面
+1. `Standard`：标准模式(每次启动都会在本栈中创建全新实例)
+2. `SingleTop`:栈顶复用模式/单顶模式   适用于频繁启动的活动。例如，**通知栏点击进入聊天界面**时，聊天界面应该显示现有的聊天内容，而不是启动新的实例。
+3. `SingleTask`:栈内复用模式/单任务模式 适用于程序入口。例如，浏览器主界面
+4. `SingleInstance`:单例模式（独享一个栈） ： 这是一种加强版的单任务模式,在一个新栈中创建该Activity的实例，并让多个应用共享该栈中的该Activity实例。
+比如音乐播放器。
+
+在同一个栈中的活动可以通过返回按钮（Back）导航，通过Intent轻松传递数据。但是如果在不同栈里面就相当于互相独立了，需要用户手动切换任务。
+
+这四种启动方式在复用程度上是逐级递增的。设置启动模式的位置在 AndroidManifest.xml 文件中 Activity 元素的 Android:launchMode 属性。
+也可以通过Flag动态设定，Flags方式的优先级比在清单文件中的优先级高，两种方式同时设置时Flags的方式会生效，Flags方式不能设置singleInstance。
 
 **taskAffinity**:
 
@@ -283,6 +289,9 @@ onTouch()、onTouchEvent()、onClick()优先级：onTouch() > onTouchEvent() > O
 
 传递过程中有事件分发、拦截事件、事件处理三个方法。在事件分发的函数里面会调用拦截时间函数判断是否拦截当前事件。不拦截则继续传递，拦截了就会调用事件处理函数去处理当前事件。注意，当调用事件处理函数去处理的时候他可以选择抛给父控件的事件处理函数去处理。
 
+如果子 View 处理了 ACTION_DOWN 并且返回 true，表示它消费了这个事件。此时，父 View 将不会收到这个事件，而是将事件传递给子 View 进行处理。
+也就是说如果子 View 消费了 ACTION_DOWN，父 View 通常不会收到 ACTION_UP。
+
 ## 序列化
 
 序列化就是将对象之类的信息转化成字节流格式储存下来，进行网络传输或者需要长久存储数据的时候经常用到。Android里面有两种方式实现序列化，一个是Java自带的序列化方法Serializable，另一个就是安卓的Parcelable接口，其实现原理是把对象分解为Intent支持的数据类型，并通过Intent进行传输，其数据可以保存在内存中，相对于Serializable将数据保存在磁盘，效率自然更高。
@@ -327,6 +336,10 @@ onTouch()、onTouchEvent()、onClick()优先级：onTouch() > onTouchEvent() > O
 
 LiveData：是 Jetpack 新推出的基于观察者的消息订阅/分发组件，具有宿主（Activity/Fragment）生命周期感知能力。这种感知能力可确保 LiveData 仅分发消息给与活跃状态的观察者，即只有处于活跃状态的观察者才能收到消息。LiveData 默认支持粘性事件且无法取消（即使事件发送之后，仍然可以被后来订阅的观察者接收）。由此会发生数据倒灌（当新订阅者加入时，接收到大量历史数据）。
 
+MVVM架构中ViewModel为什么在翻转屏幕之后还能保持原来的界面：
+主要是因为ViewModel的生命周期与Activity或Fragment的生命周期是分开的。
+当Activity或Fragment被销毁（如旋转屏幕）时，ViewModel不会被销毁，除非它的宿主Activity被完全销毁（例如，用户在应用外部导航）。
+
 ## MVI（Model-View-Intent）
 
 出现的目的是为了解决MVVM中双向绑定数据的不足。把双向绑定变成单向数据流。
@@ -370,8 +383,11 @@ Looper.getMainLooper() == Looper.myLooper();
 
 涉及四个概念，Handler，MessageQueen，Message，Looper
 
-- Handler：主要作用是发送信息以及处理信息（为何发送还自己处理？），其中发送的信息叫作Message，可以传递数据；会调用自己的**handleMessage**()方法来处理Message，因此自定义的Handler都需要重写handlerMessage方法。继承BaseHandler类
+- Handler：主要作用是发送信息以及处理信息（为何发送还自己处理？），其中发送的信息叫作Message，可以传递数据；会调用自己的**handleMessage**()方法来处理Message，因此自定义的Handler都需要重写handlerMessage方法,继承BaseHandler类。
+每个消息都有一个target字段，指向处理该消息的Handler。在Handler的handleMessage()方法中，可以通过msg.getTarget()来获取消息的目标Handler。
+
 - MessageQueue：消息队列，由一个一个Message汇成，遵循先进先出规则，由Looper进行管理；
+
 - Looper：从MessageQueue里读取消息，并按消息分发机制分配到目标Handler进行消息处理。
 
 **Looper变量的前世今生**:
@@ -402,13 +418,13 @@ send： 发送一个Message对象
 
 post和sendMessage本质上没有区别
 
-无论是post还是send，最后都是用SystemClock.uptimeMillis()获取系统开机到当前的时间，加上我们设置的delayMillis时间，并调用sendMessageAtTime()方法做进一步逻辑。
+无论是post还是send，最后都是用SystemClock.uptimeMillis()获取系统开机到当前的时间，**加上我们设置的delayMillis时间**，并调用sendMessageAtTime()方法做进一步逻辑。
 
 注意：不能用System.currentTimeMilis（系统时间），因为用户很可能自己修改系统时间。
 
 最后都是调用队列的queue.enqueueMessage(msg, uptimeMillis) 方法来加入队列，值得一提的是enqueueMessage会根据消息要执行的时间按来寻找合适的位置插入队列。
 
-**Message的获取：尽量**用Message.obtain()来获得一个Message实例的，因为这种方案是直接从Message的消息池里直接获取，避免了new Message()的重复创建开销。
+**Message的获取**：尽量用Message.obtain()来获得一个Message实例的，因为这种方案是直接从Message的消息池里直接获取，避免了new Message()的重复创建开销。
 
 去除Message的时候如果队列里面，下一条需要执行的消息,队列中消息为空时，则会进行阻塞操作,这个阻塞操作是使用管道实现的。
 
@@ -528,7 +544,8 @@ JNI（Java Native Interface）就是Java本地化接口。用来调用Native层�
 
 1. 使用LeakCanary监听内存泄露
 
-监听单个对象的内存泄露
+监听单个对象的内存泄露，现在只需要导入这个依赖就可以自动实现内存泄露检测，但是只能在debug模式下用。
+如果考虑到上线之后的监测，可以使用Firebase。
 
 ### OOM:内存溢出
 
@@ -655,7 +672,7 @@ Android中图片以位图（Bitmap）的形式存在。
 
 位深：对Bitmap进行压缩存储时存储**每个像素所用的bit数**，位数越多，图像的色彩也就越丰富细腻。常见的是色深32位(ARGB_8888)一个像素占用四个字节的内存
 
-## 开源框架：OKHttp了解源码
+## 开源框架：OKHttp了解源码(几个核心亮点一定要记好)
 
 特性：
 
