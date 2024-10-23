@@ -1,5 +1,4 @@
 ---
-top: 1
 title: 安卓面经
 date: 2024-09-22
 tags:
@@ -170,6 +169,37 @@ Fragment碎片可以实现在一个Activity上碎片化加载多个子界面，�
 
 不建议Fragment之间直接通讯，最好是借助Activity为中介。实在要传也可以使用REQUEST_CODE和Intent 去传参。
 
+## ADB 底层如何实现的
+
+命令有：am  pm 截屏  dumps meminfo
+电脑端有**adb client**进程，安卓设备上有**adb server**守护进程（5037端口） 和 **adbd** 进程。
+adb client进程通过Socket 告知adb server进程需要执行的命令，adb server会将命令写入文件，然后adbd读取文件中的命令。
+
+## DTS设备树文件的作用
+
+① 调试网络灯的GPIO口：引入驱动厂商给的驱动文件（.rc）然后根据驱动配置节点
+② 配置pin脚对应的GPIO口
+③ 控制USB口的模式device模式，otg模式
+④ SOC节点 时钟信息
+
+## 安卓系统的启动流程（简略版）
+
+**加载BootLoader**，BootLoader是引导程序是用来拉起内核的，现在用的都是uboot。在这里面我们一般是读取DDR， dts设备树。
+**启动Linux内核**： 解析init.rc，启动init进程。①init.rc中我们会定制一些服务，设置启动方式。②init进程是所有进程的父进程，fork出其他的进程比如孵化进程。③还会加载prop属性的服务。④启动 SELinux
+**Zygote进程**：启动Android虚拟机，从C++走到Java里面
+**sysytem_server进程**：ActivityManagerService、WindowManagerService、PackageManagerService 和InputManagerService
+**Launcher启动**：Launcher在启动过程中会请求PackageManagerService返回系统中已经安装的应用程序的信息，并将这些信息封装成一个快捷图标列表显示在系统屏幕上
+
+## 内核打印
+
+安卓内核打印的中括号里面是时间戳和 CPU 核心信息，格式通常是 [时间戳@CPU核]。一般从系统启动时的时间开始计时。常见SELinux的权限问题
+[   25.885553@3]  RTW: Turbo EDCA =0x5ea42b
+低内存杀手，杀死优先级低的进程。
+
+## SELinux
+
+和安全权限有关，有permissive宽容模式和强制模式，宽容模式会记录但是不会强制执行安全策略。比如说在init.rc中添加服务就需要为服务添加selinux上下文
+
 ## 常用的设计模式
 
 ### 单例模式
@@ -210,6 +240,14 @@ ContextThemeWrapper相对于ContextWrapper多包含了与主题（Theme）相关
 
 享元模式通过共享对象来减少内存使用和提高性能。
 比如 使用Handler时，经常会用到Message，这个Message一般不建议每次都new一个新的，因为Message就使用了享元模式，可以快速的从Message池里快速的拿到一个已经创建好的Message对象。
+
+### 工厂模式
+
+简单工厂：核心就是为了方便实例化对象，将对象的创建和本身的业务逻辑分离, 让工厂类去实例化对象而我们不需要知道实例化的具体过程。
+
+工厂方法：定义一个创建对象的接口，通过接口管理不同产品的实现类工厂。将对象的创建与实例化延迟到子类
+
+抽象工厂：一个工厂创建多个不同产品实例
 
 ##  AMS
 
@@ -315,6 +353,11 @@ onTouch()、onTouchEvent()、onClick()优先级：onTouch() > onTouchEvent() > O
 
 如果子 View 处理了 ACTION_DOWN 并且返回 true，表示它消费了这个事件。此时，父 View 将不会收到这个事件，而是将事件传递给子 View 进行处理。
 也就是说如果子 View 消费了 ACTION_DOWN，父 View 通常不会收到 ACTION_UP。
+
+缺点：
+
+首先第一个是责任链模式带来的性能问题，第二个是由于被拦截处理，会出现嵌套滑动冲突问题。那么如果我们两个组件一个只能上下滑动，一个只能左右滑动的情况下，只会被一个处理掉， 不能同时生效。ViewPager和RecyclerView同时使用
+如何解决：要么重写ViewPager或者RecyclerView，要么使用更新的组件NestedScrollView
 
 ## 序列化
 
@@ -505,6 +548,12 @@ pendingIdlehanderCount 在 next() 中初始时为 -1，执行一遍后被置为 
 2.  runOnUiThread方法
 3.  View.post(Runnable r) 
 4.  AsyncTask
+
+### wait和sleep的区别
+
+wait是和synchronized 一起使用的，会主动释放锁。sleep传入时间参数不释放锁。
+
+sleep 时间到之后自己唤醒，wait需要别的线程调用notify 唤醒
 
 ### AsyncTask
 
@@ -727,6 +776,10 @@ Android中图片以位图（Bitmap）的形式存在。
 **拦截器：（责任链模式）**
 
 为了避免请求发送者和多个请求处理者关系耦合，因此将所有请求处理者连成一条引用链。请求发生时沿着链传递，直到有对象处理它为止。在请求的过程中，我们随时可以拦截请求的数据，并插入我们自己的业务代码（**自定义拦截器**）。
+
+
+优点：将请求和处理分离，两者各自注重实现自己的功能。还可以创建自己的拦截器，在指定的位置拦截处理消息。
+缺点：性能问题，一个请求必须从头遍历整个链条，直到找到符合要求的处理类。在链条特别长，性能是个很大的问题。
 
 **双任务队列**:
 
