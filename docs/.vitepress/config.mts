@@ -98,6 +98,7 @@ export default defineConfig({
           { text: 'Android系统启动流程', link: '/study-notes/android/theory/Android系统启动流程.md' },
           { text: 'OTA升级机制', link: '/study-notes/android/theory/OTA升级机制.md' },
           { text: 'Android的源码与编译', link: '/study-notes/android/theory/源码与编译.md' },
+          { text: '编译系统', link: '/study-notes/android/theory/编译系统.md' },
         ]
       },
       {
