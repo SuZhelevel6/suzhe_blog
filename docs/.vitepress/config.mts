@@ -99,6 +99,8 @@ export default defineConfig({
           { text: '(二)Android的源码与编译', link: '/study-notes/android/theory/源码与编译.md' },
           { text: '(三)编译系统', link: '/study-notes/android/theory/编译系统.md' },
           { text: '(四)进程间通信(一)', link: '/study-notes/android/theory/进程间通信(一).md' },
+          { text: '(四)进程间通信(二)', link: '/study-notes/android/theory/进程间通信(二).md' },
+          { text: '(专)Android权限机制', link: '/study-notes/android/theory/Android权限机制.md' },
           { text: '(专)OTA升级机制', link: '/study-notes/android/theory/OTA升级机制.md' },
         ]
       },
