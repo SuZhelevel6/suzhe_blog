@@ -1,8 +1,10 @@
 # Android系统启动
 
+## 前言
+
 Android系统启动与很多内容都有关联，比如应用进程启动流程、四大组件原理、 AMS、ClassLoader等，而ClassLoader又是热修复和插件化的基础，可见 Android 系统启动是十分重要并且需要首先学习的知识点
 
-init进程是Android系统中用户空间的第一个进程，进程号为1，是Android系统启动流程中一个关键的步骤，作为第一个进程，它被赋予了很多极其重要的工作职责，比如创建 Zygote（孵化器）和属性服务等。init 进程是由多个源文件共同组成的，这些文件位于源码目录system/core/init中。 
+init进程是Android系统中用户空间的第一个进程，进程号为1，是Android系统启动流程中一个关键的步骤，作为第一个进程，它被赋予了很多极其重要的工作职责，比如创建 Zygote（孵化器）和属性服务等。init 进程是由多个源文件共同组成的，这些文件位于源码目录`system/core/init`中。 
 
 ![img](Android系统启动流程.assets/17271419171305.png)
 
@@ -16,7 +18,9 @@ init进程是Android系统中用户空间的第一个进程，进程号为1，�
 
 板子上电后，芯片从固化在 `ROM` 里预设的代码`(BOOT ROM)`开始执行， `BOOT ROM` 会加载 `BootLoader` 到 `RAM`，然后把控制权交给 `BootLoader`。
 
-2.引导程序****BootLoader** **(系统启动加载器)
+2.引导程序**BootLoader**(系统启动加载器)
+
+代码位置：`bootloader/`
 
 引导程序是Android操作系统被拉起来之前的一个程序，它的作用就是把android系统拉起运行,也就是把linux内核启动。
 
@@ -27,13 +31,13 @@ init进程是Android系统中用户空间的第一个进程，进程号为1，�
 1. **基本的硬件初始化**，目的是为下一阶段的执行以及随后的 kernel 的执行准备好一些基本的硬件环境。这一阶段的代码通常用汇编语言编写，以达到短小精悍的目的。
 2. **Flash 设备初始化**，设置网络、内存等等，将 kernel 映像和根文件系统映像从 Flash 上读到 RAM 空间中，然后启动内核。这一阶段的代码通常用 C 语言来实现，以便于实现更复杂的功能和取得更好的代码可读性和可移植性。
 
-实际上 `BootLoader`还要根据 misc 分区的设置来决定是要正常启动系统内核还是要进入 recovery 进行系统升级，复位等工作。
+实际上 `BootLoader`还要根据 misc 分区的设置来决定是要正常启动系统内核还是要进入 recovery 进行系统升级，复位等工作。这一部分常见的改动比如：DDR配置(类型、RANK、容量、频率),EMMC 及分区大小配置,Uboot pinmux 配置,GPIO引脚配置,平台遥控器配置 power键配置,DTS设备树配置等。
 
-**3.****Linux内核****启动**
+**3.Linux内核启动**
 
 当内核启动时，设置缓存、被保护存储器、计划列表、加载驱动，挂载根文件系统(/)。在内核完成系统设置后，它首先在系统文件中寻找init.rc文件，并启动init进程。 
 
-这个入口的函数是start_kernel函数。start_kernel 函数完成了内核的大部分初始化工作。start_kernel函数执行到最后调用了reset_init函数进行后续的初始化。reset_init函数最主要的任务就是启动内核线程kernel_init。kernel_init函数将完成设备驱动程序的初始化，并调用init_post函数启动用户空间的init进程。到init_post函数为止，内核的初始化已经基本完成。
+这个入口的函数是`start_kernel`函数。`start_kernel` 函数完成了内核的大部分初始化工作。`start_kernel`函数执行到最后调用了`reset_init`函数进行后续的初始化。`reset_init`函数最主要的任务就是启动内核线程`kernel_init`。`kernel_init`函数将完成设备驱动程序的初始化，并调用`init_post`函数启动用户空间的init进程。到`init_post`函数为止，内核的初始化已经基本完成。
 
 **4.init进程启动** 
 
@@ -164,16 +168,16 @@ on property:persist.vendor.bt_module=sprdbt_tty
 
 这段代码的作用是通过调整内核参数来优化系统的内存管理策略：
 
-- **保留部分****物理内存**：通过设置 `watermark_scale_factor` 为 80，系统将预留大约 8% 的物理内存用于高水位标记（即高优先级保留），这有助于在内存紧张时保持系统的响应性和稳定性。
+- **保留部分物理内存**：通过设置 `watermark_scale_factor` 为 80，系统将预留大约 8% 的物理内存用于高水位标记（即高优先级保留），这有助于在内存紧张时保持系统的响应性和稳定性。
 - **积极使用交换空间**：通过设置 `swappiness` 为 100，系统将最大程度地使用交换空间，以确保物理内存尽可能多地保持可用状态。这有助于在内存使用较高的情况下，避免物理内存耗尽，从而提升系统的稳定性。
 
 ### 解析Service类型语句
 
-init.rc中的Action类型语句和Service类型语句都有相应的类来进行解析，Action类型语句采用 ActionParser 来进行解析，Service类型语句采用 ServiceParser 来进行解析，这里因为主要分析Zygote，所以只介绍 ServiceParser。ServiceParser 的实现代码在system/core/init/service.cpp 中 ，具体内容略
+init.rc中的Action类型语句和Service类型语句都有相应的类来进行解析，Action类型语句采用 ActionParser 来进行解析，Service类型语句采用 ServiceParser 来进行解析，这里因为主要分析Zygote，所以只介绍 ServiceParser。ServiceParser 的实现代码在`system/core/init/service.cpp` 中 ，具体内容略
 
 ### init启动Zygote
 
-上面提到 init 进程在解析 init.rc 时，会创建 zygote 进程，它是 Android 系统最重要的进程之一。后续 Android 中的应用进程都是由 zygote 进程 fork 出来的。因此，zygote 是 Android 系统所有应用的父进程。zygote 进程的实际执行文件并不是 zygote，而是 /system/bin/app_process。源码路径为: `Android/frameworks/base/cmds/app_process/`。　它会调用 `frameworks/base/core/jni/AndroidRuntime.cpp`　提供的接口启动 java 层的代码　`frameworks/base/core/java/com/android/internal/os/ZygoteInit.java`。至此，我们就进入到了 java 的世界。
+上面提到 init 进程在解析 init.rc 时，会创建 zygote 进程，它是 Android 系统最重要的进程之一。后续 Android 中的应用进程都是由 zygote 进程 fork 出来的。因此，zygote 是 Android 系统所有应用的父进程。zygote 进程的实际执行文件并不是 zygote，而是 `/system/bin/app_process`。源码路径为: `Android/frameworks/base/cmds/app_process/`。　它会调用 `frameworks/base/core/jni/AndroidRuntime.cpp`　提供的接口启动 java 层的代码　`frameworks/base/core/java/com/android/internal/os/ZygoteInit.java`。至此，我们就进入到了 java 的世界。
 
 zygote 的主要工作如下：
 
@@ -225,7 +229,7 @@ https://blog.csdn.net/weixin_45589713/article/details/128875608
 
 prop属性的设置有两个地方：一个是配置文件读取的，一个是系统动态获取的
 
-1、在android[源码](https://so.csdn.net/so/search?q=源码&spm=1001.2101.3001.7020)目录下的： `system/core/init/property_service.cpp`  文件中的函数
+1、在android源码目录下的： `system/core/init/property_service.cpp`  文件中的函数
 
 ```Java
     if (!load_properties_from_file("/system/etc/prop.default", nullptr, &properties)) {
@@ -265,7 +269,7 @@ endef
 
 `frameworks/base/packages/SettingsProvider/res/values/defaults.xml `这里主要用于定义系统设置的默认值。这些默认设置在系统初始化时会被加载，并提供初始的系统配置，确保设备在第一次启动时有合理的设置值。
 
-1. 在MK文件中echo出来
+2. 在MK文件中添加
 
 ```
 device/amlogic/ohm/vendor_prop.mk
@@ -419,7 +423,7 @@ int main(int argc, char* const argv[])
 
 Zygote的java世界入口是ZygoteInit 的main函数
 
-frameworks/base/core/java/com/android/internal/os/ZygoteInit.java
+`frameworks/base/core/java/com/android/internal/os/ZygoteInit.java`
 
 ```C
  public static void main(String argv[]) {
@@ -533,31 +537,18 @@ Launcher 完成启动后会做很多的工作，作为桌面它会显示应用�
 ![img](Android系统启动流程.assets/17271419171294.png)
 
 1. 启动电源以及系统启动
-
 当电源按下时引导芯片代码从预定义的地方（固化再ROM）开始执行。加载引导程序BootLoader到RAM中，然后执行。
-
-1. 引导程序BootLoader
-
+2. 引导程序BootLoader
 引导程序BootLoader是再Android操作系统开始运行前的一个小程序，它的主要作用是把系统OS拉起来并运行。
-
-1. Linux内核启动
-
+3. Linux内核启动
 当内核启动时，设置缓存、被保护存储器、计划列表、加载驱动。在内核完成系统设置后，它首先在系统文件中寻找init.rc文件，并启动init进程。
-
-1. init进程启动
-
+4. init进程启动
 init进程做的工作比较多，主要用来初始化和启动属性服务，也用来启动Zygote进程。
-
-1. Zygote进程启动
-
+5. Zygote进程启动
 创建Java虚拟机并为Java虚拟机注册JNI方法，创建服务器端Socket，启动SystemServer进程。
-
-1. SystemServer进程启动
-
+6. SystemServer进程启动
 启动Binder线程池和SystemServiceManager，并且启动各种服务。
-
-1. Launcher启动
-
+7. Launcher启动
 被SystemServer进程启动的AMS会启动Launcher，Launcher启动后会将已安装应用的快捷图标显示到界面上。
 
 Launcher启动完成之后，开机动画会退出，这样给用户的体验就是开机后，就直接进入到桌面了。

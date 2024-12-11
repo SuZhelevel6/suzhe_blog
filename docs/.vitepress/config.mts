@@ -95,11 +95,11 @@ export default defineConfig({
       {
         text: '源码阅读系列',
         items: [
-          { text: 'Android系统启动流程', link: '/study-notes/android/theory/Android系统启动流程.md' },
-          { text: 'OTA升级机制', link: '/study-notes/android/theory/OTA升级机制.md' },
-          { text: 'Android的源码与编译', link: '/study-notes/android/theory/源码与编译.md' },
-          { text: '编译系统', link: '/study-notes/android/theory/编译系统.md' },
-          { text: '进程间通信(一)', link: '/study-notes/android/theory/进程间通信(一).md' },
+          { text: '(一)Android系统启动流程', link: '/study-notes/android/theory/Android系统启动流程.md' },
+          { text: '(二)Android的源码与编译', link: '/study-notes/android/theory/源码与编译.md' },
+          { text: '(三)编译系统', link: '/study-notes/android/theory/编译系统.md' },
+          { text: '(四)进程间通信(一)', link: '/study-notes/android/theory/进程间通信(一).md' },
+          { text: '(专)OTA升级机制', link: '/study-notes/android/theory/OTA升级机制.md' },
         ]
       },
       {
