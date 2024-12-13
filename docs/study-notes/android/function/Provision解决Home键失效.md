@@ -1,17 +1,20 @@
-# 安卓TV由于Provision没加导致的HOME按键失效
+# Android TV因未完成开机向导导致HOME按键失效的解决方案
 
-有时候安卓 TV 设备会出现遥控器HOME键失效的问题，经过排查并不是遥控器按键映射的问题，而是和开机向导(Provison)有关。
+在调试 Android TV 设备时，可能会遇到遥控器 **HOME 键失效** 的问题。这种现象并非由按键映射错误引起，而是与设备的开机向导（**Provision**）状态有关。本文将逐步分析问题原因并提供解决方法。
 
 ## 查看logcat 日志
-当按在HOME键时，logcat日志如下
+按下 **HOME** 键 后，通过 logcat 捕获的日志可能显示如下信息：
 ~~~
 HdmiControlService: Local playback device not available
 WindowManager: One touch play failed: 2
 WindowManager: Not starting activity because user setup is in progress: Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10200000 (has extras) }
 ~~~
-* 系统没有启动意图为 android.intent.action.MAIN 的 Activity，原因是用户设置尚未完成。
-* 用户设置的状态由 Settings.Secure 的 USER_SETUP_COMPLETE 和 TV_USER_SETUP_COMPLETE 决定。
-* 如果这些状态标志未设置为 1，系统会限制某些行为，如启动 Launcher。
+* 从日志可以看出，系统未启动意图为 android.intent.action.MAIN 的 Activity，具体原因是 用户设置未完成。
+* 这受以下 Settings.Secure 属性 控制：
+    * USER_SETUP_COMPLETE
+    * TV_USER_SETUP_COMPLETE
+
+* 如果上述属性未设置为 1，系统会限制某些关键功能的使用，例如无法启动 Launcher。
 
 ## 检查Settings属性
 
@@ -21,22 +24,35 @@ settings get global device_provisioned
 settings get secure user_setup_complete 
 settings get secure tv_user_setup_complete 
 ~~~
-检查三者的输出结果是不是1，如果不是则说明开机向导没有做好。
+确保以上三个属性值均为 1。若结果为 0 或其他值，则表明开机向导未正确完成。
 
-> settings list secure/global 可以列出所有的settings 值。
-> settings put secure/global xxx 可以设置(不存在就增加)一个指定的值
-> settings 值都保存在/data/system/users/0/路径下的各个settings_xxx.xml文件中
+**补充说明**
+1. 查看系统中所有 Settings 属性：
+~~~
+settings list secure
+settings list global
+~~~
+2. 修改或新增 Settings 值：
+~~~
+settings put secure <key> <value>
+settings put global <key> <value>
+~~~
+3. Settings 值存储路径：
+/data/system/users/0/settings_secure.xml
+/data/system/users/0/settings_global.xml
 
 ## 检查Provison 开机向导是否存在
 
-使用控制台命令
+执行以下命令，检查开机向导应用是否已编译进系统：
 ~~~
 pm list packges | grep provision
 ~~~
 
-检查是否将provision添加到了系统中。如果没有，可以查看源码中是否将Provision编译进了系统。
-Provison 的代码位置：
+如果未找到 Provision 应用，可能是系统构建时遗漏了此模块。
+其代码路径通常为：
 `packages/apps/Provision/src/com/android/provision/DefaultActivity.java`
+
+关键代码如下：
 ~~~
 public class DefaultActivity extends Activity {
 
@@ -44,30 +60,36 @@ public class DefaultActivity extends Activity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        // Add a persistent setting to allow other apps to know the device has been provisioned.
+        // 设置相关属性
         Settings.Global.putInt(getContentResolver(), Settings.Global.DEVICE_PROVISIONED, 1);
         Settings.Secure.putInt(getContentResolver(), Settings.Secure.USER_SETUP_COMPLETE, 1);
         Settings.Secure.putInt(getContentResolver(), Settings.Secure.TV_USER_SETUP_COMPLETE, 1);
 
-        // remove this activity from the package manager.
+        // 禁用自身，使其只执行一次
         PackageManager pm = getPackageManager();
         ComponentName name = new ComponentName(this, DefaultActivity.class);
         pm.setComponentEnabledSetting(name, PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                 PackageManager.DONT_KILL_APP);
 
-        // terminate the activity.
+        // 结束 Activity
         finish();
     }
 }
 ~~~
-* 里面只做了两件事，一是设置三个属性，二是启动一次后就禁用自己(也就是只会执行一次)
-* 将这个开机向导编译进系统就可以了，因为在 它的AndroidManifest 里面设置了最高的优先级
+**功能说明：**
+1. 设置 DEVICE_PROVISIONED、USER_SETUP_COMPLETE 和 TV_USER_SETUP_COMPLETE 属性。
+2. 启动后禁用自身，仅执行一次。
 
-## 其他可能承担开机引导的位置
+## 定制化系统的特殊情况
 
-在一些定制化的机器中开机向导不一定由Provision去完成，有可能由Settings，launcher或者其他的APP 去完成。请使用`grep -rnw USER_SETUP_COMPLETE` 去查找有可能出现的地方。
+在定制化系统中，开机引导可能并非由 Provision 应用完成，而是由其他应用（如 Settings 或 Launcher）接管。可使用以下命令查找相关代码位置：
+~~~
+grep -rnw USER_SETUP_COMPLETE frameworks/
+~~~
 
-比如在使用`mgrep Provision`时发现有APP overrides 了Provision,那么就需要检查是不是在这个APP中设置了Settings属性
+**示例问题排查**
+1. Override 情况
+某些系统可能会通过 override 替换 Provision 应用，例如：
 ~~~
     overrides: [
         "Home",
@@ -76,10 +98,12 @@ public class DefaultActivity extends Activity {
     ],
 
 ~~~
+在这种情况下，需要检查替代应用是否正确设置了相关属性。
 
-还有一种情况，provision成功编译进去了，但是就是没有执行里面的代码，我遇到这个情况的时候尚未查到背后的原因，解决方法是将Provision里面的内容加到我自己的某个APK里面去，来代替Provision的功能。
+2. 未执行代码
+若 Provision 应用已编译进系统但未运行。provision成功编译进去了，但是就是没有执行里面的代码，我遇到这个情况的时候尚未查到背后的原因，解决方法是将Provision里面的内容加到我自己的某个APK里面去，来代替Provision的功能。
 
-如果想要在自己的APP中进行Settings设置可以参考如下代码：
+    如果想要在自己的APP中进行Settings设置可以参考如下代码：
 ~~~
 private void initializeDeviceSettings() {
     try {
@@ -98,7 +122,7 @@ private void initializeDeviceSettings() {
 
 ## 取消对开机引导的判断
 
-如果想继续研究具体是在哪里判断的这几个值可以查看：
+如果不希望依赖 Provision 或类似逻辑，可修改框架源码，直接跳过相关属性的检查。代码位置如下：
 
 `frameworks/base/services/core/java/com/android/server/policy/PhoneWindowManager.java`
 ~~~
@@ -135,4 +159,4 @@ private void initializeDeviceSettings() {
     }
 
 ~~~
-你可以直接取消对该 Settings 属性的判断。
+可通过修改或注释以上代码逻辑，直接取消对 Settings 属性的依赖。
