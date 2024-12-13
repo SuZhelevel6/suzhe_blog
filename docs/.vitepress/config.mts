@@ -117,6 +117,7 @@ export default defineConfig({
           { text: '修改默认音量和最大音量', link: '/study-notes/android/function/修改默认音量和最大音量.md' },
           { text: '去除升级时间戳校验', link: '/study-notes/android/function/去除升级时间戳校验.md' },
           { text: '开机启动日志捕捉服务', link: '/study-notes/android/function/开机启动日志捕捉服务.md' },
+          { text: '缺少开机引导导致HOME键失效', link: '/study-notes/android/function/Provision解决Home键失效.md' },
 
         ]
       },
