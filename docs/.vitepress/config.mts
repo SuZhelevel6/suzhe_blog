@@ -99,7 +99,7 @@ export default defineConfig({
           { text: '(二)Android的源码与编译', link: '/study-notes/android/theory/源码与编译.md' },
           { text: '(三)编译系统', link: '/study-notes/android/theory/编译系统.md' },
           { text: '(四)进程间通信(一)', link: '/study-notes/android/theory/进程间通信(一).md' },
-          { text: '(四)进程间通信(二)', link: '/study-notes/android/theory/进程间通信(二).md' },
+          { text: '(五)进程间通信(二)', link: '/study-notes/android/theory/进程间通信(二).md' },
           { text: '(专)Android权限机制', link: '/study-notes/android/theory/Android权限机制.md' },
           { text: '(专)OTA升级机制', link: '/study-notes/android/theory/OTA升级机制.md' },
         ]
@@ -119,6 +119,8 @@ export default defineConfig({
           { text: '开机启动日志捕捉服务', link: '/study-notes/android/function/开机启动日志捕捉服务.md' },
           { text: '缺少开机引导导致HOME键失效', link: '/study-notes/android/function/Provision解决Home键失效.md' },
           { text: '预定义屏幕分辨率与屏幕像素密度', link: '/study-notes/android/function/分辨率与density.md' },
+          { text: '解决无限循环的 udc-core 报错问题', link: '/study-notes/android/function/udc-core报错.md' },
+          { text: '解决 Android 应用日志中 JDWP 报错问题', link: '/study-notes/android/function/jdwp报错.md' },
 
         ]
       },
