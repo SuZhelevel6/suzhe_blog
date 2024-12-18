@@ -4,7 +4,6 @@
 1. 官方开发者网站: https://developer.android.com/reference/android/Manifest.permission
 2. 源码: `frameworks/base/core/res/AndroidManifest.xml`
 
-//APP 所需的所有权限，都需要在
 
 ## Android 权限分类
 

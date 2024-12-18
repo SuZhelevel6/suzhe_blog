@@ -28,16 +28,26 @@
 
 代码路径： `frameworks/base/core/java/android/os/Handler.java`
 
+### 构造方法
+~~~java
+public Handler() 
+public Handler(Looper looper) 
+public Handler(Callback callback) 
+public Handler(Looper looper, Callback callback) 
+public Handler(Looper looper, boolean async) 
+public Handler(Callback callback, boolean async) 
+public Handler(Looper looper, Callback callback, boolean async) 
+~~~
+
+从 Handler 的构造方法可以看出，Handler 需要三个主要的参数：
+- **Looper**：指定 `Handler` 绑定的消息队列，默认为当前线程的 `Looper`。
+- **Callback**：允许在消息到达时做额外处理，避免重写 `handleMessage()` 方法，非必须。
+- **async**：控制消息处理是否为异步，默认为同步（`false`），即处理消息时会阻塞队列，直到当前消息处理完成。异步（`true`）则不会阻塞队列，允许同时处理其他消息。
+
+
 ### Handler 与 Thread 的关系
 
-首先查看Handler的部分源码：
-~~~
-public class Handler {...
-    final MessageQueue mQueue;
-    final Looper mLooper;
-    final Callback mCallback;
-~~~
-根据上面的源代码可以看出：Handler和Thread确实没有在表象上产生直接的联系，但是由于
+我们前面提到：
 ① 每个`Thread`只对应一个`Looper`；
 ② 每个`Looper`只对应一个`MessageQueue`；
 ③ 每个`MessageQueue`中有N个`Message`；
@@ -56,7 +66,7 @@ public class Handler {...
 5. **消息处理**：主线程根据消息内容执行相应的操作（如 UI 更新、数据处理等）。
 
 示例代码如下：
-~~~
+~~~java
 // 主线程中的 Handler
 Handler mainHandler = new Handler(Looper.getMainLooper()) {
     @Override
@@ -99,14 +109,14 @@ thread.start(); // 启动子线程
 #### 功能一：消息处理
 `Handler` 的消息处理函数声明如下：
 
-~~~
+~~~java
 public void dispatchMessage(@NonNull Message msg)//消息分发
 public void handleMessage(@NonNull Message msg)//消息处理
 ~~~
 
 `Looper`从`MessageQueue`中取出一个`Message`后，首先会调用`Handler.dispatchMessage`进行消息派发:
 
-~~~
+~~~java
 	//处理消息的
   	public void dispatchMessage(@NonNull Message msg) {
         if (msg.callback != null) {//callback不为空
@@ -137,7 +147,7 @@ public void handleMessage(@NonNull Message msg)//消息处理
 1. Post系列：
 
 `Post` 系列方法用于将 `Runnable` 对象转化为 `Message` 并发送到消息队列。常见的 `Post` 系列函数如下：
-~~~
+~~~java
 final boolean post(Runnable r);
 final boolean postAtTime(Runnable r, long uptimeMillis);
 ...
@@ -146,7 +156,7 @@ final boolean postAtTime(Runnable r, long uptimeMillis);
 2.Send系列：
 
 `Send` 系列方法则直接使用 `Message` 对象作为参数，将其发送到消息队列。常见的 `Send` 系列函数如下：
-~~~
+~~~java
 final boolean sendEmptyMessage(int what);
 final boolean sendMessageAtFrontOfQueue(Message msg);
 boolean sendMessageAtTime(Message msg, long uptimeMillis);
@@ -161,7 +171,7 @@ delayMillis);
 
 **以 `post` 为例的实现过程**
 以 `post` 方法为例，调用者提供的是一个 `Runnable` 对象，`Handler` 首先将 `Runnable` 封装成 `Message`，然后通过 `send` 系列函数将其推送到消息队列。
-~~~
+~~~java
 private static Message getPostMessage(Runnable r) {
     // 通过 obtain 获取一个 Message 实例，避免重复创建，节省资源
     Message m = Message.obtain();
@@ -277,21 +287,39 @@ boolean enqueueMessage(Message msg, long when) {
 ![](线程通信机制Handler.assets/17343325181392.jpg)
 ### 构造方法
 
-仔细观察Looper的构造方法：
+仔细观察`Looper`的构造方法：
 ~~~	
 private Looper(boolean quitAllowed) {
     mQueue = new MessageQueue(quitAllowed);  // 创建一个消息队列
     mThread = Thread.currentThread();         // 绑定当前线程
 }
 ~~~
-从这个构造方法可以看到，Looper 在创建时会初始化一个 MessageQueue，并与当前线程绑定。
+从这个构造方法可以看到，`Looper` 在创建时会初始化一个 `MessageQueue`，并与当前线程绑定。
 
 ### 使用场景
 应用程序使用 Looper 的方式有两种主要场景：
 1. **主线程（MainThread）**
-例如，ActivityThread 使用 prepareMainLooper() 方法来初始化主线程的 Looper。
+例如，`ActivityThread` 使用 `prepareMainLooper()` 方法来初始化主线程的 `Looper`。
+~~~java
+/* frameworks/base/core/java/android/app/ActivityThread.java */
+
+// 主线程的入口方法
+public static void main(String[] args) {
+    Looper.prepareMainLooper();// 准备主线程的 Looper，和普通线程不同
+    ActivityThread thread = new ActivityThread();// 新建一个 ActivityThread 对象
+    thread.attach(false);// 将当前线程与 ActivityThread 进行绑定
+    
+    if (sMainThreadHandler == null) {// 如果主线程 Handler 未初始化，则初始化
+        sMainThreadHandler = thread.getHandler(); // 获取主线程的 Handler
+    }
+    
+    AsyncTask.init();
+    Looper.loop();
+    throw new RuntimeException("Main thread loop unexpectedly exited");
+}
+~~~
 2. **普通线程**
-以下是一个在普通线程中使用 Looper 的示例，名为 LooperThread：
+以下是一个在普通线程中使用 `Looper` 的示例，名为 `LooperThread`：
 ~~~java
 // 自定义线程类，带有 Looper 和 Handler
 class LooperThread extends Thread {
@@ -337,9 +365,9 @@ class LooperThread extends Thread {
 
 Looper中有两个比较重要的方法就是`prepare()` 和 `loop()`
 
-### prepare()方法
+### `prepare()`方法和`prepareMainLooper()`方法
 
-Looper.prepare() 方法用于初始化当前线程的 Looper 实例，它内部调用了如下代码：
+`Looper.prepare()` 方法用于初始化当前线程的 `Looper` 实例，它内部调用了如下代码：
 ~~~java
 // 定义一个 ThreadLocal 存放 Looper，每个线程会有唯一的 sThreadLocal
 static final ThreadLocal<Looper> sThreadLocal = new ThreadLocal<Looper>();
@@ -384,7 +412,7 @@ public static @Nullable Looper myLooper() {
 ### looper()方法
 
 loop() 方法是 Looper 的核心，它开启一个死循环，从消息队列中不断取出消息并派发给相应的 Handler 处理：
-~~~
+~~~java
 public static void loop() {
     final Looper me = myLooper();
     if (me == null) {
@@ -419,7 +447,7 @@ public static void loop() {
 ### Looper循环的停止
 
 Looper 提供了两个方法来停止消息循环：
-~~~
+~~~java
 	 public void quit() {
         mQueue.quit(false);
     }
@@ -429,7 +457,7 @@ Looper 提供了两个方法来停止消息循环：
     }
 ~~~
 这两个方法都会调动MessageQueue中的 void quit(boolean safe)
-~~~
+~~~java
 	 void quit(boolean safe) {
         if (!mQuitAllowed) {
             throw new IllegalStateException("Main thread not allowed to quit.");
@@ -475,11 +503,13 @@ Looper --loop();
 
 ## Message（消息）
 
+源码路径：`frameworks/base/core/java/android/os/Message.java`
+
 `Message`就是一个承载消息的的类，`Message` 只有一个无参的构造方法，除了构造方法为还可以通过静态的 `Obtain()`来获取重用对象。
 
 ### Message的获取
 
-~~~
+~~~java
 	public static final Object sPoolSync = new Object();    //同步锁对象 
     private static Message sPool;                           //全局池消息实例 sPool为最近一个可以使用的空消息对象
 
