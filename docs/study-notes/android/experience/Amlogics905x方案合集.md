@@ -307,13 +307,13 @@ java -Djava.library.path="prebuilts/sdk/tools/linux/lib64" -jar ./prebuilts/sdk/
 
 1. 对齐
    对齐工具使用的是Android Apk优化工具Zipalign，对齐命令为：
-   `Zipalign -v 4 D:\Project\keystore\News.apk D:\Project\keystore\News_dst.apk`
+   `Zipalign -v 4 src.apk dst.apk`
 
 2. 使用 apksigner签名
-   `apksigner sign --ks D:\Project\keystore\x5platform.keystore --ks-key-alias giec --ks-pass pass:giec_stb_666 --key-pass pass:giec_stb_666 --v1-signing-enabled true --v2-signing-enabled true D:\Project\keystore\News_dst.apk`
+   `apksigner sign --ks platform.keystore --ks-key-alias alias --ks-pass pass:password --key-pass pass:password --v1-signing-enabled true --v2-signing-enabled true dst.apk`
 
 3. 使用如下方式验证
-   `apksigner verify app.apk`
+   `apksigner verify dst.apk`
 
 
 ### 常见问题
