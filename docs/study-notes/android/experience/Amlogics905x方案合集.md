@@ -301,13 +301,20 @@ java -Djava.library.path="prebuilts/sdk/tools/linux/lib64" -jar ./prebuilts/sdk/
 ```
 
 在Windows使用keystore签名：
-```bash
-jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore D:\Project\keystore\xxx.keystore -storepass password -keypass password D:\Project\keystore\xxx.apk 
-```
-使用如下方式验证
-~~~bash
-jarsigner -verify D:\Project\keystore\News.apk
-~~~
+
+这里要使用apksigner进行签名，apksigner 包含在 Android SDK Tools 中，可通过 android studio 中 Tools -> Android -> SDK Manager -> SDK Tools 查看是否安装。
+安装了 SDK Tools 后，在 %ANDROID_HOME%/build-tools 文件夹下对应的版本就能找到。
+
+1. 对齐
+   对齐工具使用的是Android Apk优化工具Zipalign，对齐命令为：
+   `Zipalign -v 4 D:\Project\keystore\News.apk D:\Project\keystore\News_dst.apk`
+
+2. 使用 apksigner签名
+   `apksigner sign --ks D:\Project\keystore\x5platform.keystore --ks-key-alias giec --ks-pass pass:giec_stb_666 --key-pass pass:giec_stb_666 --v1-signing-enabled true --v2-signing-enabled true D:\Project\keystore\News_dst.apk`
+
+3. 使用如下方式验证
+   `apksigner verify app.apk`
+
 
 ### 常见问题
 
