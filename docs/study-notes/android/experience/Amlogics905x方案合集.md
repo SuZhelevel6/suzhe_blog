@@ -81,6 +81,9 @@ am start -n APK包名/启动类名
 # 截屏
 /system/bin/screencap -p /sdcard/screencap.png 
 
+# 拉到本地
+adb pull /sdcard/screenshot.png ./Pictures/
+
 # 录屏10秒钟
 screenrecord --time-limit 10 /sdcard/BlackScreen.mp4  
 ```
@@ -256,6 +259,8 @@ TV的settings：`am start -n com.android.tv.settings/.MainSettings`
 
 TV的settings代码位置：`vendor/amlogic/common/apps/DroidTvSettings/Settings/`
 
+在安卓14代码上： `packages/apps/TvSettings/Settings/src/com/android/tv/settings/about/AboutFragment.java`
+
 AOSP Settings代码位置：`packages/apps/Settings/`
 
 AOSP Settings：`am start -n com.android.settings/.Settings`
@@ -273,27 +278,55 @@ build/make/tools/buildinfo.sh
 输出系统属性：
 
 ```Java
-settings get
+settings put global device_provisioned 1
+settings put secure user_setup_complete 1
+settings put secure tv_user_setup_complete 1
+
+settings get global device_provisioned
+settings get secure user_setup_complete
+settings get secure tv_user_setup_complete
+
 ```
 
+生成签名：
+在源代码根目录
+```Java
+development/tools/make_key platform '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
+```
 
-在代码中给apk签名：
+在源代码中给apk签名：
 
 ```Java
 java -Djava.library.path="prebuilts/sdk/tools/linux/lib64" -jar ./prebuilts/sdk/tools/lib/signapk.jar vendor/xxxx/android-certs/platform.x509.pem vendor/xxxx/android-certs/platform.pk8 OTAForAB-1.1.apk OTAForAB-1.1_si.apk
 ```
+
+在Windows使用keystore签名：
+```bash
+jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore D:\Project\keystore\xxx.keystore -storepass password -keypass password D:\Project\keystore\xxx.apk 
+```
+使用如下方式验证
+~~~bash
+jarsigner -verify D:\Project\keystore\News.apk
+~~~
 
 ### 常见问题
 
 Android 11 进入开发者模式显示`developer options are not available for this user`
 
 原因是开机没有执行com.android.provision/.DefaultActivity这个开机向导活动
+注意：如果这个DefaultActivity没有效果，那说明没有编译Provision，需要编译这个。
 
 手动输入
 
 ```C
 settings put global device_provisioned 1
 settings put secure user_setup_complete 1
+settings put secure tv_user_setup_complete 1
+
+settings get global device_provisioned 
+settings get secure user_setup_complete 
+settings get secure tv_user_setup_complete 
+
 ```
 
 然后重新打开就可以了，更多信息请查看下面的commit：[Changed Provision app  so it can trigger device owner provisioning](https://android.googlesource.com/platform/packages/apps/Provision/+/23356226d971a60ebf8d56ac03abe453a045b5cf)
