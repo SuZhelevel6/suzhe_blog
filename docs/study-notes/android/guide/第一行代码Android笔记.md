@@ -55,7 +55,7 @@ Minimum SDK：API 15
 1. 第一次Greadle构建需要点时间，要下载很多东西，需要翻墙，可能失败，没关系多试几次。
 2. 新建project的时候记得一定要选择语言为Java，但是注意如果选择Empty Activity就会没有语言选择的选项，所以我们跟着书上选择No Activity或者Empty View Activity
 
-![image-20240925163605736](第一行代码Andorid笔记.assets/image-20240925163605736.png)
+![image-20240925163605736](第一行代码Android笔记.assets/image-20240925163605736.png)
 
 ## 1. 活动的基本用法🎯
 
@@ -664,7 +664,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
 # 第二章 UI
 
-![image-20240925163620864](第一行代码Andorid笔记.assets/image-20240925163620864.png)
+![image-20240925163620864](第一行代码Android笔记.assets/image-20240925163620864.png)
 
 ## 1. 文本控件-**TextView**🎯
 
@@ -1930,7 +1930,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
 
 # 第三章 碎片
 
-![image-20240925163710434](第一行代码Andorid笔记.assets/image-20240925163710434.png)
+![image-20240925163710434](第一行代码Android笔记.assets/image-20240925163710434.png)
 
 平板电脑和手机最大的区别就在于屏幕的大小，一般手机屏幕的大小会在3英寸到6英寸之间，而一般平板电脑屏幕的大小会在7英寸到10英寸之间。
 
@@ -2247,7 +2247,7 @@ MainActivity activity = (MainActivity) getActivity();
 - Intent：通常用于应用内部组件之间的通信，虽然也可以用于系统级别的通信（应用程序之间进行的通信），但这样做需要明确知道目标组件的包名和类名，不够通用。
 - 广播：Android系统广泛使用广播来实现系统级通知和事件传递。例如，当设备处于飞行模式时，系统会发送一个广播事件，所有注册了相应权限的应用都能接收到通知。
 
-![image-20240925163752793](第一行代码Andorid笔记.assets/image-20240925163752793.png)
+![image-20240925163752793](第一行代码Android笔记.assets/image-20240925163752793.png)
 
 ## 1. 广播机制简介
 
@@ -3337,7 +3337,7 @@ dependencies {
 
 # 第六章 内容提供器
 
-![image-20240925163811855](第一行代码Andorid笔记.assets/image-20240925163811855.png)
+![image-20240925163811855](第一行代码Android笔记.assets/image-20240925163811855.png)
 
 在上一章中我们学了Android数据持久化的技术，包括文件存储、SharedPreferences存储以及数据库存储。使用这些持久化技术所保存的数据都**只能在当前应用程序中访问**。
 
@@ -4353,7 +4353,7 @@ List<Person> appList = gson.fromJson(gsonData,new TypeToken<List<Person>>(){}.ge
 
 另外，也不要被服务的后台概念所迷惑，实际上服务并不会自动开启线程，所有的代码都是默认运行在主线程当中的。也就是说，我们需要在服务的内部手动创建子线程，并在这里执行具体的任务，否则就有可能出现主线程被阻塞住的情况。
 
-![image-20240925163905495](第一行代码Andorid笔记.assets/image-20240925163905495.png)
+![image-20240925163905495](第一行代码Android笔记.assets/image-20240925163905495.png)
 
 ## 1. **多线程**编程
 

@@ -16,6 +16,4 @@
 
 [Glauncher](./glauncher)
 
-[AOSP定制](./AOSP定制)
-
 [产测软件](./产测软件)
