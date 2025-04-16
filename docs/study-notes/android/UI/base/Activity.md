@@ -250,6 +250,26 @@ startActivity(intent);
 4.singleInstance 模式：Intent.FLAG_ACTIVITY_NEW_TASK，并且需要确保 Activity 的 taskAffinity 设置为空。
 5.singleInstancePerTask模式：FLAG_ACTIVITY_MULTIPLE_TASK ｜ FLAG_ACTIVITY_NEW_TASK
 
+### 后台启动Activity的限制
+
+在 Android 10 或更高版本上启动 activity有了诸多限制
+1. 在Activity上下文之外启动Activity
+
+报错：`Calling startActivity() from outside of an Activity context requires the FLAG_ACTIVITY_NEW_TASK flag`
+解决方式：给intent添加flag：FLAG_ACTIVITY_NEW_TASK。
+
+2. 非核心任务的后台启动 Activity 可能会受到限制：详情见[官网](https://developer.android.google.cn/guide/components/activities/background-starts?hl=zh-cn#opt-in-required)
+
+解决方式：可以参考 https://blog.csdn.net/wangjinyu501/article/details/132594354
+
+题外话：PendingIntent
+
+PendingIntent 是一种“未来的 Intent”，它允许应用在稍后执行操作。它可以在应用的上下文之外执行，比如在通知中启动 Activity，或者在定时任务中执行操作。
+
+从 Android 10 开始，后台应用启动 Activity 受到限制。如果应用需要在后台启动 Activity，必须满足特定条件，并在 Android 14 及更高版本中明确选择启用后台 Activity 启动权限。
+
+详情见：https://developer.android.google.cn/guide/components/activities/background-starts?hl=zh-cn#sender-pendingintent
+
 ## Activity的生命周期
 
 ### 生命周期简介
