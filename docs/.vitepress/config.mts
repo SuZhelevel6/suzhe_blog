@@ -57,7 +57,11 @@ export default defineConfig({
             ]
           },
           {
-            // 源码阅读系列
+            items: [
+              { text: '安卓应用层知识导览', link: '/study-notes/android/UI/index.md' }
+            ]
+          },
+          {
             items: [
               { text: '安卓系统层知识导览', link: '/study-notes/android/theory/index.md' }
             ]
