@@ -272,8 +272,11 @@ PendingIntent 是一种“未来的 Intent”，它允许应用在稍后执行�
 
 ## Activity的生命周期
 
-### 生命周期简介
-生命周期： onCreate()->onStart()->onResume()->onPause()->onStop()->onDestory()这六个生命周期是**两两对应**的。第七个生命周期onRestart()是单独的。
+首先阐述一个观点：生命周期和生命周期回调方法不一样，生命周期的本质是状态转移，而生命周期方法(如`onCreate( )`)只是Framework 提供给开发者使用的 Hook 点，用于在状态转移时执行自定义逻辑。
+但是由于很多地方说生命周期的时候直接说的是生命周期方法，因此这里也不过多区分，大家对这个观点有个印象就好。
+
+### 生命周期回调方法简介
+生命周期回调方法： onCreate()->onStart()->onResume()->onPause()->onStop()->onDestory()这六个生命周期是**两两对应**的。第七个生命周期onRestart()是单独的。
 1. onCreate( )：进入"已创建"状态，初始化 UI 和数据
 2. onstart( ) ：进入"已启动"状态，Activity 对用户可见
 3. onResume( )：进入“已恢复”状态，Activity 开始与用户交互
@@ -305,7 +308,7 @@ PendingIntent 是一种“未来的 Intent”，它允许应用在稍后执行�
 
 例如：XCrash需要在attachBaseContext 中的初始化、多层 initView 的封装要在onPostCreate 中等等。
 
-### 生命周期和状态
+### 生命周期回调方法和状态转移
 
 前面我们提到进入"已创建"状态(CREATED状态)，这里的状态如下图所示：
 ![QQ_1744775853342](assets/QQ_1744775853342.png)

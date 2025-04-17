@@ -8,8 +8,7 @@
 **技能**：
 1. 熟悉android的四大组件、生命周期，常用界面布局
 2. 常用第三方框架的使用
-3. 熟悉android的常用API
-4. 熟悉网络框架或者API的使用
+3. 熟悉android的常用API、网络框架
 5. 掌握数据库相关知识点
 6. 了解android项目目录的组织架构
 
@@ -46,3 +45,15 @@
 2. Intent：[点击跳转到相关博客](./base/Intent.md)
 3. Fragment: [点击跳转到相关博客](./base/Fragment.md)
 4. Bundle：[点击跳转到相关博客](./base/Bundle.md)
+
+### Jetpack
+
+
+### 常用界面布局
+
+### 常用第三方框架
+
+### 常用 API
+
+### 一些常见机制
+

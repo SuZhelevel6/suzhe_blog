@@ -248,6 +248,8 @@ LifecycleRegistry 作为 Lifecycle 的具体实现类，其核心逻辑主要体
 - **更新宿主状态**：调用 `moveToState(newState)` 方法更新 LifecycleRegistry 内部的当前状态。
 - **同步观察者状态**：再次通过 while 循环遍历所有注册的观察者，并依次调用 `ObserverWithState.dispatchEvent()` 方法，确保观察者状态逐级更新，从而收到所有中间状态的变化。
 
+---
+>推荐阅读：https://juejin.cn/post/7120472134853328909
 
 
 
