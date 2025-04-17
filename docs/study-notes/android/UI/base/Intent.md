@@ -35,7 +35,7 @@ startActivity(intent);
        </activity>
 
 ```
-只有<action＞和〈category〉中的内容同时能够匹配上Intent中指定的action和category时，这个活动才能响应该Intent
+只有`<action＞`和`<category>`中的内容同时能够匹配上Intent中指定的action和category时，这个活动才能响应该Intent
 
 
 
@@ -86,7 +86,7 @@ startActivity(intent)
 一般第二种方式用的多。
 
 ### Action（动作）
-表示意图要执行的抽象操作，例如查看（ACTION_VIEW）、编辑（ACTION_EDIT）等。系统预定义了大量标准动作，开发者也可自定义（需包含包名前缀，如com.example.SHOW_COLOR）。动作本身不指定具体组件，而是通过匹配接收组件的<intent-filter>来确定执行
+表示意图要执行的抽象操作，例如查看（ACTION_VIEW）、编辑（ACTION_EDIT）等。系统预定义了大量标准动作，开发者也可自定义（需包含包名前缀，如com.example.SHOW_COLOR）。动作本身不指定具体组件，而是通过匹配接收组件的`<intent-filter>`来确定执行
 
 Action 列表请见：https://developer.android.com/reference/android/content/Intent#ACTION_AIRPLANE_MODE_CHANGED
 
