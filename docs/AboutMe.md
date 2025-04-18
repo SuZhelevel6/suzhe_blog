@@ -67,22 +67,34 @@ tags:
 3. Fragment：[点击跳转到相关博客](./study-notes/android/UI/base/Fragment.md)  
 4. Bundle：[点击跳转到相关博客](./study-notes/android/UI/base/Bundle.md)
 
-### :fountain_pen:Jetpack
-
-架构组件：  
+Jetpack组件:
 1. Lifecycle：[点击跳转到相关博客](./study-notes/jetpack/Lifecycle.md)  
 2. ViewModel：[点击跳转到相关博客](./study-notes/jetpack/ViewModel.md)  
 3. LiveData：[点击跳转到相关博客](./study-notes/jetpack/LiveData.md)  
 4. Room：SQLite 的 ORM 抽象层，简化数据库操作。  
 5. Data Binding：将布局中的 UI 组件与数据源绑定，简化数据更新。  
 6. WorkManager：管理后台任务，确保任务在合适的时机执行。
+7. ViewPager2：横向/纵向滑动容器视图
+8. RecyclerView：高效显示大量数据的列表或网格。
+9. ConstraintLayout：灵活的布局工具，支持复杂的 UI 设计。
+10. Navigation：提供应用内导航的框架，支持复杂导航逻辑。
+11. Paging：分页加载大量数据，优化列表和网格的加载性能。
 
-UI组件：
-1. ViewPager2：横向/纵向滑动容器视图
-2. RecyclerView：高效显示大量数据的列表或网格。
-3. ConstraintLayout：灵活的布局工具，支持复杂的 UI 设计。
-4. Navigation：提供应用内导航的框架，支持复杂导航逻辑。
-5. Paging：分页加载大量数据，优化列表和网格的加载性能。
+### :fountain_pen:其他学习笔记
+1. Java笔记：[点击跳转到相关博客](./study-notes/java/summary)
+2. Kotlin基础语法：[点击跳转到相关博客](./study-notes/kotlin/kotlin笔记.md)
+3. Kotlin协程：[点击跳转到相关博客](./study-notes/kotlin/kotlin协程.md)
+4. Flutter笔记：[点击跳转到相关博客](./study-notes/flutter/Flutter笔记.md)
+5. shell脚本：[点击跳转到相关博客](./study-notes/other/shell脚本.md)
+6. 软考知识点：[点击跳转到相关博客](./study-notes/other/软考知识点.md)
+
+### :fountain_pen:项目汇总
+1. TS码流解析工具：[点击跳转到相关博客](./project-summary/TS码流解析工具.md)
+2. GLauncher：[点击跳转到相关博客](./project-summary/glauncher.md)
+3. Compose TV：[点击跳转到相关博客](./project-summary/ComposeTV.md)
+4. OTA软件：[点击跳转到相关博客](./project-summary/OTA软件.md)
+5. Launcher3：[点击跳转到相关博客](./project-summary/Launcher3.md)
+
 
 ## :rocket:安卓工程师成长路线
 
