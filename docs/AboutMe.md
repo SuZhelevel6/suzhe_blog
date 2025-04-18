@@ -80,6 +80,9 @@ Jetpack组件:
 10. Navigation：提供应用内导航的框架，支持复杂导航逻辑。
 11. Paging：分页加载大量数据，优化列表和网格的加载性能。
 
+一些 UI 实现
+1. 常见界面布局Layout：[点击跳转到相关博客](./study-notes/android/UI/常见界面布局Layout.md)
+
 ### :fountain_pen:其他学习笔记
 1. Java笔记：[点击跳转到相关博客](./study-notes/java/summary)
 2. Kotlin基础语法：[点击跳转到相关博客](./study-notes/kotlin/kotlin笔记.md)
