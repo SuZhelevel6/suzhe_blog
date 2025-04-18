@@ -46,7 +46,7 @@ export default defineConfig({
     // },
     // TODO: 增加提效工具板块，常用的软件/AI工具，网站，插件等等。
     nav: [
-      { text: '关于我', link: '/AboutMe.md' },
+      { text: '关于本博客', link: '/AboutMe.md' },
       {
         text: 'Android系统',
         items: [
