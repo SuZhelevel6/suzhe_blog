@@ -38,7 +38,7 @@ class TestActivity : AppCompatActivity() {
 
 一、 **Activity 的声明**
 一个 Activity 的最简单的声明如下：
-```
+```xml
 <activity
     android:name=".component.demo.TestActivity"
     android:exported="false" />
@@ -46,7 +46,7 @@ class TestActivity : AppCompatActivity() {
 其中 name指定 Activity 的完整类名，exported指定 Activity 是否可以被其他应用启动。
 
 稍微复杂一些的Activity 的声明如下：
-```
+```xml
 <activity
     android:name=".component.demo.TestActivity"
     android:label="@string/test_activity_label"
@@ -94,8 +94,8 @@ class TestActivity : AppCompatActivity() {
 ```
 
 二、 **AndroidManifest.xml属性详解**
-完整的介绍可以查看：[官网对`<activity>`的介绍](https://developer.android.com/guide/topics/manifest/activity-element?hl=zh-cn#reparent)
-下面是可以被设置的各种属性：
+
+完整的介绍可以查看：[官网对`<activity>`的介绍](https://developer.android.com/guide/topics/manifest/activity-element?hl=zh-cn#reparent)。下面是可以被设置的各种属性：
 ```
 1. 基本属性
 android:name：指定 Activity 的完整类名（如 .component.demo.TestActivity）。
@@ -156,7 +156,10 @@ android:multiprocess：是否允许多进程（true 或 false）。
 `<meta-data>`：附加的键值对信息，用于传递额外的配置。
 ```
 三、**android:configChanges 属性的含义及常见值选择**
-    `android:configChanges` 用于指定哪些配置变化不会导致 Activity 被重新创建。当设备的某些配置发生变化（如屏幕方向、语言、屏幕大小等）时，默认情况下，系统会销毁当前 Activity 并重新创建它。通过设置 android:configChanges，可以告诉系统在指定的配置变化发生时，不重新创建 Activity，而是调用 onConfigurationChanged() 方法。之所以这里强调出来是因为它比较复杂但是又常常使用。
+
+`android:configChanges` 用于指定哪些配置变化不会导致 Activity 被重新创建。
+当设备的某些配置发生变化（如屏幕方向、语言、屏幕大小等）时，默认情况下，系统会销毁当前 Activity 并重新创建它。
+通过设置 android:configChanges，可以告诉系统在指定的配置变化发生时，不重新创建 Activity，而是调用 onConfigurationChanged() 方法。之所以这里强调出来是因为它比较复杂但是又常常使用。
     
 以下是 android:configChanges 的常见值及其具体含义：
 | 值 | 含义 | 
@@ -176,7 +179,7 @@ android:multiprocess：是否允许多进程（true 或 false）。
 | navigation | 导航类型变化（如轨迹球或方向键）。 | 
 | touchscreen | 触摸屏类型变化。 | 
 
-我一般喜欢：
+我一般喜欢使用：
 `android:configChanges="orientation|keyboardHidden|screenSize|mcc|mnc|locale|touchscreen|keyboard|navigation|fontScale"`
 
 ## Activity 的五种启动模式与taskAffinity 属性
@@ -184,34 +187,53 @@ android:multiprocess：是否允许多进程（true 或 false）。
 一、五种启动模式
 
 在 Android 开发中，Activity 的启动模式决定了它在任务栈中的行为。
+
 **任务栈**：（Task Stack）是 Android 系统用来管理 Activity 的一种机制，它以栈的形式存储 Activity 的实例。当用户启动一个 Activity 时，它会被推入栈顶；当用户按下返回键时，栈顶的 Activity 会被弹出。任务栈确保了用户的操作符合“后进先出”（LIFO）的逻辑。
 
 1. standard（默认模式）
+
 **行为**：每次启动一个新的 Activity 时，都会创建一个新的实例，并将其推入任务栈的顶部。
+
 **适用场景**：适用于大多数情况，尤其是每个 Activity 的实例都需要独立运行时。
+
 `android:launchMode="standard"`
+
 2. singleTop(栈顶复用模式)
+
 行为：如果 Activity 已经位于任务栈的顶部，则不会创建新的实例，而是直接调用 onNewIntent() 方法。如果 Activity 不在栈顶，则创建新的实例。
+
 适用场景：适用于需要避免重复创建 Activity 的情况，但仍然允许在任务栈中存在多个实例。
+
 例如，通知栏点击进入聊天界面时，聊天界面应该显示现有的聊天内容，而不是启动新的实例。
+
 `android:launchMode="singleTop"`
+
 3. singleTask（栈内复用模式）
+
 **行为**：如果 Activity 已经存在于任务栈中，则不会创建新的实例，而是直接调用 onNewIntent() 方法，**并将任务栈中该 Activity 之上的所有 Activity 都销毁**。
-**适用场景**：适用于需要确保 Activity 在任务栈中只有一个实例的情况，通常用于“主页面”或“入口页面”。
-例如，主界面或设置界面
+
+**适用场景**：适用于需要确保 Activity 在任务栈中只有一个实例的情况，通常用于“主页面”或“入口页面”。 例如，主界面或设置界面
+
 `android:launchMode="singleTask"`
+
 4. singleInstance（单例模式 ）
+
 **行为**：以singleInstance模式启动的Activity具有全局唯一性，即整个系统中只会存在一个这样的实例。会**独自占用一个任务**，被他开启的任何activity都会运行在其他任务中。被singleInstance模式的Activity开启的其他activity，能够开启一个新任务，但不一定开启新的任务，也可能在已有的一个任务中开启。
+
 **适用场景**：适用于需要完全独立运行的 Activity，例如系统级别的设置页面。
+
 `android:launchMode="singleInstance"`
-例如，系统设置的某些专用界面或特殊的帮助界面
 
 以前是四种启动模式。不过，在 Android 12 中，新增了一种启动模式[singleInstancePerTask](https://developer.android.com/guide/topics/manifest/activity-element?hl=zh-cn#reparent)，如今Android已经有了五种启动模式
 
 5. singleInstancePerTask（单例任务模式）
+
 **行为**：singleInstancePerTask 允许一个 Activity 作为任务栈的根 Activity 来运行，并且它只会在这个任务栈中有一个实例。不过，与 singleTask 不同的是，singleInstancePerTask 可以在不同的任务栈中创建多个实例。如果启动该 Activity 时设置了 FLAG_ACTIVITY_MULTIPLE_TASK 或 FLAG_ACTIVITY_NEW_DOCUMENT 标志，那么每次启动时都会创建新的任务栈。
+
 **总结**：singleInstance 确保整个系统中只有一个实例，并且该 Activity 独占一个任务栈。singleInstancePerTask 则允许多个任务栈中存在多个实例，但每个任务栈中只能有一个该 Activity 的实例。
+
 `android:launchMode="singleInstancePerTask"`
+
 其更多介绍可以参考：https://blog.csdn.net/u011897062/article/details/142921132
 
 这五种启动模式可以通过设置 launchMode 属性来实现，也可以通过在 Intent 中添加相应的标志来实现类似的效果。
@@ -244,15 +266,16 @@ intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 startActivity(intent);
 ```
 看到这里的addFlags 了吗？在 Android 开发中，可以通过在 Intent 中添加标志（Flags）来修改 Activity 的默认启动行为。具体可以添加的 Flag 实在是太多了，我这里只介绍五种启动模式对应的：
-1.standard 模式：无需特定标识
-2.singleTop 模式：FLAG_ACTIVITY_SINGLE_TOP
-3.singleTask 模式：Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP
-4.singleInstance 模式：Intent.FLAG_ACTIVITY_NEW_TASK，并且需要确保 Activity 的 taskAffinity 设置为空。
-5.singleInstancePerTask模式：FLAG_ACTIVITY_MULTIPLE_TASK ｜ FLAG_ACTIVITY_NEW_TASK
+1. standard 模式：无需特定标识
+2. singleTop 模式：FLAG_ACTIVITY_SINGLE_TOP
+3. singleTask 模式：Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP
+4. singleInstance 模式：Intent.FLAG_ACTIVITY_NEW_TASK，并且需要确保 Activity 的 taskAffinity 设置为空。
+5. singleInstancePerTask模式：FLAG_ACTIVITY_MULTIPLE_TASK ｜ FLAG_ACTIVITY_NEW_TASK
 
 ### 后台启动Activity的限制
 
 在 Android 10 或更高版本上启动 activity有了诸多限制
+
 1. 在Activity上下文之外启动Activity
 
 报错：`Calling startActivity() from outside of an Activity context requires the FLAG_ACTIVITY_NEW_TASK flag`
@@ -277,34 +300,36 @@ PendingIntent 是一种“未来的 Intent”，它允许应用在稍后执行�
 
 ### 生命周期回调方法简介
 生命周期回调方法： onCreate()->onStart()->onResume()->onPause()->onStop()->onDestory()这六个生命周期是**两两对应**的。第七个生命周期onRestart()是单独的。
-1. onCreate( )：进入"已创建"状态，初始化 UI 和数据
-2. onstart( ) ：进入"已启动"状态，Activity 对用户可见
-3. onResume( )：进入“已恢复”状态，Activity 开始与用户交互
-4. onpause( ) ：进入"已暂停"状态，Activity 暂停，保存数据
-5. onStop( )：进入"已停止"状态，Activity 完全不可见，释放资源，位于后台
-6. onDestroy( )：进入"已销毁"状态，Activity 销毁，释放资源。
-7. onRestart( ) ：Activity 从后台重新启动
+1. `onCreate( )`：进入"已创建"状态，初始化 UI 和数据
+2. `onstart( )` ：进入"已启动"状态，Activity 对用户可见
+3. `onResume( )`：进入“已恢复”状态，Activity 开始与用户交互
+4. `onpause( )` ：进入"已暂停"状态，Activity 暂停，保存数据
+5. `onStop( )`：进入"已停止"状态，Activity 完全不可见，释放资源，位于后台
+6. `onDestroy( )`：进入"已销毁"状态，Activity 销毁，释放资源。
+7. `onRestart( )` ：Activity 从后台重新启动
 ![QQ_1744774988819](assets/QQ_1744774988819.png)
 
 几种特殊情况：
+
 1. 切桌面：OnRestart()，也会有 onSaveInstanceState
 2. 另一个活动切回来：OnRestart()，也会有 onSaveInstanceState
 3. 切换横竖屏：先销毁后重建立，额外会在onPause之后调用onSaveInstanceState()保存当前状态，在onResume前再调用onRestoreInstanceState()来恢复之前的状态。
 
 切换横竖屏时会重新走一遍生命周期：onPause()->onSaveInstanceState()-> onStop()->onDestroy()->onCreate()->onStart()->onRestoreInstanceState->onResume()
+
 其中onSaveInstanceState和onRestoreInstanceState是两个重要的回调函数。当Activity异常退出时，系统调用onSaveInstanceState()来保存Activity当前状态。同样的，当该Activity重新创建时，会调用onRestoreInstanceState()来恢复之前的状态。
 
 另外的，在我们的 AppCompatActivity 中还有很多其他与生命周期有关的方法，在使用第三方库或者自己封装一些内容的时候可能会用到：
-1. onPostResume：在 onResume() 方法之后调用，用于在 Activity 恢复后执行一些额外的操作。
-2. onUserInteraction：在用户与 Activity 交互时调用，用于处理用户交互事件。
-3. onUserLeaveHint：在用户按下 Home 键或切换到其他应用时调用，用于保存用户离开时的状态。
-4. onConfigurationChanged：在设备配置发生变化时调用，用于处理屏幕旋转等配置变化。
-5. onSaveInstanceState：在 Activity 被销毁前调用，用于保存 Activity 的状态。
-6. onRestoreInstanceState：在 Activity 被重新创建时调用，用于恢复 Activity 的状态。
-7. onAttachedToWindow：在 Activity 被附加到窗口时调用，用于初始化与窗口相关的资源。
-8. onDetachedFromWindow：在 Activity 从窗口中分离时调用，用于释放与窗口相关的资源。
-9. onContentChanged：在 setContentView() 或 addContentView() 方法执行完毕时调用，用于处理布局变化。
-10. onPostCreate：在 onCreate() 和 onStart() 方法之后调用，用于初始化那些依赖于视图已创建的组件。
+1. `onPostResume`：在 onResume() 方法之后调用，用于在 Activity 恢复后执行一些额外的操作。
+2. `onUserInteraction`：在用户与 Activity 交互时调用，用于处理用户交互事件。
+3. `onUserLeaveHint`：在用户按下 Home 键或切换到其他应用时调用，用于保存用户离开时的状态。
+4. `onConfigurationChanged`：在设备配置发生变化时调用，用于处理屏幕旋转等配置变化。
+5. `onSaveInstanceState`：在 Activity 被销毁前调用，用于保存 Activity 的状态。
+6. `onRestoreInstanceState`：在 Activity 被重新创建时调用，用于恢复 Activity 的状态。
+7. `onAttachedToWindow`：在 Activity 被附加到窗口时调用，用于初始化与窗口相关的资源。
+8. `onDetachedFromWindow`：在 Activity 从窗口中分离时调用，用于释放与窗口相关的资源。
+9. `onContentChanged`：在 setContentView() 或 addContentView() 方法执行完毕时调用，用于处理布局变化。
+10. `onPostCreate`：在 onCreate() 和 onStart() 方法之后调用，用于初始化那些依赖于视图已创建的组件。
 
 例如：XCrash需要在attachBaseContext 中的初始化、多层 initView 的封装要在onPostCreate 中等等。
 

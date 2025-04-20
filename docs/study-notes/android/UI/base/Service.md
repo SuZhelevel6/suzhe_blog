@@ -23,7 +23,7 @@ class MyService : Service() {
 
 ### 在 AndroidManifest.xml 中声明 Service
 
-```
+```xml
 <service
     android:name=".MyService"
     android:enabled="true"
@@ -31,7 +31,7 @@ class MyService : Service() {
 ```
 所有可以被声明的属性如下：
 
-```
+```xml
 <service android:description="string resource"
          android:directBootAware=["true" | "false"]
          android:enabled=["true" | "false"]
@@ -53,18 +53,18 @@ class MyService : Service() {
 </service>
 ```
 属性具体解释如下：
-1. android:description：Service 的描述信息，用于向用户解释 Service 的用途。
-2. android:directBootAware：指示 Service 是否支持设备加密的直接启动模式。
-3. android:enabled：指示 Service 是否启用。
-4. android:exported：指示 Service 是否可以被其他应用访问。
-5. android:foregroundServiceType：指定 Service 的类型，用于请求前台服务权限。
-6. android:icon：Service 的图标资源。
-7. android:isolatedProcess：指示 Service 是否在独立的进程中运行。
-8. android:label：Service 的标签，用于显示 Service 的名称。
-9. android:name：Service 的完整类名。
-10. android:permission：指定启动或绑定到 Service 所需的权限。
-11. android:process：指定 Service 运行的进程名称。
-12. android:stopWithTask：指示 Service 是否在任务被移除时停止。
+1. `android:description`：Service 的描述信息，用于向用户解释 Service 的用途。
+2. `android:directBootAware`：指示 Service 是否支持设备加密的直接启动模式。
+3. `android:enabled`：指示 Service 是否启用。
+4. `android:exported`：指示 Service 是否可以被其他应用访问。
+5. `android:foregroundServiceType`：指定 Service 的类型，用于请求前台服务权限。
+6. `android:icon`：Service 的图标资源。
+7. `android:isolatedProcess`：指示 Service 是否在独立的进程中运行。
+8. `android:label`：Service 的标签，用于显示 Service 的名称。
+9. `android:name`：Service 的完整类名。
+10. `android:permission`：指定启动或绑定到 Service 所需的权限。
+11. `android:process`：指定 Service 运行的进程名称。
+12. `android:stopWithTask`：指示 Service 是否在任务被移除时停止。
 
 具体的解释以及默认值可以参考[官网](https://developer.android.com/guide/topics/manifest/service-element?hl=zh-cn)
 
@@ -166,13 +166,13 @@ class MyService : Service() {
 Service 的生命周期与其启动还是绑定有关：通过startService启动 以及 通过bindService绑定，他们的流程分别如下：
 
 **通过startService启动**
-1. 生命周期顺序：onCreate->onStartCommand->onDestroy
+1. 生命周期顺序：`onCreate->onStartCommand->onDestroy`
 2. 直到有其他组件调用stopService()或者自己调用stopSelf()才会结束
 3. startService时，如果该服务未创建，则会触发 onCreate 和 onStartCommand，以后在服务运行过程中，每次startService都只会触发onStartCommand；
 4. 不论startService多少次，只要调用一次stopService，该服务就会停止；
 
 **通过bindService绑定**
-1. 生命周期顺序：onCreate->onBind->onUnBind->onDestroy
+1. 生命周期顺序：`onCreate->onBind->onUnBind->onDestroy`
 2. 不论bindService被调用几次，Service的onCreate和onBind方法只会执行一次
 3. 当Activity调用unBindService或者Activity挂掉，则服务会停止；
 
