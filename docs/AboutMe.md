@@ -68,17 +68,40 @@ tags:
 4. Bundle：[点击跳转到相关博客](./study-notes/android/UI/base/Bundle.md)
 
 Jetpack组件:
-1. Lifecycle：[点击跳转到相关博客](./study-notes/jetpack/Lifecycle.md)  
-2. ViewModel：[点击跳转到相关博客](./study-notes/jetpack/ViewModel.md)  
-3. LiveData：[点击跳转到相关博客](./study-notes/jetpack/LiveData.md)  
-4. Room：SQLite 的 ORM 抽象层，简化数据库操作。  
-5. Data Binding：将布局中的 UI 组件与数据源绑定，简化数据更新。  
-6. WorkManager：管理后台任务，确保任务在合适的时机执行。
-7. ViewPager2：横向/纵向滑动容器视图
-8. RecyclerView：高效显示大量数据的列表或网格。
-9. ConstraintLayout：灵活的布局工具，支持复杂的 UI 设计。
-10. Navigation：提供应用内导航的框架，支持复杂导航逻辑。
-11. Paging：分页加载大量数据，优化列表和网格的加载性能。
+![jetpack 组件图](assets/17452835727991.jpg)
+
+Architecture 架构：
+* Data Binding → 数据绑定，可使用 声明式 将布局中的界面组件绑定到应用中的数据源；[点击跳转到相关博客](./study-notes/jetpack/DataBinding.md)
+* Lifecycles → 生命周期感知，可感知和响应Activity和Fragment的生命周期状态的变化；[点击跳转到相关博客](./study-notes/jetpack/Lifecycle.md)
+* LiveData → 可观察的数据持有者类，与常规Observable不同，它是具有生命周期感知的；[点击跳转到相关博客](./study-notes/jetpack/LiveData.md)
+* Navigation → 应用内导航，Fragment的管理框架，或者说路由；
+* Paging → 列表分页，可以轻松实现分页预加载以达到无限滑动的效果；
+* Room → 轻量级ORM数据库，本质上是一个SQLite抽象层，注解 + 编译时自动生成功能类；
+* ViewModel → 数据存储组件，具备生命周期感知能力；[点击跳转到相关博客](./study-notes/jetpack/ViewModel.md)
+* WorkManager → 托管延时任务，即使APP被杀、或设备重启，只要TaskRecord还存在最近访问列表中，都会执行；
+
+Foundation 基础：
+* AppCompat → 帮助较低版本的Android系统进行兼容；
+* Android KTX → 基于Kotlin特性为Android、Jetpack提供一些简易易用的扩展；
+* Multidex → 为具有多个Dex文件应用提供支持；
+* Test → 用于单元和运行时界面测试的 Android 测试框架；
+* Benchmark(性能检测)、Security(安全)等；
+
+UI 界面：
+* Animation & Transition → 内置动画及自定义动画效果；
+* Emoji → 即便用户没有更新Android系统也可以获取最新的表情符号；
+* Auto(车)、TV、WearOS；
+* Fragment → 组件化界面的基本单位；
+* Layout → 用XML中声明UI元素或者在代码中实例化UI元素；
+* Paletee → 从调色板中提取出有用的信息；
+
+Behavior 行为：
+* Download Manager → 处理长时间运行的HTTP下载、超时重连的系统服务；
+* Media & Playback → 用于媒体播放和路由(包括 Google Cast)的向后兼容 API；
+* Permissions → 用于检查和请求应用权限的兼容性API；
+* Notifications → 提供向后兼容的通知API，支持Wear和Auto；
+* Sharing → 提供适合应用操作栏的共享操作；
+* Slices → 一种UI模板，创建可在营养外部显示应用数据的灵活界面元素；
 
 一些 UI 实现
 1. 常见界面布局Layout：[点击跳转到相关博客](./study-notes/android/UI/常见界面布局Layout.md)
