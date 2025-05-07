@@ -102,17 +102,12 @@ export default defineConfig({
         text: '安卓应用开发知识',
         items: [
           {
-            text: '四大组件',
+            text: '基础组件',
             items: [
               { text: 'Activity', link: '/study-notes/android/UI/base/Activity.md' },
               { text: 'Service', link: '/study-notes/android/UI/base/Service.md' },
               { text: 'Broadcast', link: '/study-notes/android/UI/base/Broadcast.md' },
               { text: 'ContentProvider', link: '/study-notes/android/UI/base/ContentProvider.md' },
-            ],
-          },
-          {
-            text: '其他重要组件',
-            items: [
               { text: 'Context', link: '/study-notes/android/UI/base/Context.md' },
               { text: 'Intent', link: '/study-notes/android/UI/base/Intent.md' },
               { text: 'Fragment', link: '/study-notes/android/UI/base/Fragment.md' },
@@ -120,11 +115,12 @@ export default defineConfig({
             ],
           },
           {
-            text: 'Jetpack组件',
+            text: '重要组件',
             items: [
               { text: 'Lifecycle', link: '/study-notes/jetpack/Lifecycle.md' },
               { text: 'ViewModel', link: '/study-notes/jetpack/ViewModel.md' },
               { text: 'LiveData', link: '/study-notes/jetpack/LiveData.md' },
+              { text: 'RecyclerView', link: './study-notes/jetpack/RecyclerView.md' },
               { text: 'Room(未完成)', link: './' },
               { text: 'Data Binding(未完成)', link: './' },
               { text: 'WorkManager(未完成)', link: './' },
