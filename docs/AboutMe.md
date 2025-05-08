@@ -72,7 +72,8 @@ Architecture 架构：
 * Data Binding → 数据绑定，可使用 声明式 将布局中的界面组件绑定到应用中的数据源；[点击跳转到相关博客](./study-notes/jetpack/DataBinding.md)
 * Lifecycles → 生命周期感知，可感知和响应Activity和Fragment的生命周期状态的变化；[点击跳转到相关博客](./study-notes/jetpack/Lifecycle.md)
 * LiveData → 可观察的数据持有者类，与常规Observable不同，它是具有生命周期感知的；[点击跳转到相关博客](./study-notes/jetpack/LiveData.md)
-* RecyclerView → 滚动列表组件；[点击跳转到相关博客](./study-notes/jetpack/RecyclerView.md)
+* RecyclerView → 用于显示列表形式 (list) 或者网格形式 (grid) 的数据，比如文本或者照片；[点击跳转到相关博客](./study-notes/jetpack/RecyclerView.md)
+* ViewPager → 可以可滑动的格式显示视图或 Fragment；[点击跳转到相关博客](./study-notes/jetpack/ViewPager.md)
 * Navigation → 应用内导航，Fragment的管理框架，或者说路由；
 * Paging → 列表分页，可以轻松实现分页预加载以达到无限滑动的效果；
 * Room → 轻量级ORM数据库，本质上是一个SQLite抽象层，注解 + 编译时自动生成功能类；

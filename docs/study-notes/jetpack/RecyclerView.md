@@ -13,6 +13,10 @@ RecyclerView 的实现主要依赖于以下三个核心组件：
 * ViewHolder：ViewHolder 是对 RecyclerView 中每个条目视图的缓存，它避免了每次滑动时都要重新查找视图的性能问题。
 * LayoutManager：LayoutManager 决定了 RecyclerView 中条目的排列方式，它支持多种布局类型，如 LinearLayoutManager（线性布局）、GridLayoutManager（网格布局）、StaggeredGridLayoutManager（瀑布流布局）等。
 
+除此之外还有：
+* ItemDecoration - 负责绘制Item附近的分割线
+* ItemAnimator - 为Item的一般操作添加动画效果，如，增删条目等
+
 其使用方式分为四步走：
 1. 创建子母布局
 2. 创建Adapter
@@ -412,7 +416,11 @@ trailingLoadState 有多种状态：
 * LoadState.Error(e): 出现错误，此时 rv 底端会显示出现错误，点击重试的英文
 
 
+拉加载更多的功能是如何做的？首先给recyclerView添加滑动监听事件。那么我们知道，上拉加载时，需要具备两个条件。第一个是监听滑动到最后一个item，第二个是滑动到最后一个并且是向上滑动。然后开始调用更新上拉加载更多数据的方法。
+
 #### 拖动和滑动
+
+更多拖拽原理可以参考：https://juejin.cn/post/7348707728921853971
 
 拖动改变位置：
 ![](assets/17462552341941.jpg)
@@ -538,3 +546,209 @@ val swipeListener: OnItemSwipeListener = object : OnItemSwipeListener {
     }
 }
 ```
+
+
+## 其他注意事项
+
+### 网格布局和瀑布流布局的区别
+
+我们知道RecyclerView提供了GridLayoutManager(网格布局)和StaggeredGridLayoutManager(瀑布流布局)，可以使用如下代码设置网格布局：
+
+```kotlin
+val layoutManager = GridLayoutManager(this, 2)
+layoutManager.orientation = LinearLayoutManager.VERTICAL
+recyclerView.layoutManager = layoutManager
+```
+
+`GridLayoutManager (Context context, int spanCount)`
+* Context: 上下文
+* spanCount int: 网格的列数
+
+![](assets/17465903476350.jpg)
+
+
+瀑布流布局也是同理：
+```kotlin
+val layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+recyclerView.layoutManager = layoutManager
+```
+StaggeredGridLayoutManager传入2个参数,第一个是布局的列数,第二个是布局的排列方向
+![](assets/17465902692879.jpg)
+
+瀑布流的宽度是 根据布局的列数来自动适配的,而不是固定值 。(GridLayoutManager也是 根据布局的列数来自动适配的）因此只需要设置有几列就可以了。
+
+**二者的区别**：
+从两张图能很显著的看出二者的区别：
+* 网格布局同一行的子项的高度是一样的，比较规整，像网格一样。但是会将内容较少的子项撑起来，有过多空白部分。
+* 瀑布流布局同一行的高度不固定，会按照内容来决定高度，因此同一行可能无法对齐，但是不会有过多空白
+
+
+### RecyclerView 滚动到指定位置
+
+在 Android 开发中，RecyclerView 提供了多种方法来滚动到指定位置：
+1. **`scrollToPosition()`**：简单直接，适用于快速滚动到指定位置。
+2. **`smoothScrollToPosition()`**：平滑滚动，提升用户体验。
+3. **`scrollToPositionWithOffset()`**：精确控制，适用于需要偏移量的场景。
+4. **自定义 `SmoothScroller`**：灵活控制滚动行为，适用于复杂对齐需求。
+5. **`OnFlingListener`**：在用户快速滑动后进行对齐。
+
+下面详细解释每个用法
+
+1. 使用 `RecyclerView.scrollToPosition()`
+- **功能**：直接将指定位置的子视图滚动到屏幕的最顶端，但不会触发滚动动画。
+- **代码示例**：
+  ```kotlin
+  recyclerView.scrollToPosition(position)
+  ```
+
+2. 使用 `RecyclerView.smoothScrollToPosition()`
+- **功能**：以平滑滚动的方式将指定位置的子视图滚动到屏幕中，为用户提供流畅的滚动动画。
+- **代码示例**：
+  ```kotlin
+  recyclerView.smoothScrollToPosition(position)
+  ```
+
+3. 使用 `RecyclerView.LayoutManager.scrollToPositionWithOffset()`
+- **功能**：滚动到指定位置，并根据给定的偏移量来确定子视图在屏幕中的位置。可以实现对子视图的显示位置进行精细控制，例如对齐到屏幕顶部、中间或底部。
+- **代码示例**：
+  ```kotlin
+  val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+  layoutManager.scrollToPositionWithOffset(position, offset)
+  ```
+
+4. 使用自定义 `SmoothScroller`
+- **功能**：通过创建自定义的 `SmoothScroller` 子类来实现复杂的滚动行为，例如对齐到屏幕中心。
+- **适用场景**：需要自定义滚动行为，例如实现对齐到屏幕中心、顶部或底部。
+- **代码示例 - 滚动到屏幕中心**：
+  ```kotlin
+  class CenterAlignScroller(context: Context) : LinearSmoothScroller(context) {
+      override fun getVerticalSnapPreference(): Int {
+          return LinearSmoothScroller.SNAP_TO_ANY
+      }
+
+      override fun calculateDtToFit(
+          viewStart: Int,
+          viewEnd: Int,
+          boxStart: Int,
+          boxEnd: Int,
+          snapPreference: Int
+      ): Int {
+          val boxCenter = (boxStart + boxEnd) / 2
+          val viewCenter = (viewStart + viewEnd) / 2
+          return boxCenter - viewCenter
+      }
+  }
+
+  val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+  val scroller = CenterAlignScroller(context)
+  scroller.targetPosition = position
+  layoutManager.startSmoothScroll(scroller)
+  ```
+  
+LinearSmoothScroller.SNAP_TO_ANY 是对齐方式，
+* SNAP_TO_START：对齐RecyclerView起始位置
+* SNAP_TO_END：对齐RecyclerView结束位置
+* SNAP_TO_ANY：对齐RecyclerView任意位置，确保itemView在RecyclerView内
+
+5. 使用 `RecyclerView.OnFlingListener`
+- **功能**：在用户快速滑动后，使 RecyclerView 滚动到指定位置并进行对齐。
+- **适用场景**：需要在用户快速滑动结束后，自动滚动到指定位置。
+- **代码示例**：
+  ```kotlin
+  class AlignFlingListener(
+      private val recyclerView: RecyclerView,
+      private val targetPosition: Int
+  ) : RecyclerView.OnFlingListener() {
+
+      override fun onFling(velocityX: Int, velocityY: Int): Boolean {
+          val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+          val scroller = CenterAlignScroller(recyclerView.context)
+          scroller.targetPosition = targetPosition
+          layoutManager.startSmoothScroll(scroller)
+          return true
+      }
+  }
+
+  recyclerView.setOnFlingListener(AlignFlingListener(recyclerView, position))
+  ```
+
+当然还可以自定义滚动方式，可以参考：https://juejin.cn/post/7393533296241786918
+
+### 子项点击事件的处理位置
+
+关于rv设置item条目点击事件有两种方式：1.在onCreateViewHolder中写；2.在onBindViewHolder中写；3.在ViewHolder中写。
+
+1. 在onBindViewHolder 中写
+```kotlin {17-19}
+class AnimationAdapter() : BaseQuickAdapter<String, QuickViewHolder>() {
+
+    override fun onCreateViewHolder(
+        context: Context,
+        parent: ViewGroup,
+        viewType: Int
+    ): QuickViewHolder {
+        return QuickViewHolder(R.layout.item_text, parent)
+    }
+
+    override fun onBindViewHolder(
+        holder: QuickViewHolder,
+        position: Int,
+        item: String?
+    ) {
+        holder.setText(R.id.header, item)
+        holder.getView<TextView>(R.id.header).setOnClickListener {
+            PopTip.show("点击了 $item")
+        }
+    }
+}
+```
+2. 在onCreateViewHolder 中写
+```kotlin {8-11}
+class AnimationAdapter() : BaseQuickAdapter<String, QuickViewHolder>() {
+
+    override fun onCreateViewHolder(
+        context: Context,
+        parent: ViewGroup,
+        viewType: Int
+    ): QuickViewHolder {
+        val holder = QuickViewHolder(R.layout.item_text, parent)
+        holder.getView<TextView>(R.id.header).setOnClickListener {
+            PopTip.show("点击了 ${holder.layoutPosition}")
+        }
+        return holder
+    }
+
+    override fun onBindViewHolder(
+        holder: QuickViewHolder,
+        position: Int,
+        item: String?
+    ) {
+        holder.setText(R.id.header, item)
+    }
+}
+```
+
+onBindViewHolder() 中频繁创建新的 onClickListener 实例没有必要，建议实际开发中应该在 onCreateViewHolder() 中每次为新建的 View 设置一次就行。
+
+### RecyclerView滑动卡顿原因
+
+1. 嵌套布局滑动冲突
+导致嵌套滑动难处理的关键原因在于当子控件消费了事件, 那么父控件就不会再有机会处理这个事件了, 所以一旦内部的滑动控件消费了滑动操作, 外部的滑动控件就再也没机会响应这个滑动操作了
+
+2. 嵌套布局层次太深，比如六七层等
+测量，绘制布局可能会导致滑动卡顿
+
+3. 比如用RecyclerView实现画廊，加载比较大的图片，如果快速滑动，则可能会出现卡顿，主要是加载图片需要时间
+4. 在onCreateViewHolder或者在onBindViewHolder中做了耗时的操作导致卡顿。
+
+### 如何解决嵌套布局滑动冲突
+
+
+
+### 其他值得注意的
+
+Android RecyclerView 长列表焦点问题优化：https://juejin.cn/post/7322655035699200052
+
+RecyclerView系列一：TV焦点控制：https://juejin.cn/post/7407627016675524643
+
+RecyclerView问题汇总：https://juejin.cn/post/6844903837724213256
