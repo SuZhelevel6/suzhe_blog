@@ -120,7 +120,7 @@ export default defineConfig({
               { text: 'Lifecycle', link: '/study-notes/jetpack/Lifecycle.md' },
               { text: 'ViewModel', link: '/study-notes/jetpack/ViewModel.md' },
               { text: 'LiveData', link: '/study-notes/jetpack/LiveData.md' },
-              { text: 'RecyclerView', link: './study-notes/jetpack/RecyclerView.md' },
+              { text: 'RecyclerView', link: '/study-notes/jetpack/RecyclerView.md' },
               { text: 'Room(未完成)', link: './' },
               { text: 'Data Binding(未完成)', link: './' },
               { text: 'WorkManager(未完成)', link: './' },

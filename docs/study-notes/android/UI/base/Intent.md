@@ -9,10 +9,11 @@ Intent，中文可翻译为“意图”，可用于Android同个应用程序中�
 ## Intent的显式和隐式
 
 **显式Intent**
-显式 Intent 是一种明确指定目标组件的意图。它通过直接指定目标组件的类名或组件的唯一标识符（如包名和类名）来启动特定的组件。显式 Intent 通常用于应用内部的组件通信，例如从一个 Activity 跳转到另一个 Activity，或者启动一个 Service。
+显式 Intent： 直接指定目标 Activity 的类名，​​适用于同一应用内的跳转​​。
+显式 Intent 通常用于应用内部的组件通信，例如从一个 Activity 跳转到另一个 Activity，或者启动一个 Service。
 
 示例：
-```
+```kotin
 Intent intent = new Intent(MainActivity.this, second_activity.class);
 startActivity(intent);
 ```
@@ -20,11 +21,24 @@ startActivity(intent);
 **隐式 Intent**
 隐式 Intent 是一种通过描述要执行的动作和数据类型来间接指定目标组件的意图。它不直接指定目标组件，而是通过声明要执行的操作（如 ACTION_VIEW、ACTION_SEND）和数据类型（如 image/*、text/plain），让系统根据 Intent Filter 匹配合适的组件来处理请求。隐式 Intent 通常用于跨应用的通信，例如打开浏览器、发送短信等。
 
+示例：
+```kotlin
+// 隐式启动一个浏览器打开网页（需要匹配系统浏览器的 Intent Filter）
+Intent implicitIntent = new Intent();
+implicitIntent.setAction(Intent.ACTION_VIEW);          // 设置 Action
+implicitIntent.setData(Uri.parse("https://www.google.com"));  // 设置 Data（URL）
+
+// 检查是否有 Activity 能处理此 Intent（避免崩溃）
+if (implicitIntent.resolveActivity(getPackageManager()) != null) {
+    startActivity(implicitIntent);
+}
+```
+
 * 如果有多个应用响应隐式 intent，则用户可以选择要使用的应用，并将其设置为该操作的默认选项。
 * 如果多个应用可以响应 intent，且用户可能希望每次使用不同的应用，则应采用显式方式显示选择器对话框。需要使用 createChooser() 创建 Intent 并将其传递给 startActivity()
 
-示例：
-```
+Activity 需要配置 action 和 category：
+```xml
        <activity
            android:name=".second_activity"
            android:exported="true">

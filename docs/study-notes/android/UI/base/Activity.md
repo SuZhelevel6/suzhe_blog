@@ -307,11 +307,12 @@ PendingIntent 是一种“未来的 Intent”，它允许应用在稍后执行�
 5. `onStop( )`：进入"已停止"状态，Activity 完全不可见，释放资源，位于后台
 6. `onDestroy( )`：进入"已销毁"状态，Activity 销毁，释放资源。
 7. `onRestart( )` ：Activity 从后台重新启动
+
 ![QQ_1744774988819](assets/QQ_1744774988819.png)
 
 几种特殊情况：
 
-1. 切桌面：OnRestart()，也会有 onSaveInstanceState
+1. 切桌面：OnRestart()，也会有 onSaveInstanceState，切到后台的时候，不会走onDestroy方法，会先后走onPause和onStop方法，最后切回前台时通过OnRestart()方法回来。具体业务中可能会在写轮播图的时候，会在onStop方法里写上暂停轮播图无限轮播，在onStart方法中会开启自动无限轮播，或者写视频播放器的时候，当app切换到后台，则需要停止视频播放
 2. 另一个活动切回来：OnRestart()，也会有 onSaveInstanceState
 3. 切换横竖屏：先销毁后重建立，额外会在onPause之后调用onSaveInstanceState()保存当前状态，在onResume前再调用onRestoreInstanceState()来恢复之前的状态。
 
