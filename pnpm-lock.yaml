@@ -17,6 +17,9 @@ importers:
       element-plus:
         specifier: ^2.7.2
         version: 2.8.3(vue@3.5.8(typescript@5.6.2))
+      oh-my-live2d:
+        specifier: ^0.19.3
+        version: 0.19.3
       vue:
         specifier: ^3.5.6
         version: 3.5.8(typescript@5.6.2)

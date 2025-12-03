@@ -151,15 +151,16 @@ const blogTheme = getThemeConfig({
   //   ],
   //   duration: 0
   // },
-  oml2d: {
-    mobileDisplay: true,
-    models: [
-      {
-        path: 'https://model.oml2d.com/haruto/haruto.model.json',
-        position: [0, 60],
-      }
-    ]
-  },
+  // oml2d 看板娘（已禁用，模型 CDN 访问不稳定）
+  // oml2d: {
+  //   mobileDisplay: true,
+  //   models: [
+  //     {
+  //       path: 'https://model.oml2d.com/haruto/haruto.model.json',
+  //       position: [0, 60],
+  //     }
+  //   ]
+  // },
 })
 
 export { blogTheme }

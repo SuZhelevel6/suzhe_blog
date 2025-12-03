@@ -1,6 +1,21 @@
 @import 'components';
 
+// 减淡首页背景遮罩
+:root {
+  // 将遮罩透明度从 1 降低，让背景图更清晰
+  --home-bg-opacity: 0.6;
+}
+
+.dark {
+  --home-bg-opacity: 0.4;
+}
+
 .VPHome {
+  // 覆盖主题默认的渐变遮罩，降低透明度
+  background: radial-gradient(ellipse,
+      rgba(var(--bg-gradient-home), var(--home-bg-opacity)) 0%,
+      rgba(var(--bg-gradient-home), 0) 700%) !important;
+
   // Restore background image visibility
   &::before {
     content: '';
@@ -61,4 +76,42 @@ body:has(.VPHome) {
   font-size: 16px;
   opacity: 0.8;
   animation: float 3s ease-in-out infinite;
+}
+
+// ==========================================
+// 主页文章卡片磨砂玻璃效果
+// ==========================================
+.blog-item {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.3s ease !important;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    border-color: rgba(102, 126, 234, 0.4) !important;
+  }
+}
+
+// 暗色模式文章卡片
+.dark .blog-item {
+  background: rgba(30, 30, 40, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+
+  &:hover {
+    background: rgba(40, 40, 50, 0.8) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+  }
+}
+
+// ==========================================
+// 相关文章隐藏时间组件
+// ==========================================
+.recommend .recommend-container li .des .suffix {
+  display: none;
 }
