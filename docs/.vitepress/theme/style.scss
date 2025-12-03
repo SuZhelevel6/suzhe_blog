@@ -1,28 +1,64 @@
-.VPHome {
-  // 定义遮罩样式
-  background: radial-gradient(ellipse,
-      rgba(var(--bg-gradient-home), 1) 0%,
-      rgba(var(--bg-gradient-home), 0) 150%);
+@import 'components';
 
-  // 自定义首页背景图
+.VPHome {
+  // Restore background image visibility
   &::before {
-    // 图片来源：https://zhuanlan.zhihu.com/p/54060187
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background-image: url(./assets/20231115860j8l.webp);
     background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -2;
+  }
+
+  // Remove any overlay to show original image color
+  &::after {
+    display: none;
+  }
+
+  // Make VitePress default backgrounds transparent on home page
+  .VPContent,
+  .VPHome,
+  .VPDoc {
+    background: transparent !important;
   }
 }
-// 自定义标题样式
-.header-banner h1 > span.name {
-  font-size: 48px; /* 增大字体 */
-  background: linear-gradient(135deg, rgb(77, 194, 255), rgb(189, 52, 254)); /* 左上到右下渐变 */
+
+// Force home page container backgrounds to be transparent
+.VPHome .VPContent {
+  background: transparent !important;
+}
+
+// Make the main content area transparent on home page
+body:has(.VPHome) {
+  .VPContent {
+    background: transparent !important;
+  }
+
+  // Also make the wrapper transparent
+  #VPContent {
+    background: transparent !important;
+  }
+}
+
+// Override or enhance header banner if it exists
+.header-banner h1>span.name {
+  font-size: 48px;
+  background: var(--vp-home-hero-name-background);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
+  animation: breathe 4s infinite ease-in-out;
 }
 
-.header-banner h1 > span.motto {
-  // color: rgb(106, 5, 201); /* 浅蓝色 */
-  font-size: 16px; /* 增大字体 */
+.header-banner h1>span.motto {
+  font-size: 16px;
+  opacity: 0.8;
+  animation: float 3s ease-in-out infinite;
 }
-

@@ -1,0 +1,209 @@
+@import 'design-system';
+
+/* 1. Hero Section */
+.VPHome {
+    .VPHero {
+        .name {
+            background: var(--vp-home-hero-name-background);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: breathe 4s infinite ease-in-out;
+        }
+
+        .text {
+            opacity: 0;
+            animation: float 1s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        .image-bg {
+            filter: blur(40px);
+            opacity: 0.6;
+            animation: pulse 4s infinite alternate;
+        }
+    }
+}
+
+/* 2. Article Cards (Assuming standard VP or Theme structure) */
+.vp-doc a {
+    text-decoration: none;
+}
+
+/* Targetting common card structures in themes */
+/* Exclude .recommend to use theme's original style */
+.VPFeature,
+.article-item,
+.vp-doc .custom-block {
+    @include glass-effect;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(77, 194, 255, 0.2);
+        border-color: rgba(77, 194, 255, 0.5);
+
+        .icon {
+            animation: float 2s ease-in-out infinite;
+        }
+    }
+
+    .title {
+        background: linear-gradient(90deg, var(--vp-c-text-1), var(--vp-c-text-2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .details {
+        color: var(--vp-c-text-2);
+    }
+}
+
+// Dark mode adjustments for cards
+.dark .VPFeature,
+.dark .article-item,
+.dark .vp-doc .custom-block {
+    background: rgba(30, 30, 30, 0.6);
+    border-color: rgba(255, 255, 255, 0.1);
+
+    &:hover {
+        background: rgba(40, 40, 40, 0.8);
+        border-color: var(--vp-c-brand-1);
+    }
+}
+
+/* Tags */
+.tag,
+.badge {
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    background: linear-gradient(135deg, rgba(77, 194, 255, 0.1), rgba(189, 52, 254, 0.1));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s;
+
+    &:hover {
+        background: linear-gradient(135deg, rgba(77, 194, 255, 0.2), rgba(189, 52, 254, 0.2));
+        transform: scale(1.05);
+    }
+}
+
+/* 3. Navbar */
+.VPNav {
+    .VPNavBar {
+        background-color: transparent !important;
+        @include glass-effect;
+        border-bottom: 1px solid var(--glass-border);
+
+        &.fill {
+            background-color: var(--glass-bg) !important;
+        }
+    }
+
+    .title {
+        animation: breathe 3s infinite;
+    }
+}
+
+/* 4. Sidebar */
+.VPSidebar {
+    @include glass-effect;
+    background-color: transparent !important;
+    border-right: 1px solid var(--glass-border);
+
+    .group {
+        .item {
+            &.active {
+                .text {
+                    color: var(--vp-c-brand-1);
+                    text-shadow: 0 0 10px var(--glow-color);
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 4px;
+                    height: 20px;
+                    background: var(--vp-c-brand-1);
+                    border-radius: 0 4px 4px 0;
+                    box-shadow: 0 0 10px var(--vp-c-brand-1);
+                }
+            }
+        }
+    }
+}
+
+/* 5. Code Blocks */
+.vp-doc div[class*='language-'] {
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: border-color 0.3s;
+
+    &:hover {
+        border-color: var(--vp-c-brand-1);
+        box-shadow: 0 0 15px rgba(77, 194, 255, 0.1);
+    }
+
+    .lang {
+        @include glass-effect;
+        border-radius: 0 0 0 8px;
+        padding: 2px 8px;
+        color: var(--vp-c-text-2);
+    }
+
+    button.copy {
+        border-radius: 4px;
+        background-color: rgba(128, 128, 128, 0.1); // Subtle background
+        border: 1px solid rgba(128, 128, 128, 0.2);
+        opacity: 0;
+        transition: opacity 0.2s;
+
+        // Ensure the ORIGINAL icon is visible by setting the color
+        // The user said "remove yours", so we remove the ::before hack
+        // and just ensure the text color (which fills the SVG) is correct.
+        color: var(--vp-c-text-1) !important;
+
+        &::before {
+            display: none !important;
+        }
+
+        // Hide original SVG if it exists and is conflicting
+        svg {
+            display: block !important;
+            fill: currentColor;
+        }
+    }
+
+    &:hover button.copy {
+        opacity: 1;
+    }
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(100, 100, 100, 0.3);
+    border-radius: 4px;
+
+    &:hover {
+        background: rgba(100, 100, 100, 0.5);
+    }
+}

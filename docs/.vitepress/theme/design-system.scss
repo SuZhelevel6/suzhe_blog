@@ -1,0 +1,93 @@
+:root {
+  /* Color Palette - Modern Tech */
+  --vp-c-brand-1: #4dc2ff;
+  --vp-c-brand-2: #bd34fe;
+  --vp-c-brand-3: #ff34b3;
+
+  /* Gradients */
+  --vp-home-hero-name-background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-brand-2));
+  --vp-home-hero-image-background-image: linear-gradient(135deg, rgba(77, 194, 255, 0.2), rgba(189, 52, 254, 0.2));
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  --glass-blur: 12px;
+
+  /* Neomorphism / Glow */
+  --glow-color: rgba(77, 194, 255, 0.5);
+  --glow-shadow: 0 0 20px var(--glow-color);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+.dark {
+  --glass-bg: rgba(0, 0, 0, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  --glow-color: rgba(189, 52, 254, 0.4);
+}
+
+/* Mixins */
+@mixin glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+@mixin hover-lift {
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--glow-shadow);
+  }
+}
+
+/* Animations */
+@keyframes breathe {
+  0% {
+    filter: drop-shadow(0 0 5px var(--glow-color));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 20px var(--glow-color));
+  }
+
+  100% {
+    filter: drop-shadow(0 0 5px var(--glow-color));
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
