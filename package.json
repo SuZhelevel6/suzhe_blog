@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
-    "@sugarat/theme": "^0.4.13",
+    "@sugarat/theme": "^0.5.9",
     "element-plus": "^2.7.2",
     "vue": "^3.5.6"
   },
@@ -19,13 +19,13 @@
     "doc": "docs"
   },
   "devDependencies": {
+    "animejs": "^3.2.1",
     "mermaid": "^10.9.1",
     "pagefind": "^1.1.0",
     "sass": "^1.76.0",
     "typescript": "^5.4.5",
-    "vitepress": "1.3.4",
-    "vitepress-plugin-mermaid": "^2.0.16",
-    "animejs": "^3.2.1"
+    "vitepress": "1.6.4",
+    "vitepress-plugin-mermaid": "^2.0.16"
   },
   "pnpm": {
     "peerDependencyRules": {
