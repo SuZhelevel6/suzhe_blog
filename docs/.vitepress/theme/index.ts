@@ -4,8 +4,6 @@ import Fireworks from './components/Fireworks.vue'
 // 自定义样式重载
 import './style.scss'
 
-// 自定义主题色
-// import './user-theme.css'
 import { h } from 'vue'
 
 export default {

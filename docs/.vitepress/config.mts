@@ -3,13 +3,6 @@ import { defineConfig } from 'vitepress'
 // 导入主题的配置
 import { blogTheme } from './blog-theme'
 
-// 如果使用 GitHub/Gitee Pages 等公共平台部署
-// 通常需要修改 base 路径，通常为“/仓库名/”
-// 如果项目名已经为 name.github.io 域名，则不需要修改！
-// const base = process.env.GITHUB_ACTIONS === 'true'
-//   ? '/vitepress-blog-sugar-template/'
-//   : '/'
-
 // Vitepress 默认配置
 // 详见文档：https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -22,8 +15,6 @@ export default defineConfig({
   lastUpdated: true,
   // 详见：https://vitepress.dev/zh/reference/site-config#head
   head: [
-    // 配置网站的图标（显示在浏览器的 tab 上）
-    // ['link', { rel: 'icon', href: `${base}favicon.ico` }], // 修改了 base 这里也需要同步修改
     ['link', { rel: 'icon', href: '/suzhe_blog/logo.svg' }]
   ],
   themeConfig: {
@@ -39,119 +30,126 @@ export default defineConfig({
 
     // 设置logo
     logo: '/logo.svg',
-    // editLink: {
-    //   pattern:
-    //     'https://github.com/ATQQ/sugar-blog/tree/master/packages/blogpress/:path',
-    //   text: '去 GitHub 上编辑内容'
-    // },
-    // TODO: 增加提效工具板块，常用的软件/AI工具，网站，插件等等。
+
     nav: [
       { text: '关于本博客', link: '/AboutMe.md' },
       {
-        text: '安卓基础入门知识',
-        items: [
-          { text: '嵌入式安卓学习入门', link: '/study-notes/android/guide/嵌入式安卓学习入门.md' },
-          { text: 'ADB命令', link: '/study-notes/android/guide/adb-command.md' },
-          { text: 'Git使用导览', link: '/study-notes/android/guide/git-use-note.md' },
-          { text: 'Git命令清单', link: '/study-notes/android/guide/git-note.md' },
-          { text: '编程规范', link: '/study-notes/android/guide/style-guide.md' },
-          { text: '第一行代码Android笔记', link: '/study-notes/android/guide/第一行代码Android笔记.md' },
-        ],
-      },
-      {
-        text: '安卓系统层知识',
+        text: 'Android 开发',
         items: [
           {
-            text: '系统知识',
+            text: '入门基础',
             items: [
-              { text: '(一)Android系统启动流程', link: '/study-notes/android/theory/Android系统启动流程.md' },
-              { text: '(二)Android的源码与编译', link: '/study-notes/android/theory/源码与编译.md' },
-              { text: '(三)编译系统', link: '/study-notes/android/theory/编译系统.md' },
-              { text: '(四)进程间通信(一)', link: '/study-notes/android/theory/进程间通信(一).md' },
-              { text: '(五)进程间通信(二)', link: '/study-notes/android/theory/进程间通信(二).md' },
-              { text: '(六)Android的进程和线程', link: '/study-notes/android/theory/Android进程和线程.md' },
-              { text: '(专)线程通信机制——Handler', link: '/study-notes/android/theory/线程通信机制Handler.md' },
-              { text: '(专)线程通信机制——AsyncTask(过时)', link: '/study-notes/android/theory/线程通信机制AsyncTask.md' },
-              { text: '(专)Android权限机制', link: '/study-notes/android/theory/Android权限机制.md' },
-              { text: '(专)OTA升级机制', link: '/study-notes/android/theory/OTA升级机制.md' },
+              { text: '嵌入式安卓学习入门', link: '/android/basics/嵌入式安卓学习入门.md' },
+              { text: 'ADB 命令手册', link: '/android/basics/adb-command.md' },
+              { text: '编程规范', link: '/android/basics/style-guide.md' },
+              { text: '《第一行代码》笔记', link: '/android/basics/第一行代码Android笔记.md' },
             ],
           },
           {
-            text: '系统功能修改',
+            text: '系统原理',
             items: [
-              { text: 'AmlogicS905x方案合集', link: '/study-notes/android/experience/Amlogics905x方案合集.md' },
-              { text: '休眠和屏保', link: '/study-notes/android/function/sleep-screensaver.md' },
-              { text: 'WIFI随机MAC地址', link: '/study-notes/android/function/WIFI随机MAC地址.md' },
-              { text: '安卓的签名和权限', link: '/study-notes/android/function/安卓的签名和权限.md' },
-              { text: '对apk进行签名', link: '/study-notes/android/function/AOSPapk签名.md' },
-              { text: 'AOSP Settings 展示所有应用', link: '/study-notes/android/function/AOSPSettings展示所有应用.md' },
-              { text: 'Amlogic方案红外遥控器配置', link: '/study-notes/android/function/Amlogic方案红外遥控器配置.md' },
-              { text: '添加屏幕旋转按钮', link: '/study-notes/android/function/Settings添加屏幕旋转按钮.md' },
-              { text: '修改默认音量和最大音量', link: '/study-notes/android/function/修改默认音量和最大音量.md' },
-              { text: '去除升级时间戳校验', link: '/study-notes/android/function/去除升级时间戳校验.md' },
-              { text: '开机启动日志捕捉服务', link: '/study-notes/android/function/开机启动日志捕捉服务.md' },
-              { text: '缺少开机引导导致HOME键失效', link: '/study-notes/android/function/Provision解决Home键失效.md' },
-              { text: '预定义屏幕分辨率与屏幕像素密度', link: '/study-notes/android/function/分辨率与density.md' },
-              { text: '解决无限循环的 udc-core 报错问题', link: '/study-notes/android/function/udc-core报错.md' },
-              { text: '解决 Android 应用日志中 JDWP 报错问题', link: '/study-notes/android/function/jdwp报错.md' },
-            ],
-          },
-        ],
-      },
-      {
-        text: '安卓应用开发知识',
-        items: [
-          {
-            text: '基础组件',
-            items: [
-              { text: 'Activity', link: '/study-notes/android/UI/base/Activity.md' },
-              { text: 'Service', link: '/study-notes/android/UI/base/Service.md' },
-              { text: 'Broadcast', link: '/study-notes/android/UI/base/Broadcast.md' },
-              { text: 'ContentProvider', link: '/study-notes/android/UI/base/ContentProvider.md' },
-              { text: 'Context', link: '/study-notes/android/UI/base/Context.md' },
-              { text: 'Intent', link: '/study-notes/android/UI/base/Intent.md' },
-              { text: 'Fragment', link: '/study-notes/android/UI/base/Fragment.md' },
-              { text: 'Bundle', link: '/study-notes/android/UI/base/Bundle.md' },
+              { text: 'Android 系统启动流程', link: '/android/framework/Android系统启动流程.md' },
+              { text: '源码与编译', link: '/android/framework/源码与编译.md' },
+              { text: '编译系统', link: '/android/framework/编译系统.md' },
+              { text: '进程间通信(一)', link: '/android/framework/进程间通信(一).md' },
+              { text: '进程间通信(二)', link: '/android/framework/进程间通信(二).md' },
+              { text: 'Binder 机制', link: '/android/framework/进程通信机制Binder.md' },
+              { text: 'Android 进程和线程', link: '/android/framework/Android进程和线程.md' },
+              { text: 'Handler 机制', link: '/android/framework/线程通信机制Handler.md' },
+              { text: 'AsyncTask (已过时)', link: '/android/framework/线程通信机制AsyncTask.md' },
+              { text: 'Android 权限机制', link: '/android/framework/Android权限机制.md' },
+              { text: 'OTA 升级机制', link: '/android/framework/OTA升级机制.md' },
             ],
           },
           {
-            text: '重要组件',
+            text: '组件开发',
             items: [
-              { text: 'Lifecycle', link: '/study-notes/jetpack/Lifecycle.md' },
-              { text: 'ViewModel', link: '/study-notes/jetpack/ViewModel.md' },
-              { text: 'LiveData', link: '/study-notes/jetpack/LiveData.md' },
-              { text: 'RecyclerView', link: '/study-notes/jetpack/RecyclerView.md' },
-              { text: 'Room(未完成)', link: './' },
-              { text: 'Data Binding(未完成)', link: './' },
-              { text: 'WorkManager(未完成)', link: './' },
-              { text: 'ViewPager2(未完成)', link: './' },
-              { text: 'RecyclerView(未完成)', link: './' },
-              { text: 'ConstraintLayout(未完成)', link: './' },
-              { text: 'Navigation(未完成)', link: './' },
-              { text: 'Paging(未完成)', link: './' },
+              { text: 'Activity', link: '/android/components/Activity.md' },
+              { text: 'Service', link: '/android/components/Service.md' },
+              { text: 'Broadcast', link: '/android/components/Broadcast.md' },
+              { text: 'ContentProvider', link: '/android/components/ContentProvider.md' },
+              { text: 'Fragment', link: '/android/components/Fragment.md' },
+              { text: 'Context', link: '/android/components/Context.md' },
+              { text: 'Intent', link: '/android/components/Intent.md' },
+              { text: 'Bundle', link: '/android/components/Bundle.md' },
+              { text: 'Lifecycle', link: '/android/components/Lifecycle.md' },
+              { text: 'ViewModel', link: '/android/components/ViewModel.md' },
+              { text: 'LiveData', link: '/android/components/LiveData.md' },
+              { text: 'RecyclerView', link: '/android/components/RecyclerView.md' },
+              { text: 'ViewPager', link: '/android/components/ViewPager.md' },
+              { text: 'ViewPager2', link: '/android/components/ViewPager2.md' },
+              { text: 'DataBinding', link: '/android/components/DataBinding.md' },
+              { text: 'WorkManager', link: '/android/components/WorkManager.md' },
+            ],
+          },
+          {
+            text: '系统定制',
+            items: [
+              { text: 'Amlogic S905x 方案合集', link: '/android/customization/Amlogics905x方案合集.md' },
+              { text: 'Amlogic 产品名称定义', link: '/android/customization/Amlogic产品名称定义.md' },
+              { text: '红外遥控器配置', link: '/android/customization/Amlogic方案红外遥控器配置.md' },
+              { text: '蓝牙遥控器语音按键', link: '/android/customization/蓝牙遥控器语音按键实施步骤文档.md' },
+              { text: 'DVB Tuner 驱动分析', link: '/android/customization/DVBTuner驱动运作机制分析.md' },
+              { text: 'CXD2878 多型号兼容', link: '/android/customization/CXD2878Tuner多型号动态兼容实现方案.md' },
+              { text: 'Shell 命令执行框架', link: '/android/customization/Shell命令执行框架实现.md' },
+              { text: '休眠和屏保', link: '/android/customization/sleep-screensaver.md' },
+              { text: 'WIFI 随机 MAC 地址', link: '/android/customization/WIFI随机MAC地址.md' },
+              { text: '签名和权限', link: '/android/customization/安卓的签名和权限.md' },
+              { text: 'APK 签名', link: '/android/customization/AOSPapk签名.md' },
+              { text: 'Settings 展示所有应用', link: '/android/customization/AOSPSettings展示所有应用.md' },
+              { text: '屏幕旋转按钮', link: '/android/customization/Settings添加屏幕旋转按钮.md' },
+              { text: '分辨率与 density', link: '/android/customization/分辨率与density.md' },
+              { text: '修改默认音量', link: '/android/customization/修改默认音量和最大音量.md' },
+              { text: '开机启动日志服务', link: '/android/customization/开机启动日志捕捉服务.md' },
+              { text: '去除升级时间戳校验', link: '/android/customization/去除升级时间戳校验.md' },
+              { text: 'Provision 解决 HOME 键失效', link: '/android/customization/Provision解决Home键失效.md' },
+              { text: 'udc-core 报错修复', link: '/android/customization/udc-core报错.md' },
+              { text: 'JDWP 报错修复', link: '/android/customization/jdwp报错.md' },
             ],
           },
         ],
       },
       {
-        text: '其他学习笔记',
+        text: '编程语言',
         items: [
-          { text: 'Java笔记', link: '/study-notes/java/summary' },
-          { text: 'Kotlin基础语法', link: '/study-notes/kotlin/kotlin笔记.md' },
-          { text: 'Kotlin协程', link: '/study-notes/kotlin/kotlin协程.md' },
-          { text: 'Flutter笔记', link: '/study-notes/flutter/Flutter笔记.md' },
-          { text: 'shell脚本', link: '/study-notes/other/shell脚本.md' },
-          { text: '软考知识点', link: '/study-notes/other/软考知识点.md' },
+          { text: 'Kotlin 基础', link: '/programming/kotlin/kotlin笔记.md' },
+          { text: 'Kotlin 协程', link: '/programming/kotlin/kotlin协程.md' },
+          { text: 'Shell 脚本', link: '/programming/shell/shell脚本.md' },
         ],
       },
       {
-        text: '项目汇总',
+        text: '跨平台开发',
         items: [
-          { text: 'TS码流解析工具', link: '/project-summary/TS码流解析工具.md' },
-          { text: 'GLauncher', link: '/project-summary/glauncher.md' },
-          { text: 'Compose TV', link: '/project-summary/ComposeTV.md' },
-          { text: 'OTA软件', link: '/project-summary/OTA软件.md' },
-          { text: 'Launcher3', link: '/project-summary/Launcher3.md' },
+          { text: 'Flutter 笔记', link: '/cross-platform/flutter/Flutter笔记.md' },
+        ],
+      },
+      {
+        text: '项目实战',
+        items: [
+          { text: 'GLauncher', link: '/projects/glauncher.md' },
+          { text: 'GLauncher 技术方案', link: '/projects/Glauncher技术深度方案.md' },
+          { text: 'Compose TV', link: '/projects/ComposeTV.md' },
+          { text: 'OTA 软件', link: '/projects/OTA软件.md' },
+          { text: 'Launcher3', link: '/projects/Launcher3.md' },
+          { text: 'TS 码流解析工具', link: '/projects/TS码流解析工具.md' },
+          { text: 'ExoPlayer', link: '/projects/ExoPlayer.md' },
+          { text: 'WanAndroid 客户端', link: '/projects/WanAndroid客户端.md' },
+          { text: '产测软件', link: '/projects/产测软件.md' },
+        ],
+      },
+      {
+        text: '读书笔记',
+        items: [
+          { text: '软考知识点', link: '/reading/tech/软考知识点.md' },
+          { text: '思维模型', link: '/reading/non-tech/思维模型.md' },
+          { text: '知识树', link: '/reading/non-tech/知识树.md' },
+        ],
+      },
+      {
+        text: '工具资源',
+        items: [
+          { text: 'Git 使用导览', link: '/tools/git/git-use-note.md' },
+          { text: 'Git 命令清单', link: '/tools/git/git-note.md' },
         ],
       },
     ],
@@ -161,6 +159,5 @@ export default defineConfig({
         link: 'https://github.com/SuZhelevel6'
       }
     ],
-    
   }
 })
