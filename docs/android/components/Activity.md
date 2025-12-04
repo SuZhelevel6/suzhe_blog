@@ -338,7 +338,7 @@ PendingIntent 是一种“未来的 Intent”，它允许应用在稍后执行�
 
 前面我们提到进入"已创建"状态(CREATED状态)，这里的状态如下图所示：
 ![QQ_1744775853342](assets/QQ_1744775853342.png)
-方法和状态之间存在这样的流转关系。Lifecycle将会监控和管理生命周期，这部分的更多内容应该进入[Lifecycle章节](https://suzhelevel6.github.io/suzhe_blog/study-notes/jetpack/Lifecycle.html)进行学习，这里就不展开了。
+方法和状态之间存在这样的流转关系。Lifecycle将会监控和管理生命周期，这部分的更多内容应该进入[Lifecycle章节](/android/components/Lifecycle.md)进行学习，这里就不展开了。
 
 
 

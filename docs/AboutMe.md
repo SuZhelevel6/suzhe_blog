@@ -1,168 +1,223 @@
 ---
 sidebar: false
-title: 关于自己
+title: 关于本站
 date: 2024-09-22
 tags:
  - 其它
 ---
 
-## :pushpin:自我介绍
+<style>
+.about-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-01年程序员🖥️，23年毕业生🤠，梦想成为Android大佬博主，在热烈的与生活交手🍀
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 32px;
+  background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(196, 78, 255, 0.1), rgba(33, 150, 243, 0.1));
+  border-radius: 20px;
+  margin-bottom: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-## :sparkles:本博客的导引
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background: linear-gradient(135deg, #ff6b9d, #c44eff, #2196f3) border-box;
+  object-fit: cover;
+}
 
-### :fountain_pen:安卓基础入门知识
+.profile-info h1 {
+  margin: 0 0 8px 0;
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, #ff6b9d, #c44eff, #2196f3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-1. 嵌入式安卓学习入门：[点击跳转到相关博客](./study-notes/android/guide/嵌入式安卓学习入门.md)  
-2. ADB命令：[点击跳转到相关博客](./study-notes/android/guide/adb-command.md)  
-3. Git使用导览：[点击跳转到相关博客](./study-notes/android/guide/git-use-note.md)  
-4. Git命令清单：[点击跳转到相关博客](./study-notes/android/guide/git-note.md)  
-5. 编程规范：[点击跳转到相关博客](./study-notes/android/guide/style-guide.md)  
-6. 第一行代码Android笔记：[点击跳转到相关博客](./study-notes/android/guide/第一行代码Android笔记.md)
+.profile-info .bio {
+  color: var(--vp-c-text-2);
+  margin: 0 0 16px 0;
+  line-height: 1.6;
+}
 
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 
-### :fountain_pen:安卓系统层知识
+.tech-tag {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  background: rgba(102, 126, 234, 0.15);
+  color: var(--vp-c-brand-1);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+}
 
-系统知识：  
-1. (一)Android系统启动流程：[点击跳转到相关博客](./study-notes/android/theory/Android系统启动流程.md)  
-2. (二)Android的源码与编译：[点击跳转到相关博客](./study-notes/android/theory/源码与编译.md)  
-3. (三)编译系统：[点击跳转到相关博客](./study-notes/android/theory/编译系统.md)  
-4. (四)进程间通信(一)：[点击跳转到相关博客](./study-notes/android/theory/进程间通信(一).md)  
-5. (五)进程间通信(二)：[点击跳转到相关博客](./study-notes/android/theory/进程间通信(二).md)  
-6. (六)Android的进程和线程：[点击跳转到相关博客](./study-notes/android/theory/Android进程和线程.md)  
-7. (专)线程通信机制——Handler：[点击跳转到相关博客](./study-notes/android/theory/线程通信机制Handler.md)  
-8. (专)线程通信机制——AsyncTask(过时)：[点击跳转到相关博客](./study-notes/android/theory/线程通信机制AsyncTask.md)  
-9. (专)Android权限机制：[点击跳转到相关博客](./study-notes/android/theory/Android权限机制.md)  
-10. (专)OTA升级机制：[点击跳转到相关博客](./study-notes/android/theory/OTA升级机制.md)
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.4rem;
+  margin: 40px 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(90deg, #ff6b9d, #c44eff, #2196f3) 1;
+}
 
-系统功能修改：  
-1. AmlogicS905x方案合集：[点击跳转到相关博客](./study-notes/android/experience/Amlogics905x方案合集.md)  
-2. 休眠和屏保：[点击跳转到相关博客](./study-notes/android/function/sleep-screensaver.md)  
-3. WIFI随机MAC地址：[点击跳转到相关博客](./study-notes/android/function/WIFI随机MAC地址.md)  
-4. 安卓的签名和权限：[点击跳转到相关博客](./study-notes/android/function/安卓的签名和权限.md)  
-5. 对apk进行签名：[点击跳转到相关博客](./study-notes/android/function/AOSPapk签名.md)  
-6. AOSP Settings 展示所有应用：[点击跳转到相关博客](./study-notes/android/function/AOSPSettings展示所有应用.md)  
-7. Amlogic方案红外遥控器配置：[点击跳转到相关博客](./study-notes/android/function/Amlogic方案红外遥控器配置.md)  
-8. 添加屏幕旋转按钮：[点击跳转到相关博客](./study-notes/android/function/Settings添加屏幕旋转按钮.md)  
-9. 修改默认音量和最大音量：[点击跳转到相关博客](./study-notes/android/function/修改默认音量和最大音量.md)  
-10. 去除升级时间戳校验：[点击跳转到相关博客](./study-notes/android/function/去除升级时间戳校验.md)  
-11. 开机启动日志捕捉服务：[点击跳转到相关博客](./study-notes/android/function/开机启动日志捕捉服务.md)  
-12. 缺少开机引导导致HOME键失效：[点击跳转到相关博客](./study-notes/android/function/Provision解决Home键失效.md)  
-13. 预定义屏幕分辨率与屏幕像素密度：[点击跳转到相关博客](./study-notes/android/function/分辨率与density.md)  
-14. 解决无限循环的 udc-core 报错问题：[点击跳转到相关博客](./study-notes/android/function/udc-core报错.md)  
-15. 解决 Android 应用日志中 JDWP 报错问题：[点击跳转到相关博客](./study-notes/android/function/jdwp报错.md)
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
 
-### :fountain_pen:安卓应用开发知识
+.category-card {
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
 
-基础组件：
-1. Activity：[点击跳转到相关博客](./study-notes/android/UI/base/Activity.md)  
-2. Service：[点击跳转到相关博客](./study-notes/android/UI/base/Service.md)  
-3. Broadcast：[点击跳转到相关博客](./study-notes/android/UI/base/Broadcast.md)  
-4. ContentProvider：[点击跳转到相关博客](./study-notes/android/UI/base/ContentProvider.md)
-5. Context：[点击跳转到相关博客](./study-notes/android/UI/base/Context.md)  
-6. Intent：[点击跳转到相关博客](./study-notes/android/UI/base/Intent.md)  
-7. Fragment：[点击跳转到相关博客](./study-notes/android/UI/base/Fragment.md)  
-8. Bundle：[点击跳转到相关博客](./study-notes/android/UI/base/Bundle.md)
+.category-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(102, 126, 234, 0.5);
+  background: rgba(102, 126, 234, 0.1);
+}
 
-Jetpack组件:
-![jetpack 组件图](assets/17452835727991.jpg)
+.category-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+}
 
-Architecture 架构：
-* Data Binding → 数据绑定，可使用 声明式 将布局中的界面组件绑定到应用中的数据源；[点击跳转到相关博客](./study-notes/jetpack/DataBinding.md)
-* Lifecycles → 生命周期感知，可感知和响应Activity和Fragment的生命周期状态的变化；[点击跳转到相关博客](./study-notes/jetpack/Lifecycle.md)
-* LiveData → 可观察的数据持有者类，与常规Observable不同，它是具有生命周期感知的；[点击跳转到相关博客](./study-notes/jetpack/LiveData.md)
-* RecyclerView → 用于显示列表形式 (list) 或者网格形式 (grid) 的数据，比如文本或者照片；[点击跳转到相关博客](./study-notes/jetpack/RecyclerView.md)
-* ViewPager → 可以可滑动的格式显示视图或 Fragment；[点击跳转到相关博客](./study-notes/jetpack/ViewPager.md)
-* Navigation → 应用内导航，Fragment的管理框架，或者说路由；
-* Paging → 列表分页，可以轻松实现分页预加载以达到无限滑动的效果；
-* Room → 轻量级ORM数据库，本质上是一个SQLite抽象层，注解 + 编译时自动生成功能类；
-* ViewModel → 数据存储组件，具备生命周期感知能力；[点击跳转到相关博客](./study-notes/jetpack/ViewModel.md)
-* WorkManager → 托管延时任务，即使APP被杀、或设备重启，只要TaskRecord还存在最近访问列表中，都会执行；
+.category-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--vp-c-text-2);
+}
 
-Foundation 基础：
-* AppCompat → 帮助较低版本的Android系统进行兼容；
-* Android KTX → 基于Kotlin特性为Android、Jetpack提供一些简易易用的扩展；
-* Multidex → 为具有多个Dex文件应用提供支持；
-* Test → 用于单元和运行时界面测试的 Android 测试框架；
-* Benchmark(性能检测)、Security(安全)等；
+.contact-section {
+  padding: 24px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-UI 界面：
-* Animation & Transition → 内置动画及自定义动画效果；
-* Emoji → 即便用户没有更新Android系统也可以获取最新的表情符号；
-* Auto(车)、TV、WearOS；
-* Fragment → 组件化界面的基本单位；
-* Layout → 用XML中声明UI元素或者在代码中实例化UI元素；
-* Paletee → 从调色板中提取出有用的信息；
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0;
+}
 
-Behavior 行为：
-* Download Manager → 处理长时间运行的HTTP下载、超时重连的系统服务；
-* Media & Playback → 用于媒体播放和路由(包括 Google Cast)的向后兼容 API；
-* Permissions → 用于检查和请求应用权限的兼容性API；
-* Notifications → 提供向后兼容的通知API，支持Wear和Auto；
-* Sharing → 提供适合应用操作栏的共享操作；
-* Slices → 一种UI模板，创建可在营养外部显示应用数据的灵活界面元素；
+.ending-quote {
+  margin-top: 48px;
+  padding: 24px;
+  text-align: center;
+  font-style: italic;
+  color: var(--vp-c-text-2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-一些 UI 实现
-1. 常见界面布局Layout：[点击跳转到相关博客](./study-notes/android/UI/常见界面布局Layout.md)
+@media (max-width: 640px) {
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+  }
 
-### :fountain_pen:其他学习笔记
-1. Java笔记：[点击跳转到相关博客](./study-notes/java/summary)
-2. Kotlin基础语法：[点击跳转到相关博客](./study-notes/kotlin/kotlin笔记.md)
-3. Kotlin协程：[点击跳转到相关博客](./study-notes/kotlin/kotlin协程.md)
-4. Flutter笔记：[点击跳转到相关博客](./study-notes/flutter/Flutter笔记.md)
-5. shell脚本：[点击跳转到相关博客](./study-notes/other/shell脚本.md)
-6. 软考知识点：[点击跳转到相关博客](./study-notes/other/软考知识点.md)
+  .tech-tags {
+    justify-content: center;
+  }
+}
+</style>
 
-### :fountain_pen:项目汇总
-1. TS码流解析工具：[点击跳转到相关博客](./project-summary/TS码流解析工具.md)
-2. GLauncher：[点击跳转到相关博客](./project-summary/glauncher.md)
-3. Compose TV：[点击跳转到相关博客](./project-summary/ComposeTV.md)
-4. OTA软件：[点击跳转到相关博客](./project-summary/OTA软件.md)
-5. Launcher3：[点击跳转到相关博客](./project-summary/Launcher3.md)
+<div class="about-container">
 
+<div class="profile-card">
+  <img class="profile-avatar" src="/touxiang1MB.jpg" alt="苏柘" />
+  <div class="profile-info">
+    <h1>苏柘</h1>
+    <p class="bio">01年生人，23年毕业，Android 开发工程师。专注于 Android 系统开发与应用开发，在代码的世界里探索、创造、成长。</p>
+    <div class="tech-tags">
+      <span class="tech-tag">Android</span>
+      <span class="tech-tag">Kotlin</span>
+      <span class="tech-tag">Java</span>
+      <span class="tech-tag">Flutter</span>
+      <span class="tech-tag">Jetpack Compose</span>
+    </div>
+  </div>
+</div>
 
-## :rocket:安卓工程师成长路线
+<h2 class="section-title">📚 关于本站</h2>
 
-### :fountain_pen:android初级程序员
+这是我的个人技术博客，主要记录 Android 开发过程中的学习笔记、技术探索和项目实践。希望这些内容能帮助到同样在技术道路上前行的你。
 
-**总结**：能干活，有学习能力，能跟着团队成员做项目；
+<h2 class="section-title">🗂️ 内容导航</h2>
 
-**技能**：
-1. 熟悉android的四大组件、生命周期，常用界面布局
-2. 常用第三方框架的使用
-3. 熟悉android的常用API、网络框架
-5. 掌握数据库相关知识点
-6. 了解android项目目录的组织架构
+<div class="category-grid">
+  <a class="category-card" href="./android/basics/嵌入式安卓学习入门.html">
+    <h3>📱 Android 基础</h3>
+    <p>入门指南、ADB命令、编程规范等基础知识</p>
+  </a>
 
-### :fountain_pen:android中级程序员
+  <a class="category-card" href="./android/framework/Android系统启动流程.html">
+    <h3>⚙️ 系统原理</h3>
+    <p>启动流程、进程通信、Handler机制等底层原理</p>
+  </a>
 
-**总结**：能够分析问题，能够解决问题；
+  <a class="category-card" href="./android/components/Activity.html">
+    <h3>🧩 组件开发</h3>
+    <p>四大组件、Jetpack架构组件详解</p>
+  </a>
 
-**技能**：
-1. 了解android的签名机制（实现原理，具体操做）
-2. 打包机制（多渠道打包，打包流程等等）
-3. 了解apk安装文件压缩（压缩图片，代码压缩，.so文件压缩等等）
-4. 了解事件分发，View绘制流程，webview相关知识点（与Native的交互，性能优化等）
-5. 熟悉数据库的使用（基本API，第三方ORM框架，ORM框架的实现原理等等）
-6. 有java反射原理与简单实践经验，屏幕适配，AIDL与messager的简单实用
-7. 自定义组件经验（自定义View与自定义ViewGroup）
-8. 动画（补间动画，帧动画，属性动画）
-9. 通知栏消息，版本新特性
+  <a class="category-card" href="./android/customization/Amlogics905x方案合集.html">
+    <h3>🔧 系统定制</h3>
+    <p>Amlogic方案、系统功能修改、驱动适配</p>
+  </a>
 
-**要求**：开始阅读android方面的而源码，不但能看懂别人的代码还需要能够修改别人源码，对android的体系结构，组成方式，常见开源社区，技术要点能够了然于胸。
+  <a class="category-card" href="./programming/kotlin/kotlin笔记.html">
+    <h3>📝 编程语言</h3>
+    <p>Kotlin、Shell脚本等语言学习笔记</p>
+  </a>
 
-### :fountain_pen:android高级程序员
+  <a class="category-card" href="./cross-platform/flutter/Flutter笔记.html">
+    <h3>🌐 跨平台开发</h3>
+    <p>Flutter开发实践与技术探索</p>
+  </a>
 
-**总结**：能够解决问题，能够发现问题
+  <a class="category-card" href="./projects/glauncher.html">
+    <h3>🚀 项目实战</h3>
+    <p>GLauncher、OTA升级、Compose TV等项目总结</p>
+  </a>
 
-**技能**：
-手动编写框架，设计模式，代码规范，项目进度，时间估算，启动流程，性能优化，OOM，内存溢出与泄露，JNI，脚本开发，activity启动流程，android中的IPC机制（Binder原理），对iOS等其他移动开发现学现用等等；
+  <a class="category-card" href="./tools/git/git-use-note.html">
+    <h3>🛠️ 工具资源</h3>
+    <p>Git使用技巧、开发工具配置</p>
+  </a>
+</div>
 
-**要求**：能够造轮子，比如写一个网络框架，事件总线控件，特效View等，重点是能够为产品造轮子。
+<h2 class="section-title">📮 联系我</h2>
 
-## :pencil:座右铭
-只要不失去你的崇高，整个世界都会向你敞开🌟
+<div class="contact-section">
+  <div class="contact-item">
+    <span>📧</span>
+    <span>邮箱：2212294193@qq.com</span>
+  </div>
+</div>
 
-## :phone:联系我
-**邮箱**：2212294193@qq.com
+<div class="ending-quote">
+  "当 AI 浪潮奔涌而来，唯有拥抱变革者，方能驾驭时代的风帆，驶向星辰大海。"
+</div>
+
+</div>
