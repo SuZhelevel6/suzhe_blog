@@ -153,7 +153,7 @@
         border-color: var(--vp-c-brand-1);
         box-shadow:
             0 4px 20px rgba(0, 0, 0, 0.3),
-            0 0 15px rgba(77, 194, 255, 0.15);
+            0 0 15px var(--code-block-glow);
     }
 
     .lang {

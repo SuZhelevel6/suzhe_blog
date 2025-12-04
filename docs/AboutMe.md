@@ -145,7 +145,7 @@ tags:
 <div class="about-container">
 
 <div class="profile-card">
-  <img class="profile-avatar" src="/touxiang1MB.jpg" alt="苏柘" />
+  <img class="profile-avatar" src="/touxiang.jpg" alt="苏柘" />
   <div class="profile-info">
     <h1>苏柘</h1>
     <p class="bio">01年生人，23年毕业，Android 开发工程师。专注于 Android 系统开发与应用开发，在代码的世界里探索、创造、成长。</p>

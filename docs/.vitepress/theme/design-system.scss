@@ -8,11 +8,24 @@
   --vp-home-hero-name-background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-brand-2));
   --vp-home-hero-image-background-image: linear-gradient(135deg, rgba(77, 194, 255, 0.2), rgba(189, 52, 254, 0.2));
 
-  /* Glassmorphism */
+  /* Glassmorphism - 基础 */
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
   --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
   --glass-blur: 12px;
+
+  /* Glassmorphism - 卡片专用 */
+  --card-bg: rgba(255, 255, 255, 0.15);
+  --card-bg-hover: rgba(255, 255, 255, 0.2);
+  --card-border: rgba(255, 255, 255, 0.25);
+  --card-border-hover: rgba(255, 255, 255, 0.35);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  --card-shadow-hover: 0 20px 50px rgba(102, 126, 234, 0.15), 0 10px 30px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  --card-highlight: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  --card-glow-color: rgba(102, 126, 234, 0.3);
+
+  /* 代码块发光效果 */
+  --code-block-glow: rgba(77, 194, 255, 0.15);
 
   /* Neomorphism / Glow */
   --glow-color: rgba(77, 194, 255, 0.5);
@@ -29,6 +42,19 @@
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   --glow-color: rgba(189, 52, 254, 0.4);
+
+  /* 暗色模式 - 卡片专用 */
+  --card-bg: rgba(20, 20, 35, 0.4);
+  --card-bg-hover: rgba(30, 30, 50, 0.5);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-border-hover: rgba(255, 255, 255, 0.15);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  --card-shadow-hover: 0 20px 50px rgba(99, 102, 241, 0.2), 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  --card-highlight: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  --card-glow-color: rgba(99, 102, 241, 0.4);
+
+  /* 代码块发光效果 */
+  --code-block-glow: rgba(99, 102, 241, 0.2);
 }
 
 /* Mixins */
@@ -47,6 +73,50 @@
     transform: translateY(-5px);
     box-shadow: var(--glow-shadow);
   }
+}
+
+// 玻璃拟态卡片 mixin
+@mixin glass-card($lift-amount: -6px, $scale: 1.01) {
+  position: relative;
+  background: var(--card-bg) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--card-shadow) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow: hidden;
+
+  // 顶部高光
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: var(--card-highlight);
+    z-index: 1;
+  }
+
+  &:hover {
+    transform: translateY($lift-amount) scale($scale);
+    background: var(--card-bg-hover) !important;
+    border-color: var(--card-border-hover) !important;
+    box-shadow: var(--card-shadow-hover) !important;
+  }
+}
+
+// 简化版玻璃卡片（无 hover 动画）
+@mixin glass-card-static {
+  position: relative;
+  background: var(--card-bg) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--card-shadow) !important;
+  overflow: hidden;
 }
 
 /* Animations */
