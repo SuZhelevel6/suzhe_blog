@@ -833,7 +833,7 @@ ViewPager->GuideAdapter->GuideFragment->ImageView
 
 这里实现的轮播图，本质上一张图就是一个带有ImageView控件的Frament。包括这些个Frament则是一个ViewPager
 
-图片数据则是Int类型的数组MutableList<Int>
+图片数据则是Int类型的数组 `MutableList<Int>`
 
 这里使用的是旧版的ViewPager搭配FragmentStatePagerAdapter，在标签页布局中使用了新版的ViewPager2搭配FragmentStateAdapter。这里记住，没有 Pager 的是新版的。
 

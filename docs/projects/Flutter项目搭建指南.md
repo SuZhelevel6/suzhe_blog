@@ -873,7 +873,7 @@ Future<void> loadArticles() async {
 
 **设计优势**:
 - ✅ 编译时强制错误处理（使用 sealed class）
-- ✅ 类型安全（Success<T> 和 Failure<T>）
+- ✅ 类型安全（Success\<T\> 和 Failure\<T\>）
 - ✅ 清晰的成功/失败分支
 - ✅ 避免异常抛出导致的应用崩溃
 

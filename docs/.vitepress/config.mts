@@ -88,7 +88,6 @@ export default defineConfig({
               { text: 'Amlogic S905x 方案合集', link: '/android/customization/Amlogics905x方案合集.md' },
               { text: 'Amlogic 产品名称定义', link: '/android/customization/Amlogic产品名称定义.md' },
               { text: '红外遥控器配置', link: '/android/customization/Amlogic方案红外遥控器配置.md' },
-              { text: '蓝牙遥控器语音按键', link: '/android/customization/蓝牙遥控器语音按键实施步骤文档.md' },
               { text: 'DVB Tuner 驱动分析', link: '/android/customization/DVBTuner驱动运作机制分析.md' },
               { text: 'CXD2878 多型号兼容', link: '/android/customization/CXD2878Tuner多型号动态兼容实现方案.md' },
               { text: 'Shell 命令执行框架', link: '/android/customization/Shell命令执行框架实现.md' },
@@ -121,20 +120,15 @@ export default defineConfig({
         text: '跨平台开发',
         items: [
           { text: 'Flutter 笔记', link: '/cross-platform/flutter/Flutter笔记.md' },
+          { text: 'Flutter 项目搭建指南', link: '/projects/Flutter项目搭建指南.md' },
         ],
       },
       {
         text: '项目实战',
         items: [
-          { text: 'GLauncher', link: '/projects/glauncher.md' },
-          { text: 'GLauncher 技术方案', link: '/projects/Glauncher技术深度方案.md' },
           { text: 'Compose TV', link: '/projects/ComposeTV.md' },
-          { text: 'OTA 软件', link: '/projects/OTA软件.md' },
-          { text: 'Launcher3', link: '/projects/Launcher3.md' },
           { text: 'TS 码流解析工具', link: '/projects/TS码流解析工具.md' },
-          { text: 'ExoPlayer', link: '/projects/ExoPlayer.md' },
-          { text: 'WanAndroid 客户端', link: '/projects/WanAndroid客户端.md' },
-          { text: '产测软件', link: '/projects/产测软件.md' },
+          { text: 'Kotlin 项目开发手册', link: '/projects/Kotlin项目开发手册.md' },
         ],
       },
       {
@@ -148,8 +142,20 @@ export default defineConfig({
       {
         text: '工具资源',
         items: [
-          { text: 'Git 使用导览', link: '/tools/git/git-use-note.md' },
-          { text: 'Git 命令清单', link: '/tools/git/git-note.md' },
+          {
+            text: 'Git',
+            items: [
+              { text: 'Git 使用导览', link: '/tools/git/git-use-note.md' },
+              { text: 'Git 命令清单', link: '/tools/git/git-note.md' },
+            ],
+          },
+          {
+            text: 'AI 工具',
+            items: [
+              { text: 'SuperClaude 使用指南', link: '/tools/ai/SuperClaude使用指南.md' },
+              { text: 'CLAUDE.md 配置', link: '/tools/ai/CLAUDE配置.md' },
+            ],
+          },
         ],
       },
     ],

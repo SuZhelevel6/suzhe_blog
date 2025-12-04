@@ -198,12 +198,12 @@ tags:
 
   <a class="category-card" href="./projects/glauncher.html">
     <h3>🚀 项目实战</h3>
-    <p>GLauncher、OTA升级、Compose TV等项目总结</p>
+    <p>Compose TV等项目总结与项目模板</p>
   </a>
 
   <a class="category-card" href="./tools/git/git-use-note.html">
     <h3>🛠️ 工具资源</h3>
-    <p>Git使用技巧、开发工具配置</p>
+    <p>Git使用技巧、开发工具配置、CLAUDE.md配置</p>
   </a>
 </div>
 
