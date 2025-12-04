@@ -129,7 +129,7 @@ public static void initEventChannel(Context context, FlutterEngine flutterEngine
 }
 ```
 
-2. `android/app/src/main/kotlin/cn/giec/glauncher/MainActivity.kt`
+2. `android/app/src/main/kotlin/cn/xxxx/glauncher/MainActivity.kt`
 
 - 在`MainActivity`中配置Flutter引擎时，初始化`BluetoothUtils`的事件通道。
 - 添加了一个方法`isBluetoothConnected`，用于调用`BluetoothUtils`中的方法以检查蓝牙连接状态。

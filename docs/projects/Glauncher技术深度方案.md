@@ -275,8 +275,8 @@ public class NetworkConfigReceiver extends BroadcastReceiver {
 
     // 白名单：允许调用的包名
     private static final Set<String> ALLOWED_PACKAGES = Set.of(
-        "cn.giec.glauncher",
-        "cn.giec.settings"
+        "cn.xxxx.glauncher",
+        "cn.xxxx.settings"
     );
 
     @Override
@@ -343,7 +343,7 @@ public void setStaticIp(String ip, String gateway, String dns, ResultCallback ca
     );
 
     // 发送配置请求
-    Intent configIntent = new Intent("cn.giec.system.NETWORK_CONFIG");
+    Intent configIntent = new Intent("cn.xxxx.system.NETWORK_CONFIG");
     configIntent.putExtra("action", "SET_STATIC_IP");
     configIntent.putExtra("ip", ip);
     configIntent.putExtra("gateway", gateway);
@@ -382,7 +382,7 @@ private void sendResult(Intent originalIntent, boolean success, String message) 
 
 ```dart
 class NetworkConfigService {
-  static const _channel = MethodChannel('cn.giec.glauncher/network_config');
+  static const _channel = MethodChannel('cn.xxxx.glauncher/network_config');
 
   /// 设置静态 IP
   ///

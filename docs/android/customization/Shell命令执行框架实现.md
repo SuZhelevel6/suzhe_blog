@@ -84,7 +84,7 @@ top -n 1                 # 查看运行中的进程及其用户
 #### 整体目录结构
 
 ```
-vendor/giec/common/libraries/hwstbcmdapi/
+vendor/xxxx/common/libraries/hwstbcmdapi/
 ├── hidl_wrapper/      # HAL 层实现（HIDL 服务端）
 ├── java/              # Java 层接口（供应用调用）
 ├── jni/               # JNI 桥接层（Java ↔ Native）
@@ -116,7 +116,7 @@ vendor/giec/common/libraries/hwstbcmdapi/
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                2. JNI 桥接层                                │
-│                cn_giec_adp_cmd.cpp                          │
+│                cn_xxxx_adp_cmd.cpp                          │
 │                (libhistbcmdservice_jni.so)                  │
 └──────────────────────┬──────────────────────────────────────┘
                        │ C++ 客户端调用
@@ -131,7 +131,7 @@ vendor/giec/common/libraries/hwstbcmdapi/
 ┌─────────────────────────────────────────────────────────────┐
 │                4. HIDL 服务层                               │
 │                Hwstbcmdservice.cpp                          │
-│                (vendor.giec.stbcmd@1.0-service)             │
+│                (vendor.xxxx.stbcmd@1.0-service)             │
 └──────────────────────┬──────────────────────────────────────┘
                        │ 本地调用
                        ▼
@@ -160,7 +160,7 @@ vendor/giec/common/libraries/hwstbcmdapi/
 
 **HIDL 服务进程管理**：
 - 由 Vendor 厂商的 `init.rc` 文件定义
-- 专用 HAL 进程：如 `vendor.giec.stbcmd@1.0-service`
+- 专用 HAL 进程：如 `vendor.xxxx.stbcmd@1.0-service`
 - 共享 HAL 进程：多个 HIDL 服务可能合并到一个进程
 
 ---
@@ -172,18 +172,18 @@ vendor/giec/common/libraries/hwstbcmdapi/
 ```
 ├── java
 │   └── cn
-│       └── giec
+│       └── xxxx
 │           └── shellcmd
 │               └── ShellCmd.java
 └── jni
     ├── Android.mk
-    ├── cn_giec_adp_cmd.cpp
-    └── cn_giec_shellcmd_ShellCmd.h
+    ├── cn_xxxx_adp_cmd.cpp
+    └── cn_xxxx_shellcmd_ShellCmd.h
 ```
 
 ### 3.2 步骤 1：Java 层声明 Native 方法
 
-**路径**：`vendor/giec/common/libraries/hwstbcmdapi/java/cn/giec/shellcmd/ShellCmd.java`
+**路径**：`vendor/xxxx/common/libraries/hwstbcmdapi/java/cn/xxxx/shellcmd/ShellCmd.java`
 
 ```java
 public class ShellCmd {
@@ -217,10 +217,10 @@ public class ShellCmd {
 
 ```bash
 # 在 java 目录下执行
-cd vendor/giec/common/libraries/hwstbcmdapi/java
+cd vendor/xxxx/common/libraries/hwstbcmdapi/java
 
 # 一键生成 .class 文件和 .h 文件
-javac -h ../jni cn/giec/shellcmd/ShellCmd.java
+javac -h ../jni cn/xxxx/shellcmd/ShellCmd.java
 ```
 
 **生成的目录结构**：
@@ -228,31 +228,31 @@ javac -h ../jni cn/giec/shellcmd/ShellCmd.java
 ```
 .
 ├── cn
-│   └── giec
+│   └── xxxx
 │       └── shellcmd
 │           ├── ShellCmd.class  # 生成的
 │           └── ShellCmd.java
 └── jni  # 生成的
-    └── cn_giec_shellcmd_ShellCmd.h
+    └── cn_xxxx_shellcmd_ShellCmd.h
 ```
 
-**生成的头文件内容**：`vendor/giec/common/libraries/hwstbcmdapi/jni/cn_giec_shellcmd_ShellCmd.h`
+**生成的头文件内容**：`vendor/xxxx/common/libraries/hwstbcmdapi/jni/cn_xxxx_shellcmd_ShellCmd.h`
 
 ```c
 #include <jni.h>
 
-#ifndef _Included_cn_giec_shellcmd_ShellCmd
-#define _Included_cn_giec_shellcmd_ShellCmd
+#ifndef _Included_cn_xxxx_shellcmd_ShellCmd
+#define _Included_cn_xxxx_shellcmd_ShellCmd
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /*
- * Class:     cn_giec_shellcmd_ShellCmd
+ * Class:     cn_xxxx_shellcmd_ShellCmd
  * Method:    hsInvokeJni
  * Signature: (Ljava/lang/String;I)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_cn_giec_shellcmd_ShellCmd_hsInvokeJni
+JNIEXPORT jstring JNICALL Java_cn_xxxx_shellcmd_ShellCmd_hsInvokeJni
   (JNIEnv *, jclass, jstring, jint);
 
 #ifdef __cplusplus
@@ -263,13 +263,13 @@ JNIEXPORT jstring JNICALL Java_cn_giec_shellcmd_ShellCmd_hsInvokeJni
 
 ### 3.4 步骤 3：实现 JNI 函数
 
-**路径**：`vendor/giec/common/libraries/hwstbcmdapi/jni/cn_giec_adp_cmd.cpp`
+**路径**：`vendor/xxxx/common/libraries/hwstbcmdapi/jni/cn_xxxx_adp_cmd.cpp`
 
 ```cpp
 // JNIEXPORT 和 JNICALL 是 JNI 规范要求的宏，确保函数能被 Java 虚拟机识别
 // 返回值 jstring 表示返回 Java 的 String 对象
 // 函数名格式必须为 Java_包名_类名_方法名（下划线代替点号）
-JNIEXPORT jstring JNICALL Java_cn_giec_shellcmd_ShellCmd_hsInvokeJni(
+JNIEXPORT jstring JNICALL Java_cn_xxxx_shellcmd_ShellCmd_hsInvokeJni(
     JNIEnv* env,          // JNI 环境指针，提供所有 JNI 函数
     jclass clazz,         // 调用该方法的 Java 类（静态方法时为 jclass，非静态为 jobject）
     jstring request,      // Java 传入的命令字符串（jstring 类型）
@@ -338,7 +338,7 @@ static JNINativeMethod gMethods[] = {
     {
         "hsInvokeJni",                                // Java 方法名
         "(Ljava/lang/String;I)Ljava/lang/String;",    // 方法签名（参数和返回值类型）
-        (void*)Java_cn_giec_shellcmd_ShellCmd_hsInvokeJni // 对应的 Native 函数指针
+        (void*)Java_cn_xxxx_shellcmd_ShellCmd_hsInvokeJni // 对应的 Native 函数指针
     },
     // 可添加更多方法...
 };
@@ -348,7 +348,7 @@ static int register_android_histbcmdservicemanage_common(JNIEnv* env) {
     // 使用 AndroidRuntime 的辅助函数注册
     return AndroidRuntime::registerNativeMethods(
         env,                               // JNIEnv 指针
-        "cn/giec/shellcmd/ShellCmd",       // Java 类全名（路径格式）
+        "cn/xxxx/shellcmd/ShellCmd",       // Java 类全名（路径格式）
         gMethods,                          // 方法映射表
         NELEM(gMethods)                    // 方法数量（计算数组长度）
     );
@@ -376,7 +376,7 @@ jint JNI_OnLoad(JavaVM* vm, void* reserved) {
 
 ### 3.6 步骤 5：编译配置（Android.mk）
 
-**路径**：`vendor/giec/common/libraries/hwstbcmdapi/jni/Android.mk`
+**路径**：`vendor/xxxx/common/libraries/hwstbcmdapi/jni/Android.mk`
 
 ```makefile
 # 设置当前模块的构建路径
@@ -396,7 +396,7 @@ LOCAL_CFLAGS := -DANDROID_NDK
 LOCAL_MULTILIB := both  # 同时编译 32 位和 64 位版本
 
 # 源文件
-LOCAL_SRC_FILES := cn_giec_adp_cmd.cpp
+LOCAL_SRC_FILES := cn_xxxx_adp_cmd.cpp
 
 # 链接的系统库
 LOCAL_LDLIBS := -ldl -llog
@@ -442,7 +442,7 @@ ShellCmd.exec("ifconfig wlan0 down", false);
 **路径**：`hardware/interfaces/hwstbcmdservice/1.0/IHwstbcmdservice.hal`
 
 ```java
-package giec.hardware.hwstbcmdservice@1.0;
+package xxxx.hardware.hwstbcmdservice@1.0;
 
 interface IHwstbcmdservice {
     hsInvokeHal(string request, int32_t type) generates(string result);
@@ -456,10 +456,10 @@ interface IHwstbcmdservice {
 使用 `hidl-gen` 工具生成代码框架：
 
 ```bash
-. vendor/giec/hardware/interfaces/update-makefiles.sh
+. vendor/xxxx/hardware/interfaces/update-makefiles.sh
 ```
 
-**脚本内容**：`vendor/giec/hardware/interfaces/update-makefiles.sh`
+**脚本内容**：`vendor/xxxx/hardware/interfaces/update-makefiles.sh`
 
 ```bash
 #!/bin/bash
@@ -469,7 +469,7 @@ source ./system/tools/hidl/update-makefiles-helper.sh
 
 # 调用自动化更新函数
 do_makefiles_update \
-    "giec.hardware:vendor/giec/hardware/interfaces/" \
+    "xxxx.hardware:vendor/xxxx/hardware/interfaces/" \
     "android.hardware:hardware/interfaces" \
     "android.hidl:system/libhidl/transport"
 ```
@@ -573,7 +573,7 @@ int hsInvokeNative(const char* cmd, int type, char* reply) {
 
 ### 4.8 步骤 8：配置构建系统
 
-**路径**：`device-giec.mk`
+**路径**：`device-xxxx.mk`
 
 ```makefile
 # HIDL client
@@ -584,17 +584,17 @@ PRODUCT_PACKAGES += \
 
 # HIDL treble service
 PRODUCT_PACKAGES += \
-    giec.hardware.hwstbcmdservice@1.0 \
-    giec.hardware.hwstbcmdservice@1.0-impl \
-    giec.hardware.hwstbcmdservice@1.0-service
+    xxxx.hardware.hwstbcmdservice@1.0 \
+    xxxx.hardware.hwstbcmdservice@1.0-impl \
+    xxxx.hardware.hwstbcmdservice@1.0-service
 ```
 
 ### 4.9 步骤 9：服务启动配置
 
-**路径**：`vendor/giec/hardware/interfaces/hwstbcmdservice/1.0/default/giec.hardware.hwstbcmdservice@1.0-service.rc`
+**路径**：`vendor/xxxx/hardware/interfaces/hwstbcmdservice/1.0/default/xxxx.hardware.hwstbcmdservice@1.0-service.rc`
 
 ```bash
-service hwstbcmdservice-1-0 /vendor/bin/hw/giec.hardware.hwstbcmdservice@1.0-service
+service hwstbcmdservice-1-0 /vendor/bin/hw/xxxx.hardware.hwstbcmdservice@1.0-service
     class hal
     user root
     group root system
@@ -608,7 +608,7 @@ service hwstbcmdservice-1-0 /vendor/bin/hw/giec.hardware.hwstbcmdservice@1.0-ser
 
 ```xml
 <hal format="hidl" optional="true">
-    <name>giec.hardware.hwstbcmdservice</name>
+    <name>xxxx.hardware.hwstbcmdservice</name>
     <version>1.0</version>
     <interface>
         <name>IHwstbcmdservice</name>
@@ -646,7 +646,7 @@ App (Java)
    ↓ call
 ShellCmd.java
    ↓ JNI
-cn_giec_adp_cmd.cpp
+cn_xxxx_adp_cmd.cpp
    ↓ Client
 HwstbcmdserviceClient.cpp
    ↓ Binder
@@ -678,10 +678,10 @@ Execute system shell command
 
 ### 5.3 步骤 1：定义 AIDL 接口文件
 
-**路径**：`vendor/giec/common/libraries/hwstbcmdapi/aidl/giec/hardware/hwstbcmdservice/IHwstbcmdservice.aidl`
+**路径**：`vendor/xxxx/common/libraries/hwstbcmdapi/aidl/xxxx/hardware/hwstbcmdservice/IHwstbcmdservice.aidl`
 
 ```java
-package giec.hardware.hwstbcmdservice;
+package xxxx.hardware.hwstbcmdservice;
 
 @VintfStability
 interface IHwstbcmdservice {
@@ -704,20 +704,20 @@ interface IHwstbcmdservice {
 
 #### 第一步：编写 bp 文件
 
-**路径**：`vendor/giec/common/libraries/hwstbcmdapi/aidl/Android.bp`
+**路径**：`vendor/xxxx/common/libraries/hwstbcmdapi/aidl/Android.bp`
 
 ```python
 // ============================================================
 // AIDL interface
 // ============================================================
 aidl_interface {
-    name: "giec.hardware.hwstbcmdservice",
-    owner: "giec.hardware.hwstbcmdservice",  // 一定要这个！
+    name: "xxxx.hardware.hwstbcmdservice",
+    owner: "xxxx.hardware.hwstbcmdservice",  // 一定要这个！
     system_ext_specific: true,
     vendor_available: true,
     host_supported: true,
     stability: "vintf",
-    srcs: ["giec/hardware/hwstbcmdservice/IHwstbcmdservice.aidl"],
+    srcs: ["xxxx/hardware/hwstbcmdservice/IHwstbcmdservice.aidl"],
     backend: {
         cpp: { enabled: true },
         java: { enabled: true },
@@ -735,15 +735,15 @@ aidl_interface {
 #### 第二步：生成 aidl_api 的 current 目录
 
 ```bash
-m giec.hardware.hwstbcmdservice-update-api
+m xxxx.hardware.hwstbcmdservice-update-api
 ```
 
 执行完这一步会生成 `current` 文件：
 
 ```
-vendor/giec/common/libraries/hwstbcmdapi/aidl/aidl_api/giec.hardware.hwstbcmdservice/
+vendor/xxxx/common/libraries/hwstbcmdapi/aidl/aidl_api/xxxx.hardware.hwstbcmdservice/
 └── current
-    └── giec
+    └── xxxx
         └── hardware
             └── hwstbcmdservice
                 └── IHwstbcmdservice.aidl
@@ -752,21 +752,21 @@ vendor/giec/common/libraries/hwstbcmdapi/aidl/aidl_api/giec.hardware.hwstbcmdser
 #### 第三步：冻结版本
 
 ```bash
-m giec.hardware.hwstbcmdservice-freeze-api
+m xxxx.hardware.hwstbcmdservice-freeze-api
 ```
 
 生成版本 1 目录并冻结：
 
 ```
-vendor/giec/common/libraries/hwstbcmdapi/aidl/aidl_api/giec.hardware.hwstbcmdservice/
+vendor/xxxx/common/libraries/hwstbcmdapi/aidl/aidl_api/xxxx.hardware.hwstbcmdservice/
 ├── 1
-│   └── giec
+│   └── xxxx
 │       └── hardware
 │           └── hwstbcmdservice
 │               ├── IHwstbcmdservice.aidl
 │               └── .hash
 └── current
-    └── giec
+    └── xxxx
         └── hardware
             └── hwstbcmdservice
                 └── IHwstbcmdservice.aidl
@@ -789,14 +789,14 @@ frozen: true,
 生成 NDK C++ 绑定：也就是 `<aidl/.../IHwstbcmdservice.h>` 头文件和库。
 
 ```bash
-m giec.hardware.hwstbcmdservice-V1-ndk
+m xxxx.hardware.hwstbcmdservice-V1-ndk
 ```
 
 会在 `out/` 下面生成 `IHwstbcmdservice.h` 文件：
 
 ```
-out/soong/.intermediates/vendor/giec/common/libraries/hwstbcmdapi/aidl/
-  giec.hardware.hwstbcmdservice-V1-ndk-source/gen/include/aidl/giec/hardware/hwstbcmdservice/
+out/soong/.intermediates/vendor/xxxx/common/libraries/hwstbcmdapi/aidl/
+  xxxx.hardware.hwstbcmdservice-V1-ndk-source/gen/include/aidl/xxxx/hardware/hwstbcmdservice/
     ├── BnHwstbcmdservice.h
     ├── BpHwstbcmdservice.h
     └── IHwstbcmdservice.h
@@ -807,8 +807,8 @@ out/soong/.intermediates/vendor/giec/common/libraries/hwstbcmdapi/aidl/
 #### 目录结构
 
 ```
-vendor/giec/common/libraries/hwstbcmdapi/aidl/service/
-├── giec.hardware.hwstbcmdservice-aidl-service.rc
+vendor/xxxx/common/libraries/hwstbcmdapi/aidl/service/
+├── xxxx.hardware.hwstbcmdservice-aidl-service.rc
 └── Hwstbcmdservice.cpp
 ```
 
@@ -821,19 +821,19 @@ vendor/giec/common/libraries/hwstbcmdapi/aidl/service/
 #include <android/binder_process.h>
 #include <log/log.h>
 
-#include <aidl/giec/hardware/hwstbcmdservice/IHwstbcmdservice.h>
-#include <aidl/giec/hardware/hwstbcmdservice/BnHwstbcmdservice.h>
+#include <aidl/xxxx/hardware/hwstbcmdservice/IHwstbcmdservice.h>
+#include <aidl/xxxx/hardware/hwstbcmdservice/BnHwstbcmdservice.h>
 
 #include "StbCmdShellhal.h"
 
 using ::ndk::ScopedAStatus;
 
 namespace aidl {
-namespace giec {
+namespace xxxx {
 namespace hardware {
 namespace hwstbcmdservice {
 
-// 实现类放在 aidl::giec::hardware::hwstbcmdservice 命名空间
+// 实现类放在 aidl::xxxx::hardware::hwstbcmdservice 命名空间
 class Hwstbcmdservice : public BnHwstbcmdservice {
 public:
     // 方法签名必须和 .aidl 里定义的一致
@@ -856,20 +856,20 @@ public:
 
 } // namespace hwstbcmdservice
 } // namespace hardware
-} // namespace giec
+} // namespace xxxx
 } // namespace aidl
 
 int main() {
-    ALOGD("Starting giec.hardware.hwstbcmdservice AIDL service");
+    ALOGD("Starting xxxx.hardware.hwstbcmdservice AIDL service");
 
     // Configure binder-thread-pool
     ABinderProcess_setThreadPoolMaxThreadCount(4);
     ABinderProcess_startThreadPool();
 
     // Create and register service
-    auto service = ndk::SharedRefBase::make<aidl::giec::hardware::hwstbcmdservice::Hwstbcmdservice>();
+    auto service = ndk::SharedRefBase::make<aidl::xxxx::hardware::hwstbcmdservice::Hwstbcmdservice>();
     const std::string instance = std::string() +
-        aidl::giec::hardware::hwstbcmdservice::IHwstbcmdservice::descriptor + "/default";
+        aidl::xxxx::hardware::hwstbcmdservice::IHwstbcmdservice::descriptor + "/default";
 
     ndk::SpAIBinder binder = service->asBinder();
     binder_status_t status = AServiceManager_addService(binder.get(), instance.c_str());
@@ -888,11 +888,11 @@ int main() {
 
 #### 第二步：添加 service.rc 文件
 
-**路径**：`giec.hardware.hwstbcmdservice-aidl-service.rc`
+**路径**：`xxxx.hardware.hwstbcmdservice-aidl-service.rc`
 
 ```bash
 # Android Init Language
-service vendor.hwstbcmdservice-aidl /vendor/bin/hw/giec.hardware.hwstbcmdservice-aidl-service
+service vendor.hwstbcmdservice-aidl /vendor/bin/hw/xxxx.hardware.hwstbcmdservice-aidl-service
     class hal                          # 归属于 hal 服务组
     user root                          # 以 root 用户身份运行
     group system shell log readproc    # 系统组权限
@@ -929,14 +929,14 @@ service vendor.hwstbcmdservice-aidl /vendor/bin/hw/giec.hardware.hwstbcmdservice
 
 #### 第三步：补充 bp 文件
 
-**路径**：`vendor/giec/common/libraries/hwstbcmdapi/aidl/Android.bp`
+**路径**：`vendor/xxxx/common/libraries/hwstbcmdapi/aidl/Android.bp`
 
 ```python
 // ============================================================
 // AIDL service (cc_binary)
 // ============================================================
 cc_binary {
-    name: "giec.hardware.hwstbcmdservice-aidl-service",
+    name: "xxxx.hardware.hwstbcmdservice-aidl-service",
     vendor: true,
     relative_install_path: "hw",
     srcs: [
@@ -947,13 +947,13 @@ cc_binary {
         "liblog",
         "libcutils",
         "libutils",
-        "giec.hardware.hwstbcmdservice-V1-ndk",
+        "xxxx.hardware.hwstbcmdservice-V1-ndk",
         "libstbcmdservicehal",
     ],
     include_dirs: [
-        "vendor/giec/common/libraries/hwstbcmdapi/aidl_wrapper",
+        "vendor/xxxx/common/libraries/hwstbcmdapi/aidl_wrapper",
     ],
-    init_rc: ["service/giec.hardware.hwstbcmdservice-aidl-service.rc"],
+    init_rc: ["service/xxxx.hardware.hwstbcmdservice-aidl-service.rc"],
     cflags: [
         "-Wall",
         "-Werror",
@@ -971,7 +971,7 @@ cc_binary {
 #### 目录结构
 
 ```
-vendor/giec/common/libraries/hwstbcmdapi/aidl/client/
+vendor/xxxx/common/libraries/hwstbcmdapi/aidl/client/
 ├── HwstbcmdserviceClient.cpp
 └── HwstbcmdserviceClient.h
 ```
@@ -985,9 +985,9 @@ vendor/giec/common/libraries/hwstbcmdapi/aidl/client/
 
 #include <android/binder_manager.h>
 #include <log/log.h>
-#include <aidl/giec/hardware/hwstbcmdservice/IHwstbcmdservice.h>
+#include <aidl/xxxx/hardware/hwstbcmdservice/IHwstbcmdservice.h>
 
-using aidl::giec::hardware::hwstbcmdservice::IHwstbcmdservice;
+using aidl::xxxx::hardware::hwstbcmdservice::IHwstbcmdservice;
 
 namespace android {
 
@@ -1030,7 +1030,7 @@ char* HwstbcmdserviceClient::hsInvokeHalClient(char* request, int type) {
 
 #### 第二步：补充 bp 文件
 
-**路径**：`vendor/giec/common/libraries/hwstbcmdapi/aidl/Android.bp`
+**路径**：`vendor/xxxx/common/libraries/hwstbcmdapi/aidl/Android.bp`
 
 ```python
 // ============================================================
@@ -1043,7 +1043,7 @@ cc_library_shared {
     shared_libs: [
         "libbinder_ndk",
         "liblog",
-        "giec.hardware.hwstbcmdservice-V1-ndk",
+        "xxxx.hardware.hwstbcmdservice-V1-ndk",
     ],
     export_include_dirs: ["client"],
     cflags: [
@@ -1056,10 +1056,10 @@ cc_library_shared {
 
 ### 5.7 步骤 5：JNI 调用
 
-**路径**：`common/libraries/hwstbcmdapi/jni/cn_giec_adp_cmd.cpp`
+**路径**：`common/libraries/hwstbcmdapi/jni/cn_xxxx_adp_cmd.cpp`
 
 ```cpp
-JNIEXPORT jstring JNICALL Java_cn_giec_shellcmd_ShellCmd_hsInvokeJni
+JNIEXPORT jstring JNICALL Java_cn_xxxx_shellcmd_ShellCmd_hsInvokeJni
   (JNIEnv *env, jclass clazz, jstring request, jint type)
 {
     ALOGE("JNI Java_hsInvokeJni request %s type= %d\n", request, type);
@@ -1085,7 +1085,7 @@ JNIEXPORT jstring JNICALL Java_cn_giec_shellcmd_ShellCmd_hsInvokeJni
 #### 目录结构
 
 ```
-vendor/giec/common/sepolicy/
+vendor/xxxx/common/sepolicy/
 ├── aidl_hwstbcmdservice.te
 ├── file_contexts
 ├── hwservice_contexts
@@ -1129,7 +1129,7 @@ allow aidl_hwstbcmdservice aidl_hwstbcmdservice:capability2 { syslog };
 定义二进制文件的 SELinux 标签：
 
 ```bash
-/vendor/bin/hw/giec.hardware.hwstbcmdservice-aidl-service    u:object_r:aidl_hwstbcmdservice_exec:s0
+/vendor/bin/hw/xxxx.hardware.hwstbcmdservice-aidl-service    u:object_r:aidl_hwstbcmdservice_exec:s0
 ```
 
 #### hwservice_contexts
@@ -1137,7 +1137,7 @@ allow aidl_hwstbcmdservice aidl_hwstbcmdservice:capability2 { syslog };
 为 AIDL service 的名字 → SELinux 类型建立映射：
 
 ```bash
-aidl/giec/hardware/hwstbcmdservice/IHwstbcmdservice/default   u:object_r:aidl_hwstbcmdservice_hwservice:s0
+aidl/xxxx/hardware/hwstbcmdservice/IHwstbcmdservice/default   u:object_r:aidl_hwstbcmdservice_hwservice:s0
 ```
 
 #### system_app.te
@@ -1165,7 +1165,7 @@ allow system_app boottime_prop:file { open getattr map };
 ```xml
 <manifest version="1.0" type="device">
     <hal format="aidl">
-        <name>giec.hardware.hwstbcmdservice</name>
+        <name>xxxx.hardware.hwstbcmdservice</name>
         <version>1</version>
         <fqname>IHwstbcmdservice/default</fqname>
     </hal>
@@ -1179,7 +1179,7 @@ allow system_app boottime_prop:file { open getattr map };
 ```xml
 <compatibility-matrix version="1.0" type="framework">
     <hal format="aidl" optional="true">
-        <name>giec.hardware.hwstbcmdservice</name>
+        <name>xxxx.hardware.hwstbcmdservice</name>
         <version>1</version>
         <interface>
             <name>IHwstbcmdservice</name>
@@ -1197,7 +1197,7 @@ allow system_app boottime_prop:file { open getattr map };
 
 ```
 E BpBinder: Cannot do a user transaction on a vendor stability binder
-(giec.hardware.hwstbcmdservice.IHwstbcmdservice) in a system stability context.
+(xxxx.hardware.hwstbcmdservice.IHwstbcmdservice) in a system stability context.
 ```
 
 #### 原因分析
@@ -1245,30 +1245,30 @@ StbCmdShellhal.c
 不再需要 AIDL 客户端和 JNI 的东西，在 mk 中删除相关引入，也删除相关代码：
 
 ```
-modified:   vendor/giec/common/libraries/hwstbcmdapi/Android.bp
-modified:   vendor/giec/common/libraries/hwstbcmdapi/aidl/Android.bp
-deleted:    vendor/giec/common/libraries/hwstbcmdapi/aidl/client/HwstbcmdserviceClient.cpp
-deleted:    vendor/giec/common/libraries/hwstbcmdapi/aidl/client/HwstbcmdserviceClient.h
-modified:   vendor/giec/common/libraries/hwstbcmdapi/java/cn/giec/shellcmd/ShellCmd.java
-deleted:    vendor/giec/common/libraries/hwstbcmdapi/jni/Android.mk
-deleted:    vendor/giec/common/libraries/hwstbcmdapi/jni/cn_giec_adp_cmd.cpp
-deleted:    vendor/giec/common/libraries/hwstbcmdapi/jni/cn_giec_shellcmd_ShellCmd.h
-modified:   vendor/giec/device-giec.mk
+modified:   vendor/xxxx/common/libraries/hwstbcmdapi/Android.bp
+modified:   vendor/xxxx/common/libraries/hwstbcmdapi/aidl/Android.bp
+deleted:    vendor/xxxx/common/libraries/hwstbcmdapi/aidl/client/HwstbcmdserviceClient.cpp
+deleted:    vendor/xxxx/common/libraries/hwstbcmdapi/aidl/client/HwstbcmdserviceClient.h
+modified:   vendor/xxxx/common/libraries/hwstbcmdapi/java/cn/xxxx/shellcmd/ShellCmd.java
+deleted:    vendor/xxxx/common/libraries/hwstbcmdapi/jni/Android.mk
+deleted:    vendor/xxxx/common/libraries/hwstbcmdapi/jni/cn_xxxx_adp_cmd.cpp
+deleted:    vendor/xxxx/common/libraries/hwstbcmdapi/jni/cn_xxxx_shellcmd_ShellCmd.h
+modified:   vendor/xxxx/device-xxxx.mk
 ```
 
 ### 6.3 步骤 2：添加新的 AIDL 客户端 Java 文件
 
-**路径**：`vendor/giec/common/libraries/hwstbcmdapi/java/cn/giec/shellcmd/HwstbcmdserviceClient.java`
+**路径**：`vendor/xxxx/common/libraries/hwstbcmdapi/java/cn/xxxx/shellcmd/HwstbcmdserviceClient.java`
 
 ```java
-package cn.giec.shellcmd;
+package cn.xxxx.shellcmd;
 
 import android.os.RemoteException;
 import android.os.IBinder;
 import android.os.ServiceManager;
 import android.util.Log;
 
-import giec.hardware.hwstbcmdservice.IHwstbcmdservice;
+import xxxx.hardware.hwstbcmdservice.IHwstbcmdservice;
 
 public class HwstbcmdserviceClient {
     private static final String TAG = "HwstbcmdserviceClient";
@@ -1308,9 +1308,9 @@ public class HwstbcmdserviceClient {
 
 ### 6.4 步骤 3：加入对 AIDL 的依赖
 
-由于我们在 `cn/giec/shellcmd/` 下面加了 AIDL 客户端，所以需要依赖 AIDL 接口。
+由于我们在 `cn/xxxx/shellcmd/` 下面加了 AIDL 客户端，所以需要依赖 AIDL 接口。
 
-**路径**：`vendor/giec/common/libraries/hwstbcmdapi/Android.bp`
+**路径**：`vendor/xxxx/common/libraries/hwstbcmdapi/Android.bp`
 
 ```python
 // ============================================================
@@ -1324,7 +1324,7 @@ java_library_static {
     host_supported: true,
     installable: false,
     static_libs: [
-        "giec.hardware.hwstbcmdservice-V1-java",
+        "xxxx.hardware.hwstbcmdservice-V1-java",
     ],
 }
 ```
@@ -1383,7 +1383,7 @@ E BpBinder: Cannot do a user transaction on a vendor stability binder
 **解决方案**：
 - 在 `Android.bp` 中添加 `owner` 属性：
   ```python
-  owner: "giec.hardware.hwstbcmdservice",
+  owner: "xxxx.hardware.hwstbcmdservice",
   ```
 
 ### 7.4 问题4：JNI 头文件找不到
@@ -1396,8 +1396,8 @@ E BpBinder: Cannot do a user transaction on a vendor stability binder
 - 头文件没有生成
 
 **解决方案**：
-- 执行 `m giec.hardware.hwstbcmdservice-V1-ndk` 生成 NDK 绑定
-- 在 `shared_libs` 中添加 `giec.hardware.hwstbcmdservice-V1-ndk`
+- 执行 `m xxxx.hardware.hwstbcmdservice-V1-ndk` 生成 NDK 绑定
+- 在 `shared_libs` 中添加 `xxxx.hardware.hwstbcmdservice-V1-ndk`
 
 ---
 
@@ -1481,7 +1481,7 @@ E BpBinder: Cannot do a user transaction on a vendor stability binder
 - [AIDL 构建详解](https://blog.csdn.net/weixin_43195445/article/details/144077912)
 
 ### 代码示例
-- `vendor/giec/common/libraries/hwstbcmdapi/` - 完整实现代码
+- `vendor/xxxx/common/libraries/hwstbcmdapi/` - 完整实现代码
 - `hardware/interfaces/` - AOSP HAL 接口定义
 
 ---
