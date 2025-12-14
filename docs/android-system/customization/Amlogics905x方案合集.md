@@ -744,7 +744,7 @@ F12按键根据不同机芯有不同的定义。
 
 ### 适配红外遥控器
 
-请参考 [Amlogic方案红外遥控器配置，定制按键，power按键](/android/customization/Amlogic方案红外遥控器配置.md)
+请参考 [Amlogic方案红外遥控器配置，定制按键，power按键](/android-system/customization/Amlogic方案红外遥控器配置.md)
 
 ### 适配遥控灯
 

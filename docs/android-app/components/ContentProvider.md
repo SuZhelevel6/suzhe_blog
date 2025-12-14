@@ -9,7 +9,7 @@ ContentProvider是Android系统中的一个组件，用于在不同的应用程�
 注意：
 1. ContentProvider=中间者角色(搬运工) 真正存储和操作数据的数据源还是原来存储数据的方式(数据库、文件、xml或网络)
 2. 数据源可以是:数据库(如Sqlite)、文件、XML、网络等等
-3. ContentProvider通过Binder机制来实现跨进程通信。[点击查看Binder 介绍](/android/framework/进程通信机制Binder.md)
+3. ContentProvider通过Binder机制来实现跨进程通信。[点击查看Binder 介绍](/android-system/framework/进程通信机制Binder.md)
 
 
 ## URI 和 MIME

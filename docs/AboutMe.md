@@ -166,44 +166,24 @@ tags:
 <h2 class="section-title">🗂️ 内容导航</h2>
 
 <div class="category-grid">
-  <a class="category-card" href="./android/basics/嵌入式安卓学习入门.html">
-    <h3>📱 Android 基础</h3>
-    <p>入门指南、ADB命令、编程规范等基础知识</p>
+  <a class="category-card" href="./android-app/">
+    <h3>📱 Android 应用</h3>
+    <p>入门基础、四大组件、Jetpack 架构组件</p>
   </a>
 
-  <a class="category-card" href="./android/framework/Android系统启动流程.html">
-    <h3>⚙️ 系统原理</h3>
-    <p>启动流程、进程通信、Handler机制等底层原理</p>
+  <a class="category-card" href="./android-system/">
+    <h3>⚙️ Android 系统</h3>
+    <p>系统原理、系统定制、驱动开发</p>
   </a>
 
-  <a class="category-card" href="./android/components/Activity.html">
-    <h3>🧩 组件开发</h3>
-    <p>四大组件、Jetpack架构组件详解</p>
+  <a class="category-card" href="./tech-notes/">
+    <h3>📝 技术杂谈</h3>
+    <p>编程语言、跨平台开发、项目实战、读书笔记</p>
   </a>
 
-  <a class="category-card" href="./android/customization/Amlogics905x方案合集.html">
-    <h3>🔧 系统定制</h3>
-    <p>Amlogic方案、系统功能修改、驱动适配</p>
-  </a>
-
-  <a class="category-card" href="./programming/kotlin/kotlin笔记.html">
-    <h3>📝 编程语言</h3>
-    <p>Kotlin、Shell脚本等语言学习笔记</p>
-  </a>
-
-  <a class="category-card" href="./cross-platform/flutter/Flutter笔记.html">
-    <h3>🌐 跨平台开发</h3>
-    <p>Flutter开发实践与技术探索</p>
-  </a>
-
-  <a class="category-card" href="./projects/glauncher.html">
-    <h3>🚀 项目实战</h3>
-    <p>Compose TV等项目总结与项目模板</p>
-  </a>
-
-  <a class="category-card" href="./tools/git/git-use-note.html">
-    <h3>🛠️ 工具资源</h3>
-    <p>Git使用技巧、开发工具配置、CLAUDE.md配置</p>
+  <a class="category-card" href="./resources/">
+    <h3>🛠️ 资源收藏</h3>
+    <p>Git 使用技巧、AI 工具配置</p>
   </a>
 </div>
 
