@@ -1,3 +1,12 @@
+---
+top: 2
+title: Flutter笔记
+description: Flutter APP的构建路程
+author: 苏柘
+tag:
+  - Flutter
+---
+
 # Flutter笔记
 
 > 本笔记面向 Android 开发者，采用类比 Android 的方式学习 Flutter，重点对比两个框架的差异点。
