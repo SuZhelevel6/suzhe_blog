@@ -2184,7 +2184,7 @@ public class ShellCmdTest {
 - [SELinux for Android](https://source.android.com/security/selinux)
 
 #### 相关文档
-- [Shell 命令执行框架实现](../../../问题解决/Shell命令执行框架实现.md) - 完整实现细节
+- [Shell 命令执行框架实现](../../customization/Shell命令执行框架实现.md) - 完整实现细节
 - [Android Init 系统指南](02-ANDROID_INIT_SYSTEM_GUIDE.md) - init.rc 配置
 - [Android 编译系统指南](01-ANDROID_BUILD_SYSTEM_GUIDE.md) - 构建配置
 

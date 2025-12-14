@@ -3952,7 +3952,7 @@ adb shell cat /proc/device-tree/your_node/status
 
 ## 17. 学习资源推荐
 
-> 📚 **本项目文档索引**: [S905X5M Android 14 开发文档](README.md) - 包含所有子系统和开发指南
+> 📚 **本项目文档索引**: [S905X5M Android 14 开发文档](index.md) - 包含所有子系统和开发指南
 
 ### 17.1 书籍推荐
 
