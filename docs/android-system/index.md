@@ -16,6 +16,16 @@ tags:
 }
 </style>
 
+### 📚 嵌入式 Android 开发指南
+
+> Amlogic S905X5M (S7D) Android 14 平台系统性学习资料，涵盖从 Bootloader 到应用层的完整知识体系。
+
+- [📖 学习路线总览](./embedded-guide/index.html) - 文档索引与学习路径
+- [🚀 入门指南](./embedded-guide/EMBEDDED_ANDROID_LEARNING_GUIDE.html) - 零基础入门，架构概览
+- [📋 命令速查](./embedded-guide/00-quick-reference/01-COMMAND_CHEATSHEET.html) - ADB/Shell 调试命令
+- [📂 路径速查](./embedded-guide/00-quick-reference/02-PATH_REFERENCE.html) - 常用文件路径
+- [❓ 常见问题](./embedded-guide/00-quick-reference/03-TROUBLESHOOTING_FAQ.html) - FAQ 与解决方案
+
 ### ⚙️ 系统原理
 
 1. [Android 系统启动流程](./framework/Android系统启动流程.html) - 从 Bootloader 到 Launcher 的完整启动过程
