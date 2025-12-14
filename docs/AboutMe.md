@@ -130,42 +130,6 @@ tags:
   margin: 8px 0;
 }
 
-/* 博客统计样式 */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-
-@media (max-width: 640px) {
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.stat-card {
-  padding: 20px;
-  text-align: center;
-  border-radius: 12px;
-  background: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-divider);
-}
-
-.stat-number {
-  font-size: 2rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #ff6b9d, #c44eff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: var(--vp-c-text-2);
-  margin-top: 4px;
-}
-
 /* 兴趣爱好样式 */
 .hobby-grid {
   display: grid;
@@ -241,24 +205,7 @@ tags:
 
 <h2 class="section-title">📊 博客统计</h2>
 
-<div class="stats-grid">
-  <div class="stat-card">
-    <div class="stat-number">65</div>
-    <div class="stat-label">篇文章</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-number">4</div>
-    <div class="stat-label">个分类</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-number">50+</div>
-    <div class="stat-label">Android 相关</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-number">2024</div>
-    <div class="stat-label">建站年份</div>
-  </div>
-</div>
+<BlogStats />
 
 <h2 class="section-title">🗂️ 内容导航</h2>
 

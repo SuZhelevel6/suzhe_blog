@@ -1,5 +1,6 @@
 import BlogTheme from '@sugarat/theme'
 import Fireworks from './components/Fireworks.vue'
+import BlogStats from './components/BlogStats.vue'
 
 // 自定义样式重载
 import './style.scss'
@@ -12,6 +13,7 @@ export default {
         'layout-top': () => h(Fireworks) // 在 layout-top 插槽中渲染 Fireworks 组件
     }),
     enhanceApp({ app, router, siteData }) {
-        app.component('Fireworks', Fireworks) // 注册 Fireworks 组件
+        app.component('Fireworks', Fireworks)
+        app.component('BlogStats', BlogStats)
     },
 }
