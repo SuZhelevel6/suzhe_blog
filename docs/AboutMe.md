@@ -7,6 +7,13 @@ tags:
 ---
 
 <style>
+/* 文章元信息居中 */
+.VPDoc .content-container .content .doc-box,
+.VPDoc .content-container .content .doc-box > * {
+  text-align: center;
+  justify-content: center;
+}
+
 .about-container {
   max-width: 800px;
   margin: 0 auto;
@@ -83,8 +90,9 @@ tags:
 .category-card {
   padding: 20px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   text-decoration: none;
   color: inherit;
@@ -93,7 +101,8 @@ tags:
 .category-card:hover {
   transform: translateY(-4px);
   border-color: rgba(102, 126, 234, 0.5);
-  background: rgba(102, 126, 234, 0.1);
+  background: rgba(102, 126, 234, 0.08);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
 }
 
 .category-card h3 {
@@ -119,6 +128,73 @@ tags:
   align-items: center;
   gap: 12px;
   margin: 8px 0;
+}
+
+/* 博客统计样式 */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.stat-card {
+  padding: 20px;
+  text-align: center;
+  border-radius: 12px;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff6b9d, #c44eff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--vp-c-text-2);
+  margin-top: 4px;
+}
+
+/* 兴趣爱好样式 */
+.hobby-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.hobby-item {
+  padding: 16px;
+  text-align: center;
+  border-radius: 12px;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  transition: all 0.3s ease;
+}
+
+.hobby-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
+.hobby-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.hobby-name {
+  font-size: 0.9rem;
+  color: var(--vp-c-text-1);
 }
 
 .ending-quote {
@@ -163,6 +239,27 @@ tags:
 
 这是我的个人技术博客，主要记录 Android 开发过程中的学习笔记、技术探索和项目实践。希望这些内容能帮助到同样在技术道路上前行的你。
 
+<h2 class="section-title">📊 博客统计</h2>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-number">65</div>
+    <div class="stat-label">篇文章</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">4</div>
+    <div class="stat-label">个分类</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">50+</div>
+    <div class="stat-label">Android 相关</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">2024</div>
+    <div class="stat-label">建站年份</div>
+  </div>
+</div>
+
 <h2 class="section-title">🗂️ 内容导航</h2>
 
 <div class="category-grid">
@@ -193,6 +290,35 @@ tags:
   <div class="contact-item">
     <span>📧</span>
     <span>邮箱：2212294193@qq.com</span>
+  </div>
+</div>
+
+<h2 class="section-title">🎯 兴趣爱好</h2>
+
+<div class="hobby-grid">
+  <div class="hobby-item">
+    <div class="hobby-icon">🎮</div>
+    <div class="hobby-name">游戏</div>
+  </div>
+  <div class="hobby-item">
+    <div class="hobby-icon">📚</div>
+    <div class="hobby-name">阅读</div>
+  </div>
+  <div class="hobby-item">
+    <div class="hobby-icon">🎬</div>
+    <div class="hobby-name">电影</div>
+  </div>
+  <div class="hobby-item">
+    <div class="hobby-icon">🎵</div>
+    <div class="hobby-name">音乐</div>
+  </div>
+  <div class="hobby-item">
+    <div class="hobby-icon">✈️</div>
+    <div class="hobby-name">旅行</div>
+  </div>
+  <div class="hobby-item">
+    <div class="hobby-icon">🤖</div>
+    <div class="hobby-name">折腾新技术</div>
   </div>
 </div>
 
