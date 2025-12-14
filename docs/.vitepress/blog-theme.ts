@@ -60,12 +60,7 @@ const blogTheme = getThemeConfig({
   // 文章默认作者
   author: '苏柘',
 
-  hotArticle: {
-    title: '🔥 精选文章',
-    nextText: '下一页',
-    pageSize: 9,
-    empty: '暂无精选内容'
-  },
+  hotArticle: false,
 
   article: {
     /**
